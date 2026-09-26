@@ -1,0 +1,6 @@
+.env
+.env.*
+!.env.example
+.forge/
+node_modules/
+.DS_Store
