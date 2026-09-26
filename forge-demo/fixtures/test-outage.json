@@ -1,0 +1,49 @@
+{
+  "id": "TEST-OUTAGE-DEMO-01",
+  "version": "1.0.0",
+  "synthetic": true,
+  "plant": "Liquid-cooling plant · Recovery demo",
+  "incidentAt": "2026-09-28T08:00:00-06:00",
+  "currency": "USD",
+  "failedStation": "T-02",
+  "failure": "Thermal controller fault",
+  "defaultOutageHours": 8,
+  "sourceNote": "New, self-contained hackathon fixture. Prices, deadlines, qualification, station calendars and costs are explicit synthetic assumptions, not facts from the original CoolIT pack. All jobs are released, material-ready and ready for their final required test; packing/release requires 2 hours after a passing test. Test durations include setup and cover the complete order. No partial test or shipment is allowed.",
+  "assumptions": {
+    "packHours": 2,
+    "overtimeTeamHourly": 1300,
+    "idleOperators": 6,
+    "idleLaborHourly": 65,
+    "idleEquipmentHourly": 110,
+    "premiumFreightPerLateOrder": 1250,
+    "latePenaltyRate": 0.02,
+    "wipUnitHourCost": 2.5,
+    "alternativeChangeoverHours": 2,
+    "alternativeChangeoverHourly": 850,
+    "alternativeStaffingHours": 6,
+    "alternativeStaffingHourly": 1200,
+    "planningHorizonHours": 96
+  },
+  "stations": [
+    {"id":"T-01","name":"Shared thermal stand","qualifiedFamilies":["CDU","MANIFOLD","LOOP"],"calibration":"VALID","regularWindows":[[0,6],[24,40],[48,64],[72,88]],"overtimeWindow":[6,12]},
+    {"id":"T-02","name":"Primary thermal stand","qualifiedFamilies":["CDU","MANIFOLD","LOOP"],"calibration":"VALID","regularWindows":[[0,16],[24,40],[48,64],[72,88]]},
+    {"id":"T-03","name":"Validation cell","qualifiedFamilies":["MANIFOLD","LOOP"],"calibration":"VALID","regularWindows":[[2,8]],"recoveryOnly":true},
+    {"id":"T-04","name":"Engineering test rig","qualifiedFamilies":["CDU","MANIFOLD","LOOP"],"calibration":"EXPIRED","regularWindows":[[0,16]],"excludedReason":"Expired calibration. Not eligible for recovery."}
+  ],
+  "orders": [
+    {"id":"REC-1001","customer":"Atlas Compute (synthetic)","family":"CDU","units":12,"shipmentValue":900000,"priority":1,"testHours":6,"readyHour":0,"shipDeadlineHour":8,"station":"T-02","quality":"RELEASED"},
+    {"id":"REC-1002","customer":"Cedar Cloud (synthetic)","family":"MANIFOLD","units":40,"shipmentValue":300000,"priority":2,"testHours":3,"readyHour":0,"shipDeadlineHour":11,"station":"T-02","quality":"RELEASED"},
+    {"id":"REC-1003","customer":"Northstar Systems (synthetic)","family":"LOOP","units":80,"shipmentValue":200000,"priority":2,"testHours":3,"readyHour":0,"shipDeadlineHour":14,"station":"T-02","quality":"RELEASED"},
+    {"id":"REC-1004","customer":"Summit Compute (synthetic)","family":"CDU","units":4,"shipmentValue":160000,"priority":3,"testHours":2,"readyHour":0,"shipDeadlineHour":50,"station":"T-02","quality":"RELEASED"},
+    {"id":"REC-1005","customer":"Oak Data (synthetic)","family":"MANIFOLD","units":16,"shipmentValue":120000,"priority":3,"testHours":1,"readyHour":0,"shipDeadlineHour":52,"station":"T-02","quality":"RELEASED"},
+    {"id":"REC-1006","customer":"River Cooling (synthetic)","family":"LOOP","units":24,"shipmentValue":60000,"priority":3,"testHours":1,"readyHour":0,"shipDeadlineHour":54,"station":"T-02","quality":"RELEASED"},
+    {"id":"REC-1007","customer":"Atlas Compute (synthetic)","family":"CDU","units":3,"shipmentValue":120000,"priority":3,"testHours":2,"readyHour":0,"shipDeadlineHour":56,"station":"T-02","quality":"RELEASED"},
+    {"id":"REC-1008","customer":"Cedar Cloud (synthetic)","family":"MANIFOLD","units":12,"shipmentValue":90000,"priority":3,"testHours":1,"readyHour":0,"shipDeadlineHour":58,"station":"T-02","quality":"RELEASED"},
+    {"id":"REC-1009","customer":"Northstar Systems (synthetic)","family":"LOOP","units":20,"shipmentValue":50000,"priority":3,"testHours":1,"readyHour":0,"shipDeadlineHour":60,"station":"T-02","quality":"RELEASED"},
+    {"id":"REC-1010","customer":"Summit Compute (synthetic)","family":"CDU","units":3,"shipmentValue":120000,"priority":3,"testHours":2,"readyHour":0,"shipDeadlineHour":62,"station":"T-02","quality":"RELEASED"},
+    {"id":"REC-1011","customer":"Oak Data (synthetic)","family":"MANIFOLD","units":12,"shipmentValue":90000,"priority":3,"testHours":1,"readyHour":0,"shipDeadlineHour":64,"station":"T-02","quality":"RELEASED"},
+    {"id":"REC-1012","customer":"River Cooling (synthetic)","family":"LOOP","units":24,"shipmentValue":60000,"priority":3,"testHours":1,"readyHour":0,"shipDeadlineHour":66,"station":"T-02","quality":"RELEASED"},
+    {"id":"REC-1013","customer":"Atlas Compute (synthetic)","family":"CDU","units":2,"shipmentValue":80000,"priority":3,"testHours":2,"readyHour":0,"shipDeadlineHour":68,"station":"T-02","quality":"RELEASED"},
+    {"id":"REC-1014","customer":"Cedar Cloud (synthetic)","family":"MANIFOLD","units":8,"shipmentValue":60000,"priority":3,"testHours":1,"readyHour":0,"shipDeadlineHour":70,"station":"T-02","quality":"RELEASED"}
+  ]
+}

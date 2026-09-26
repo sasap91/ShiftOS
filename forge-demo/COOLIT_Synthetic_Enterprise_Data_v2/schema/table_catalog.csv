@@ -1,0 +1,160 @@
+table_name,system_domain,row_count,primary_domain_key,relative_csv_path,description,anchor_status
+crm/account,CRM,10,account_id,crm/account.csv,Synthetic sold-to customer accounts.,DETERMINISTIC_SEED_VOLUME
+crm/account_relationship,CRM,30,account_relationship_id,crm/account_relationship.csv,"Effective-dated sold-to, ship-to, bill-to, parent, partner, and channel relationships.",DETERMINISTIC_SEED_VOLUME
+crm/activity_event,CRM,832,activity_event_id,crm/activity_event.csv,"Privacy-minimized meeting, task, approval, acknowledgement, and decision-log events.",DETERMINISTIC_SEED_VOLUME
+crm/approved_communication,CRM,16,communication_id,crm/approved_communication.csv,Approved outbound commitment messages.,DETERMINISTIC_SEED_VOLUME
+crm/buying_center,CRM,32,buying_center_id,crm/buying_center.csv,Required stakeholder-role coverage and escalation state by account and program.,DETERMINISTIC_SEED_VOLUME
+crm/commitment_change,CRM,120,commitment_change_id,crm/commitment_change.csv,"Append-only customer quantity, date, and configuration changes.",DETERMINISTIC_SEED_VOLUME
+crm/commitment_crosswalk,CRM,60,commitment_crosswalk_id,crm/commitment_crosswalk.csv,CRM line to canonical commitment to ERP schedule mapping.,DETERMINISTIC_SEED_VOLUME
+crm/commitment_promotion_event,CRM,92,promotion_event_id,crm/commitment_promotion_event.csv,"Promotion, rejection, split, merge, cancel, rebook, credit-hold, and duplicate-control events.",DETERMINISTIC_SEED_VOLUME
+crm/communication_receipt,CRM,60,communication_receipt_id,crm/communication_receipt.csv,"Recipient-role delivery, acknowledgement, failure, retry, and supersession evidence.",DETERMINISTIC_SEED_VOLUME
+crm/communication_template,CRM,12,communication_template_id,crm/communication_template.csv,Approved template versions and legal or commercial review state.,DETERMINISTIC_SEED_VOLUME
+crm/configuration_request,CRM,30,configuration_request_id,crm/configuration_request.csv,Versioned structured customer configuration requests.,DETERMINISTIC_SEED_VOLUME
+crm/configuration_rule,CRM,60,configuration_rule_id,crm/configuration_rule.csv,"Versioned required-option, incompatibility, range, and PLM-validation rules.",DETERMINISTIC_SEED_VOLUME
+crm/contact_role,CRM,40,contact_role_id,crm/contact_role.csv,"Pseudonymous decision, technical, commercial, and service roles with purpose and consent tags.",DETERMINISTIC_SEED_VOLUME
+crm/contract,CRM,10,contract_id,crm/contract.csv,"Customer contract, term, renewal, governing obligation, and approval state.",DETERMINISTIC_SEED_VOLUME
+crm/contract_line,CRM,120,contract_line_id,crm/contract_line.csv,"Configuration, volume, price, acceptance, warranty, and penalty obligations.",DETERMINISTIC_SEED_VOLUME
+crm/customer_health_snapshot,CRM,240,customer_health_snapshot_id,crm/customer_health_snapshot.csv,"Monthly installed-base health, entitlement, adoption, service, and risk measures.",DETERMINISTIC_SEED_VOLUME
+crm/customer_site,CRM,12,customer_site_id,crm/customer_site.csv,"Synthetic ship-to, install, and service locations.",DETERMINISTIC_SEED_VOLUME
+crm/demand_signal,CRM,100,demand_signal_id,crm/demand_signal.csv,"Forecast, opportunity, quote, reservation, and order demand signals.",DETERMINISTIC_SEED_VOLUME
+crm/discount_approval,CRM,84,discount_approval_id,crm/discount_approval.csv,"Discount waterfall, margin check, authority, decision, and exception evidence.",DETERMINISTIC_SEED_VOLUME
+crm/entitlement,CRM,36,entitlement_id,crm/entitlement.csv,Warranty and service entitlement validity and consumption.,DETERMINISTIC_SEED_VOLUME
+crm/field_service_work,CRM,24,field_service_work_id,crm/field_service_work.csv,"Field labor, part, cause verification, resolution, and corrective-action linkage.",DETERMINISTIC_SEED_VOLUME
+crm/forecast_snapshot,CRM,1560,forecast_snapshot_id,crm/forecast_snapshot.csv,"Weekly opportunity-product forecast snapshots for bias, WAPE, conversion, and slippage.",DETERMINISTIC_SEED_VOLUME
+crm/installed_asset,CRM,36,installed_asset_id,crm/installed_asset.csv,Synthetic installed serialized assets.,DETERMINISTIC_SEED_VOLUME
+crm/opportunity,CRM,15,opportunity_id,crm/opportunity.csv,Versioned commercial opportunities.,DETERMINISTIC_SEED_VOLUME
+crm/opportunity_product,CRM,45,opportunity_product_id,crm/opportunity_product.csv,Opportunity demand by product configuration.,DETERMINISTIC_SEED_VOLUME
+crm/opportunity_stage_history,CRM,120,stage_history_id,crm/opportunity_stage_history.csv,"Stage, probability, close-date, amount, quantity, and loss-reason history.",DETERMINISTIC_SEED_VOLUME
+crm/price_book_entry,CRM,48,price_book_entry_id,crm/price_book_entry.csv,"Effective list price, currency, cost basis, and margin floor by configuration.",DETERMINISTIC_SEED_VOLUME
+crm/program_project,CRM,8,program_id,crm/program_project.csv,Customer delivery programs and owners by role.,DETERMINISTIC_SEED_VOLUME
+crm/project_milestone,CRM,40,milestone_id,crm/project_milestone.csv,"Configuration, FAT, readiness, shipment, and commissioning milestones.",DETERMINISTIC_SEED_VOLUME
+crm/quote,CRM,24,quote_id,crm/quote.csv,Versioned quotes with approval and expiry state.,DETERMINISTIC_SEED_VOLUME
+crm/quote_line,CRM,84,quote_line_id,crm/quote_line.csv,"Quote configuration, quantity, price, and date splits.",DETERMINISTIC_SEED_VOLUME
+crm/reliability_cohort,CRM,288,reliability_cohort_id,crm/reliability_cohort.csv,"Configuration and age-cohort exposure, failures, censored units, and reliability rates.",DETERMINISTIC_SEED_VOLUME
+crm/rma_line,CRM,8,rma_line_id,crm/rma_line.csv,Return authorization lines linked to service and ERP references.,DETERMINISTIC_SEED_VOLUME
+crm/seller_forecast,CRM,312,seller_forecast_id,crm/seller_forecast.csv,"Seller submissions by horizon, product family, category, and confidence.",DETERMINISTIC_SEED_VOLUME
+crm/service_case,CRM,24,service_case_id,crm/service_case.csv,Synthetic installed-base service cases without personal data.,DETERMINISTIC_SEED_VOLUME
+crm/service_level_agreement,CRM,30,sla_id,crm/service_level_agreement.csv,"Response, restoration, resolution, availability, and service-credit terms.",DETERMINISTIC_SEED_VOLUME
+crm/territory_assignment,CRM,40,territory_assignment_id,crm/territory_assignment.csv,"Region, segment, channel, and account ownership history.",DETERMINISTIC_SEED_VOLUME
+data/data_quality_observation,DATA,1248,dq_observation_id,data/data_quality_observation.csv,"Operational completeness, freshness, volume, schema, and reconciliation observations.",DETERMINISTIC_SEED_VOLUME
+data/field_lineage,DATA,120,field_lineage_id,data/field_lineage.csv,"Field-level source, transform, intermediate, rule, code, and evidence-cutoff lineage.",DETERMINISTIC_SEED_VOLUME
+data/ingestion_event,DATA,832,ingestion_event_id,data/ingestion_event.csv,"Incremental load, late arrival, correction, reversal, delete, and replay events.",DETERMINISTIC_SEED_VOLUME
+data/negative_test_record,DATA,56,negative_test_id,data/negative_test_record.csv,"Controlled stale, invalid, duplicate, late, deleted, conflicting, and unresolved test records.",DETERMINISTIC_SEED_VOLUME
+data/pipeline_slo,DATA,12,pipeline_slo_id,data/pipeline_slo.csv,Owned service levels and alert thresholds for critical feeds.,DETERMINISTIC_SEED_VOLUME
+data/schema_contract_test,DATA,477,contract_test_id,data/schema_contract_test.csv,"Forward, backward, required-field, enum, and idempotency contract test results.",DETERMINISTIC_SEED_VOLUME
+erp/advance_ship_notice,ERP,60,asn_line_id,erp/advance_ship_notice.csv,"Inbound ASN line, handling-unit, carrier, and expected-arrival evidence.",DETERMINISTIC_SEED_VOLUME
+erp/alternate_resource,ERP,72,alternate_resource_id,erp/alternate_resource.csv,"Qualified alternate-resource rules, rates, and effectivity.",DETERMINISTIC_SEED_VOLUME
+erp/approved_source,ERP,80,approved_source_id,erp/approved_source.csv,Qualified supplier-part-source relationships.,DETERMINISTIC_SEED_VOLUME
+erp/bom_component,ERP,360,bom_component_id,erp/bom_component.csv,Revision-effective BOM components and issue points.,DETERMINISTIC_SEED_VOLUME
+erp/bom_header,ERP,12,bom_revision_id,erp/bom_header.csv,Effective and approved configuration BOM headers.,DETERMINISTIC_SEED_VOLUME
+erp/carrier_event,ERP,120,carrier_event_id,erp/carrier_event.csv,"Pickup, departure, arrival, exception, delivery, and proof events.",DETERMINISTIC_SEED_VOLUME
+erp/cost_snapshot,ERP,62,cost_snapshot_id,erp/cost_snapshot.csv,"Versioned material, labor, overhead, and recovery-cost assumptions.",DETERMINISTIC_SEED_VOLUME
+erp/cost_transaction,ERP,156,cost_transaction_id,erp/cost_transaction.csv,Cost-element postings and reversals by work order and accounting period.,DETERMINISTIC_SEED_VOLUME
+erp/customer_invoice,ERP,24,customer_invoice_line_id,erp/customer_invoice.csv,"Invoice line, tax, freight, credit, and collection state linked to delivery.",DETERMINISTIC_SEED_VOLUME
+erp/cycle_count,ERP,500,cycle_count_id,erp/cycle_count.csv,"Cycle-count request, count, variance, approval, and adjustment state.",DETERMINISTIC_SEED_VOLUME
+erp/delivery_line,ERP,24,delivery_line_id,erp/delivery_line.csv,"Pick, pack, stage, ship, deliver, accept, and exception state by commitment.",DETERMINISTIC_SEED_VOLUME
+erp/engineering_change,ERP,24,engineering_change_id,erp/engineering_change.csv,"ECO and ECN lifecycle with effectivity, reason, approval, and implementation state.",DETERMINISTIC_SEED_VOLUME
+erp/engineering_change_affected_object,ERP,288,eco_affected_object_id,erp/engineering_change_affected_object.csv,"Complete engineering-change blast radius across product, process, supply, WIP, test, and commitment objects.",DETERMINISTIC_SEED_VOLUME
+erp/engineering_change_approval,ERP,72,eco_approval_id,erp/engineering_change_approval.csv,Role-based engineering-change approval and segregation-of-duties evidence.,DETERMINISTIC_SEED_VOLUME
+erp/goods_receipt,ERP,60,goods_receipt_line_id,erp/goods_receipt.csv,"Received, reversed, and accepted quantities linked to PO and ASN.",DETERMINISTIC_SEED_VOLUME
+erp/gross_requirement,ERP,1560,gross_requirement_id,erp/gross_requirement.csv,Time-phased independent and dependent gross requirements.,DETERMINISTIC_SEED_VOLUME
+erp/inbound_shipment,ERP,60,inbound_shipment_id,erp/inbound_shipment.csv,Inbound carrier milestones and exception state.,DETERMINISTIC_SEED_VOLUME
+erp/inventory_location_balance,ERP,500,location_balance_id,erp/inventory_location_balance.csv,"Book, physical, hold, allocated, and eligible quantity by part, lot, LPN, and location.",DETERMINISTIC_SEED_VOLUME
+erp/inventory_state,ERP,250,inventory_state_id,erp/inventory_state.csv,"Opening, movement, closing, reserved, allocated, and eligible inventory.",DETERMINISTIC_SEED_VOLUME
+erp/inventory_status_transition,ERP,250,inventory_status_transition_id,erp/inventory_status_transition.csv,"Append-only inventory status, location, and eligibility transitions.",DETERMINISTIC_SEED_VOLUME
+erp/inventory_transaction,ERP,750,inventory_transaction_id,erp/inventory_transaction.csv,"Receipts, issues, and adjustments over the history window.",DETERMINISTIC_SEED_VOLUME
+erp/invoice_match,ERP,60,invoice_match_id,erp/invoice_match.csv,"PO, receipt, invoice, tax, freight, tolerance, and match status.",DETERMINISTIC_SEED_VOLUME
+erp/item_master,ERP,250,part_id,erp/item_master.csv,"Parts and manufactured items, including twelve sellable configurations.",FIXED_ANCHOR
+erp/labor_capacity,ERP,390,labor_capacity_id,erp/labor_capacity.csv,"Weekly qualified labor capacity by skill, shift, and resource group.",DETERMINISTIC_SEED_VOLUME
+erp/net_requirement,ERP,1560,net_requirement_id,erp/net_requirement.csv,"Gross-to-net calculations with on-hand, scheduled receipts, safety stock, and planned supply.",DETERMINISTIC_SEED_VOLUME
+erp/operation_schedule,ERP,1200,operation_schedule_id,erp/operation_schedule.csv,"Versioned finite operation assignments, sequences, setup, labor, and readiness.",DETERMINISTIC_SEED_VOLUME
+erp/packing_unit,ERP,24,packing_unit_id,erp/packing_unit.csv,Shipment handling units and serialized contents.,DETERMINISTIC_SEED_VOLUME
+erp/pegging_snapshot,ERP,120,pegging_id,erp/pegging_snapshot.csv,Demand-to-supply pegging edges by planning run and date.,DETERMINISTIC_SEED_VOLUME
+erp/planning_exception,ERP,546,planning_exception_id,erp/planning_exception.csv,"Expedite, defer, cancel, shortage, reschedule, and capacity exception messages.",DETERMINISTIC_SEED_VOLUME
+erp/planning_run,ERP,130,planning_run_id,erp/planning_run.csv,"Versioned MRP and constrained-planning runs with calendars, cutoffs, and policy versions.",DETERMINISTIC_SEED_VOLUME
+erp/product_configuration,ERP,12,configuration_revision_id,erp/product_configuration.csv,Twelve effective sellable configuration revisions.,FIXED_ANCHOR
+erp/purchase_order_schedule,ERP,90,po_schedule_id,erp/purchase_order_schedule.csv,Requested and supplier-confirmed inbound schedules.,DETERMINISTIC_SEED_VOLUME
+erp/receipt_inspection,ERP,60,receipt_inspection_id,erp/receipt_inspection.csv,"Incoming inspection sample, result, accepted, held, and rejected quantities.",DETERMINISTIC_SEED_VOLUME
+erp/reservation_allocation,ERP,100,allocation_id,erp/reservation_allocation.csv,Demand-to-supply reservation and allocation edges.,DETERMINISTIC_SEED_VOLUME
+erp/return_order,ERP,8,return_order_line_id,erp/return_order.csv,"Customer-return line from authorization through receipt, disposition, and credit.",DETERMINISTIC_SEED_VOLUME
+erp/return_to_vendor,ERP,4,return_to_vendor_line_id,erp/return_to_vendor.csv,"Return-to-vendor authorization, shipment, credit, and closure evidence.",DETERMINISTIC_SEED_VOLUME
+erp/routing_operation,ERP,72,routing_operation_id,erp/routing_operation.csv,Six-step effective routings per configuration.,DETERMINISTIC_SEED_VOLUME
+erp/safety_stock_policy,ERP,60,safety_stock_policy_id,erp/safety_stock_policy.csv,"Effective-dated safety stock, lot-sizing, and service policy.",DETERMINISTIC_SEED_VOLUME
+erp/sales_order_schedule,ERP,60,erp_schedule_line_id,erp/sales_order_schedule.csv,Accepted order schedule lines and approved promises.,DETERMINISTIC_SEED_VOLUME
+erp/schedule_version,ERP,6,schedule_version_id,erp/schedule_version.csv,"Finite schedule versions with time-fence, objective, and approval state.",DETERMINISTIC_SEED_VOLUME
+erp/scheduler_override,ERP,42,scheduler_override_id,erp/scheduler_override.csv,"Approved schedule overrides with reason, actor role, scope, and expiry.",DETERMINISTIC_SEED_VOLUME
+erp/setup_matrix,ERP,144,setup_matrix_id,erp/setup_matrix.csv,Sequence-dependent product-family changeover time and cleaning requirements.,DETERMINISTIC_SEED_VOLUME
+erp/shipment_line,ERP,24,shipment_line_id,erp/shipment_line.csv,Historical shipment splits and proof-of-delivery states.,DETERMINISTIC_SEED_VOLUME
+erp/supplier,ERP,10,supplier_id,erp/supplier.csv,Ten synthetic suppliers.,FIXED_ANCHOR
+erp/supplier_confirmation_event,ERP,270,supplier_confirmation_event_id,erp/supplier_confirmation_event.csv,Append-only supplier acknowledgement and date or quantity confirmation history.,DETERMINISTIC_SEED_VOLUME
+erp/supplier_discrepancy,ERP,7,supplier_discrepancy_id,erp/supplier_discrepancy.csv,"Quantity, damage, documentation, and quality discrepancy lifecycle.",DETERMINISTIC_SEED_VOLUME
+erp/supplier_scorecard,ERP,240,supplier_scorecard_id,erp/supplier_scorecard.csv,"Monthly OTD, quality, lead-time, responsiveness, and capacity-adherence measures.",DETERMINISTIC_SEED_VOLUME
+erp/time_fence_policy,ERP,12,time_fence_policy_id,erp/time_fence_policy.csv,"Frozen, slushy, and open planning zones by configuration.",DETERMINISTIC_SEED_VOLUME
+erp/work_order,ERP,40,work_order_id,erp/work_order.csv,"Forty historical, active, and planned work-order headers.",FIXED_ANCHOR
+erp/work_order_actual_cost,ERP,26,work_order_actual_cost_id,erp/work_order_actual_cost.csv,"Standard and actual material, labor, overhead, scrap, rework, expedite, and freight cost.",DETERMINISTIC_SEED_VOLUME
+erp/work_order_component,ERP,1200,work_order_component_id,erp/work_order_component.csv,"Work-order component requirements, reservations, and issues.",DETERMINISTIC_SEED_VOLUME
+erp/work_order_operation_plan,ERP,200,work_order_operation_plan_id,erp/work_order_operation_plan.csv,Planned operation timing and remaining work.,DETERMINISTIC_SEED_VOLUME
+governed/action_receipt,GOVERNED,6,action_receipt_id,governed/action_receipt.csv,Idempotent simulated writeback receipts.,DETERMINISTIC_SEED_VOLUME
+governed/approval,GOVERNED,6,approval_id,governed/approval.csv,Named-role human approvals for material actions.,DETERMINISTIC_SEED_VOLUME
+governed/authorization_test,GOVERNED,120,authorization_test_id,governed/authorization_test.csv,"Positive and negative RBAC, ABAC, purpose, customer, program, field, time, and SoD tests.",DETERMINISTIC_SEED_VOLUME
+governed/canonical_commitment,GOVERNED,60,commitment_id,governed/canonical_commitment.csv,"Canonical commitment status, dates, quantity, and risk state.",FIXED_ANCHOR
+governed/decision_replay,GOVERNED,20,decision_replay_id,governed/decision_replay.csv,"Historical decision replay with evidence cutoff, detected set, chosen action, and comparator.",DETERMINISTIC_SEED_VOLUME
+governed/decision_run,GOVERNED,8,decision_run_id,governed/decision_run.csv,Deterministic recovery alternatives and binding constraints.,DETERMINISTIC_SEED_VOLUME
+governed/injected_event_expected_outcome,GOVERNED,5,injected_event_id,governed/injected_event_expected_outcome.csv,Golden disruption events and expected affected commitments.,DETERMINISTIC_SEED_VOLUME
+governed/observed_outcome,GOVERNED,6,observed_outcome_id,governed/observed_outcome.csv,Expected-versus-observed post-action measurements.,DETERMINISTIC_SEED_VOLUME
+governed/policy_decision,GOVERNED,100,policy_decision_id,governed/policy_decision.csv,"Decision-time policy inputs, evaluated rules, outcome, explanation, and evidence.",DETERMINISTIC_SEED_VOLUME
+governed/replay_metric,GOVERNED,200,replay_metric_id,governed/replay_metric.csv,"Detection, feasibility, override, latency, cost, service, quality, and churn replay metrics.",DETERMINISTIC_SEED_VOLUME
+governed/shadow_run,GOVERNED,30,shadow_run_id,governed/shadow_run.csv,"Read-only refresh, decision result, owner review, override, and usability evidence.",DETERMINISTIC_SEED_VOLUME
+governed/snapshot_manifest,GOVERNED,3,snapshot_id,governed/snapshot_manifest.csv,"Baseline, disruption, and recovery snapshot metadata.",DETERMINISTIC_SEED_VOLUME
+mes/calibration_event,MES,72,calibration_event_id,mes/calibration_event.csv,"Calibration as-found, as-left, uncertainty, traceability, and release evidence.",DETERMINISTIC_SEED_VOLUME
+mes/control_plan,MES,36,control_plan_id,mes/control_plan.csv,"Characteristic, method, sampling, limits, rule set, and reaction plan.",DETERMINISTIC_SEED_VOLUME
+mes/corrective_action,MES,8,corrective_action_id,mes/corrective_action.csv,"CAPA root cause, action, verification, effectiveness, and closure evidence.",DETERMINISTIC_SEED_VOLUME
+mes/dispatch,MES,20,dispatch_id,mes/dispatch.csv,Current dispatch state for active work-order operations.,DETERMINISTIC_SEED_VOLUME
+mes/dispatch_history,MES,800,dispatch_history_id,mes/dispatch_history.csv,"Versioned queue rank, readiness gates, overrides, and dispatch decisions.",DETERMINISTIC_SEED_VOLUME
+mes/downtime_changeover,MES,24,downtime_event_id,mes/downtime_changeover.csv,"Planned maintenance, changeover, and unplanned downtime intervals.",DETERMINISTIC_SEED_VOLUME
+mes/electronic_signature,MES,124,electronic_signature_id,mes/electronic_signature.csv,Purpose-bound electronic signatures and authentication evidence.,DETERMINISTIC_SEED_VOLUME
+mes/end_to_end_genealogy,MES,216,end_to_end_genealogy_id,mes/end_to_end_genealogy.csv,"Supplier-lot through receipt, issue, output, rework, shipment, and installed-asset edges.",DETERMINISTIC_SEED_VOLUME
+mes/equipment_asset,MES,18,equipment_asset_id,mes/equipment_asset.csv,"Equipment, fixture, instrument, controller, firmware, and criticality master.",DETERMINISTIC_SEED_VOLUME
+mes/equipment_state_event,MES,3744,equipment_state_event_id,mes/equipment_state_event.csv,"Run, idle, blocked, planned stop, unplanned stop, and return-to-service events.",DETERMINISTIC_SEED_VOLUME
+mes/genealogy_edge,MES,182,genealogy_edge_id,mes/genealogy_edge.csv,Parent-child lot and serial evidence edges.,DETERMINISTIC_SEED_VOLUME
+mes/ideal_cycle_standard,MES,72,ideal_cycle_standard_id,mes/ideal_cycle_standard.csv,"Effective ideal-cycle and rated-speed standards by configuration, operation, and resource.",DETERMINISTIC_SEED_VOLUME
+mes/instruction_acknowledgement,MES,124,instruction_acknowledgement_id,mes/instruction_acknowledgement.csv,Operator acknowledgement and applicable instruction evidence per operation.,DETERMINISTIC_SEED_VOLUME
+mes/labor_event,MES,248,labor_event_id,mes/labor_event.csv,"Clock, setup, run, pause, rework, and indirect labor events.",DETERMINISTIC_SEED_VOLUME
+mes/loss_event,MES,3744,loss_event_id,mes/loss_event.csv,"Planned, availability, performance, quality, setup, and microstop loss events.",DETERMINISTIC_SEED_VOLUME
+mes/maintenance_work_order,MES,144,maintenance_work_order_id,mes/maintenance_work_order.csv,"Preventive and corrective maintenance, failure, parts, labor, and release state.",DETERMINISTIC_SEED_VOLUME
+mes/material_consumption,MES,312,material_consumption_id,mes/material_consumption.csv,"Issue, return, and backflush events with traceability controls.",DETERMINISTIC_SEED_VOLUME
+mes/material_disposition,MES,20,material_disposition_id,mes/material_disposition.csv,"Use-as-is, rework, scrap, return, and concession authorization.",DETERMINISTIC_SEED_VOLUME
+mes/nonconformance_case,MES,20,nonconformance_case_id,mes/nonconformance_case.csv,"Closed-loop NCR containment, review, disposition, release, and quantity reconciliation.",DETERMINISTIC_SEED_VOLUME
+mes/nonconformance_event,MES,10,nonconformance_event_id,mes/nonconformance_event.csv,"Quality hold, containment, deviation, and release references.",DETERMINISTIC_SEED_VOLUME
+mes/oee_daily,MES,3120,oee_daily_id,mes/oee_daily.csv,"Availability, performance, quality, OEE, and loss reconciliation from raw events.",DETERMINISTIC_SEED_VOLUME
+mes/operation_transaction,MES,259,operation_transaction_id,mes/operation_transaction.csv,"Start, pause, resume, complete, reject, and scrap events.",DETERMINISTIC_SEED_VOLUME
+mes/operator,MES,36,operator_id,mes/operator.csv,"Pseudonymous shop-floor identity, status, organization, and privacy classification.",DETERMINISTIC_SEED_VOLUME
+mes/operator_qualification,MES,108,operator_qualification_id,mes/operator_qualification.csv,"Skill, training, certification, validity, and revocation state.",DETERMINISTIC_SEED_VOLUME
+mes/process_parameter_event,MES,496,process_parameter_event_id,mes/process_parameter_event.csv,"Setpoint, actual, limits, equipment, fixture, firmware, and deviation evidence.",DETERMINISTIC_SEED_VOLUME
+mes/reaction_task,MES,176,reaction_task_id,mes/reaction_task.csv,"Containment, investigation, adjustment, verification, and disposition tasks.",DETERMINISTIC_SEED_VOLUME
+mes/recipe_spec,MES,72,recipe_spec_id,mes/recipe_spec.csv,Effective recipe and critical parameter requirements by operation and configuration.,DETERMINISTIC_SEED_VOLUME
+mes/resource,MES,6,resource_id,mes/resource.csv,Three production lines and three shared/test resources.,DETERMINISTIC_SEED_VOLUME
+mes/resource_calendar,MES,780,resource_calendar_id,mes/resource_calendar.csv,Resource availability over historical and planning weeks.,DETERMINISTIC_SEED_VOLUME
+mes/resource_qualification,MES,72,resource_qualification_id,mes/resource_qualification.csv,Configuration and operation qualifications by resource.,DETERMINISTIC_SEED_VOLUME
+mes/rework_execution,MES,5,rework_execution_id,mes/rework_execution.csv,"Approved rework route, execution, verification, and closure.",DETERMINISTIC_SEED_VOLUME
+mes/schedule_adherence,MES,200,schedule_adherence_id,mes/schedule_adherence.csv,Planned and actual start or finish variance with classified cause.,DETERMINISTIC_SEED_VOLUME
+mes/shift_assignment,MES,1248,shift_assignment_id,mes/shift_assignment.csv,Operator-to-shift and resource assignment history.,DETERMINISTIC_SEED_VOLUME
+mes/spc_signal,MES,44,spc_signal_id,mes/spc_signal.csv,"Versioned control-rule violations linked to product, process, equipment, and lots.",DETERMINISTIC_SEED_VOLUME
+mes/spc_subgroup,MES,1248,spc_subgroup_id,mes/spc_subgroup.csv,"Subgroup statistics, control limits, capability, and stability classification.",DETERMINISTIC_SEED_VOLUME
+mes/test_characteristic,MES,500,test_characteristic_id,mes/test_characteristic.csv,"Measured values, limits, and results for actual tests.",DETERMINISTIC_SEED_VOLUME
+mes/test_execution,MES,100,test_execution_id,mes/test_execution.csv,One hundred actual test execution headers.,FIXED_ANCHOR
+mes/test_specification,MES,24,test_specification_id,mes/test_specification.csv,Leak and functional test specifications by configuration.,DETERMINISTIC_SEED_VOLUME
+mes/wip_state,MES,200,wip_state_id,mes/wip_state.csv,Event-derived WIP quantities and age at the baseline snapshot.,DETERMINISTIC_SEED_VOLUME
+mes/work_instruction_revision,MES,72,work_instruction_revision_id,mes/work_instruction_revision.csv,"Controlled instruction revision, effectivity, acknowledgement, and data requirements.",DETERMINISTIC_SEED_VOLUME
+mes/work_order_commitment,MES,60,work_order_commitment_id,mes/work_order_commitment.csv,Many-to-many work-order to customer-commitment allocation.,DETERMINISTIC_SEED_VOLUME
+mes/work_order_operation,MES,200,mes_operation_id,mes/work_order_operation.csv,Two hundred actual and planned operation states.,DETERMINISTIC_SEED_VOLUME
+reference/calendar,REFERENCE,130,calendar_week_id,reference/calendar.csv,Thirteen historical and thirteen planning week buckets.,DETERMINISTIC_SEED_VOLUME
+reference/canonical_code_mapping,REFERENCE,120,code_mapping_id,reference/canonical_code_mapping.csv,Effective-dated source-to-canonical status and reason-code mappings.,DETERMINISTIC_SEED_VOLUME
+reference/data_contract,REFERENCE,159,data_contract_id,reference/data_contract.csv,Versioned producer-consumer contracts for every v2 dataset.,DETERMINISTIC_SEED_VOLUME
+reference/location_hierarchy,REFERENCE,34,location_id,reference/location_hierarchy.csv,"Plant, warehouse, zone, bin, quarantine, and point-of-use hierarchy.",DETERMINISTIC_SEED_VOLUME
+reference/shift_calendar,REFERENCE,390,shift_calendar_id,reference/shift_calendar.csv,Historical and planning shift calendar with capacity and exception state.,DETERMINISTIC_SEED_VOLUME
+reference/site,REFERENCE,1,site_id,reference/site.csv,Synthetic plant reference and operating calendar context.,DETERMINISTIC_SEED_VOLUME
+reference/source_field_mapping,REFERENCE,120,field_mapping_id,reference/source_field_mapping.csv,"Source-to-canonical field, key, authority, refresh, and transformation mappings.",DETERMINISTIC_SEED_VOLUME
+reference/source_identity_crosswalk,REFERENCE,192,crosswalk_id,reference/source_identity_crosswalk.csv,Stable source-to-canonical identity links.,DETERMINISTIC_SEED_VOLUME
+reference/system_inventory,REFERENCE,9,system_inventory_id,reference/system_inventory.csv,Discovery-safe source-system inventory with authority and ownership placeholders.,DETERMINISTIC_SEED_VOLUME
+reference/uom_conversion,REFERENCE,12,uom_conversion_id,reference/uom_conversion.csv,Governed unit-of-measure conversions and rounding rules.,DETERMINISTIC_SEED_VOLUME

@@ -1,0 +1,272 @@
+{
+  "pack": "/Users/ujjal/Documents/ChatGPT/Glasswing/outputs/01a0deee-de33-7df0-9222-e1fee00b9dda/COOLIT_Synthetic_Enterprise_Data_v2",
+  "status": "PASS",
+  "physical_csv_datasets": 159,
+  "manifest_entries": 168,
+  "embedded_review_checks": 79,
+  "independent_rounds": [
+    {
+      "round": 1,
+      "checks": 10,
+      "failed": 0,
+      "results": [
+        {
+          "check_id": "IV-R1-001",
+          "check_name": "All manifest files exist",
+          "status": "PASS",
+          "actual": 0,
+          "expected": 0,
+          "evidence": "file_manifest.csv"
+        },
+        {
+          "check_id": "IV-R1-002",
+          "check_name": "All manifest hashes match",
+          "status": "PASS",
+          "actual": 0,
+          "expected": 0,
+          "evidence": "checksums and SHA-256 recomputation"
+        },
+        {
+          "check_id": "IV-R1-003",
+          "check_name": "All CSV row counts match the manifest",
+          "status": "PASS",
+          "actual": 0,
+          "expected": 0,
+          "evidence": "file_manifest.csv and physical CSVs"
+        },
+        {
+          "check_id": "IV-R1-004",
+          "check_name": "All CSV column counts match the manifest",
+          "status": "PASS",
+          "actual": 0,
+          "expected": 0,
+          "evidence": "file_manifest.csv and physical CSVs"
+        },
+        {
+          "check_id": "IV-R1-005",
+          "check_name": "Catalog contains 159 raw datasets",
+          "status": "PASS",
+          "actual": 159,
+          "expected": 159,
+          "evidence": "schema/table_catalog.csv"
+        },
+        {
+          "check_id": "IV-R1-006",
+          "check_name": "Every dataset is populated",
+          "status": "PASS",
+          "actual": 0,
+          "expected": 0,
+          "evidence": "physical raw CSV scan"
+        },
+        {
+          "check_id": "IV-R1-007",
+          "check_name": "Every dataset has the governed envelope",
+          "status": "PASS",
+          "actual": 0,
+          "expected": 0,
+          "evidence": "physical raw CSV header scan"
+        },
+        {
+          "check_id": "IV-R1-008",
+          "check_name": "Source record IDs are unique within each dataset",
+          "status": "PASS",
+          "actual": 0,
+          "expected": 0,
+          "evidence": "physical raw CSV key scan"
+        },
+        {
+          "check_id": "IV-R1-009",
+          "check_name": "All embedded review checks pass",
+          "status": "PASS",
+          "actual": 0,
+          "expected": 0,
+          "evidence": "review/review_results.csv"
+        },
+        {
+          "check_id": "IV-R1-010",
+          "check_name": "Embedded review has exactly three rounds",
+          "status": "PASS",
+          "actual": [
+            "1",
+            "2",
+            "3"
+          ],
+          "expected": [
+            "1",
+            "2",
+            "3"
+          ],
+          "evidence": "review/review_results.csv"
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "checks": 10,
+      "failed": 0,
+      "results": [
+        {
+          "check_id": "IV-R2-001",
+          "check_name": "Gross-to-net planning arithmetic reconciles",
+          "status": "PASS",
+          "actual": 0,
+          "expected": 0,
+          "evidence": "erp/gross_requirement.csv and erp/net_requirement.csv"
+        },
+        {
+          "check_id": "IV-R2-002",
+          "check_name": "Pegged quantity equals commitment quantity",
+          "status": "PASS",
+          "actual": 0,
+          "expected": 0,
+          "evidence": "erp/pegging_snapshot.csv and governed/canonical_commitment.csv"
+        },
+        {
+          "check_id": "IV-R2-003",
+          "check_name": "Goods receipts conserve quantity",
+          "status": "PASS",
+          "actual": 0,
+          "expected": 0,
+          "evidence": "erp/goods_receipt.csv"
+        },
+        {
+          "check_id": "IV-R2-004",
+          "check_name": "Incoming inspection reconciles to receipts",
+          "status": "PASS",
+          "actual": 0,
+          "expected": 0,
+          "evidence": "erp/receipt_inspection.csv and erp/goods_receipt.csv"
+        },
+        {
+          "check_id": "IV-R2-005",
+          "check_name": "Work-order actual cost reconciles to postings",
+          "status": "PASS",
+          "actual": 0,
+          "expected": 0,
+          "evidence": "erp/work_order_actual_cost.csv and erp/cost_transaction.csv"
+        },
+        {
+          "check_id": "IV-R2-006",
+          "check_name": "Commitments have one approved promotion and exception events do not leak",
+          "status": "PASS",
+          "actual": {
+            "approved": 60,
+            "exception_leaks": 0
+          },
+          "expected": {
+            "approved": 60,
+            "exception_leaks": 0
+          },
+          "evidence": "crm/commitment_promotion_event.csv"
+        },
+        {
+          "check_id": "IV-R2-007",
+          "check_name": "NCR terminal quantities reconcile",
+          "status": "PASS",
+          "actual": 0,
+          "expected": 0,
+          "evidence": "mes/nonconformance_case.csv"
+        },
+        {
+          "check_id": "IV-R2-008",
+          "check_name": "OEE and production counts reconcile",
+          "status": "PASS",
+          "actual": 0,
+          "expected": 0,
+          "evidence": "mes/oee_daily.csv"
+        },
+        {
+          "check_id": "IV-R2-009",
+          "check_name": "Installed assets have six-stage genealogy",
+          "status": "PASS",
+          "actual": 0,
+          "expected": 0,
+          "evidence": "mes/end_to_end_genealogy.csv"
+        },
+        {
+          "check_id": "IV-R2-010",
+          "check_name": "SPC signals have four completed reaction steps",
+          "status": "PASS",
+          "actual": 0,
+          "expected": 0,
+          "evidence": "mes/spc_signal.csv and mes/reaction_task.csv"
+        }
+      ]
+    },
+    {
+      "round": 3,
+      "checks": 7,
+      "failed": 0,
+      "results": [
+        {
+          "check_id": "IV-R3-001",
+          "check_name": "Seven defect classes fail safely",
+          "status": "PASS",
+          "actual": {
+            "classes": 7,
+            "unsafe": 0
+          },
+          "expected": {
+            "classes": 7,
+            "unsafe": 0
+          },
+          "evidence": "data/negative_test_record.csv"
+        },
+        {
+          "check_id": "IV-R3-002",
+          "check_name": "Authorization tests return no unauthorized rows or fields",
+          "status": "PASS",
+          "actual": 0,
+          "expected": 0,
+          "evidence": "governed/authorization_test.csv"
+        },
+        {
+          "check_id": "IV-R3-003",
+          "check_name": "All shadow runs are read-only",
+          "status": "PASS",
+          "actual": 0,
+          "expected": 0,
+          "evidence": "governed/shadow_run.csv"
+        },
+        {
+          "check_id": "IV-R3-004",
+          "check_name": "No email or phone-like personal values appear",
+          "status": "PASS",
+          "actual": 0,
+          "expected": 0,
+          "evidence": "full raw CSV value scan"
+        },
+        {
+          "check_id": "IV-R3-005",
+          "check_name": "No future timestamp is represented as actual evidence",
+          "status": "PASS",
+          "actual": 0,
+          "expected": 0,
+          "evidence": "full raw CSV temporal scan"
+        },
+        {
+          "check_id": "IV-R3-006",
+          "check_name": "System inventory remains discovery-bounded",
+          "status": "PASS",
+          "actual": 0,
+          "expected": 0,
+          "evidence": "reference/system_inventory.csv"
+        },
+        {
+          "check_id": "IV-R3-007",
+          "check_name": "Twenty replays have ten metrics and fingerprints",
+          "status": "PASS",
+          "actual": {
+            "replays": 20,
+            "errors": 0
+          },
+          "expected": {
+            "replays": 20,
+            "errors": 0
+          },
+          "evidence": "governed/decision_replay.csv and governed/replay_metric.csv"
+        }
+      ]
+    }
+  ]
+}
