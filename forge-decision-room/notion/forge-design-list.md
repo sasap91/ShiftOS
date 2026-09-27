@@ -45,6 +45,7 @@
 | DS-18 | Status & Roadmap Readout | Report | **local** `docs/forge-status-and-roadmap.md` | v1.0 🟡 | PM |
 | DS-19 | Plant floor plan (illustration) | Artifact | `public/floor-plan.png` (from the PRD p14) · Notion · UI/UX §3 | ✅ installed (13 hotspots + badges) | PM + FE |
 | DS-26 | Minimalist Front-Dash Plan | UI plan | Notion · Minimalist Front-Dash Plan · **local** `notion/forge-minimalist-ui-plan.md` | v0.1 ✅ executed (U1–U8; D-U1 pending) | FE + PM |
+| DS-27 | Persona Detail in the Order Table | UI plan | Notion · Persona Detail in the Order Table · **local** `notion/forge-persona-table-plan.md` | v0.1 🟡 (slices T1–T6) | FE + PM |
 | DS-20 | **Data & Algorithm Gaps and Improvements** | Register | Notion · **local** `notion/forge-data-algorithm-gaps.md` | v0.2 🟡 | AI + DATA |
 | DS-21 | **Model `ctp-0.3.0` Migration Note** | Contract note | Notion | v0.1 🟡 | BE |
 | DS-22 | **Context & Region Projections Execution Plan** | Build design | Notion | v0.1 🟡 (Stream CP) | FE |
@@ -142,3 +143,4 @@
 | v0.9 | 2026-09-27 | DS-19 → illustration **installed** at `public/floor-plan.png` (from the PRD p14; 13 hotspots); front-dash aligned to the design |
 | v0.10 | 2026-09-27 | Added **DS-26 Minimalist Front-Dash Plan** (slices U1–U8 + D-U1; quiet-room principles; 3-round test plan) |
 | v0.11 | 2026-09-27 | DS-26 → executed (U1–U8): slim top bar, quiet rail, floor-dominant centre, 6-column table, quiet FORGE; budgets verified |
+| v0.12 | 2026-09-27 | Added **DS-27 Persona Detail in the Order Table** (6 fixed columns + 1 lens column; persona expanded tier; slices T1–T6) |
