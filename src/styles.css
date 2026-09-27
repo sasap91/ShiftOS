@@ -697,15 +697,7 @@ body { overflow: hidden; background: var(--paper); }
 
 /* The right rail is only conversation. */
 .chat { background: var(--log); }
-.log-head { min-height: 72px; padding: 12px 14px 10px; align-items: start; }
-.log-head h2 { font-family: Inter, "Avenir Next", sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -.01em; }
-.kicker { margin-bottom: 3px; text-transform: none; letter-spacing: .02em; font-size: 10px; }
-.lens { max-width: 280px; font-size: 10px; line-height: 1.35; }
-.ghost { padding: 2px 0; }
-.log { padding: 0 14px 18px; }
-.chat-empty { max-width: 31ch; margin: 32px auto; color: var(--muted); line-height: 1.45; }
-.chat-empty p { margin: 0 0 8px; color: var(--ink); font-size: 14px; }
-.chat-empty small { font-size: 11px; }
+.log { padding: 14px 14px 18px; }
 .context-divider { display: flex; align-items: center; gap: 8px; margin: 14px 0 4px; color: var(--muted); font-size: 10px; }
 .context-divider::before, .context-divider::after { content: ""; height: 1px; flex: 1; background: var(--line); }
 .context-divider span { white-space: nowrap; }

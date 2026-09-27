@@ -27,7 +27,7 @@ import { FilterRail, DEFAULT_FILTERS, type Filters } from "./features/scope/Filt
 import { ShopFloor } from "./features/floor/ShopFloor";
 import { HORIZONS, flowStagesForRow, lensSort, ownerOf, rowsInZone, zoneById, type Horizon } from "./zones";
 import type { ActiveContext } from "./shared/v2";
-import { assistantHealth, clearChatHistory, sendChatMessage } from "./features/chat/client";
+import { assistantHealth, sendChatMessage } from "./features/chat/client";
 
 const ROLES = [
   PEOPLE["manufacturing-manager"],
@@ -258,12 +258,6 @@ export function App() {
     return { role, orderId: activeId, ...(selectedZone ? { zone: selectedZone } : {}), horizon: filters.horizon };
   }
 
-  function clearConversation() {
-    setConversation([]);
-    window.localStorage.removeItem(CHAT_CACHE);
-    void clearChatHistory().catch(() => undefined);
-  }
-
   return (
     <div className="app">
       <header className="topbar" aria-label="Decision context">
@@ -407,23 +401,7 @@ export function App() {
           </div>
         </section>
         <aside className="chat" aria-label="Conversation">
-          <header className="log-head">
-            <div>
-              <p className="kicker">FORGE assistant</p>
-              <h2>What do you need?</h2>
-              <p className="lens">
-                {activeId} · {connection === "connected" ? "general + governed workspace" : "governed workspace available"}
-              </p>
-            </div>
-            <button type="button" className="ghost" onClick={clearConversation} disabled={!conversation.length}>Clear</button>
-          </header>
           <div className="log" ref={logRef}>
-            {!conversation.length ? (
-              <div className="chat-empty">
-                <p>Ask about an order, test a recovery path, prepare a governed action, or ask a general question.</p>
-                <small>Order evidence is grounded in the selected context. External sources are identified when connected.</small>
-              </div>
-            ) : null}
             {conversation.map((entry) => {
               if (entry.kind === "context") return <p className="context-divider" key={entry.id}><span>{entry.label}</span></p>;
               const entryThread = threads[entry.commitmentId];
