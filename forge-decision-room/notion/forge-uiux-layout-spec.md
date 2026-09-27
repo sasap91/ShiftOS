@@ -5,7 +5,7 @@
 | Field | Value |
 |---|---|
 | Document | FORGE Decision Room — UI/UX Layout & Interaction Spec |
-| Version | v0.8 (floor illustration installed) |
+| Version | v0.9 (minimalism & density budget) |
 | Status | 🟡 Active — §3 Layout built + aligned to the floor-plan illustration; §4 order table built; remaining sections placeholder |
 | Owner | Frontend / UX |
 | Parent doc | FORGE Decision Room — Product Management |
@@ -221,6 +221,20 @@ Receiving + IQC → Controlled Supermarket + Kitting → Production cells → Te
 2. ~~Final order-table column set and per-role emphasis?~~ **Resolved: the nine-column set with per-lens leading columns (see §4).** Still open: detail-tray vs expand-in-place (currently expand-in-place tiers).
 3. Fixed vs resizable panes? [TBC]
 4. Evidence surface: drawer vs dedicated half of the right pane? [TBC]
+
+---
+
+## 12.1 Minimalism & density budget (executed 2026-09-27)
+
+The room is **quiet by default**; depth is one click away.
+
+- **Top bar:** one slim line, ≤ 5 tokens (site · role · commitment · as-of · brand); snapshot/master-set/freshness/conflicts/scope live in an **info popover**.
+- **Left rail:** at rest **RISK + HORIZON** only; **PRODUCT / FLOW / OWNER** behind “More filters”; chips are quiet text toggles (no fills); “Clear” only when a filter is active; zone chip when a zone is selected.
+- **Centre:** the **COOLIT SHOP FLOOR** is the focal object (**≈57% of the centre height**); the order table is **6 columns — Promise · Order · Product · Qty · Constraint · State**, **single-line rows**; all math, capability, feasibility and provenance move to the **expanded row**.
+- **Right pane:** at rest — `FORGE` · “Ask about this order” · 3 quick chips · composer + footnote; the **phase stepper is removed**; governed actions live behind **“More actions”**.
+- **Roles change defaults, not density** — the 4 personas re-sort the queue and change the FORGE lead question; numbers and columns are identical (C9).
+
+**Verified budgets (in-browser):** top tokens **5** · rail groups at rest **2** (+“More”) · table columns **6** · cells per row **6** · phase stepper **absent** · floor height **≈57%** of centre.
 
 ---
 

@@ -42,15 +42,6 @@ const QUEUE_LABEL: Record<QueueState, string> = {
   approved: "Approved",
   monitoring: "Monitoring",
 };
-const PHASES = [
-  ["orient", "Orient"],
-  ["investigate", "Investigate"],
-  ["compare", "Compare"],
-  ["approve", "Approve"],
-  ["act", "Act"],
-  ["observe", "Observe"],
-] as const;
-
 const COMMITMENT_IDS = ["COM-1042", "COM-1018", "COM-1104", "COM-0991"];
 const RISK_GROUPS: QueueState[] = ["at-risk", "awaiting", "approved", "monitoring"];
 
@@ -208,56 +199,68 @@ export function App() {
 
   return (
     <div className="app">
-      <header className="mast">
-        <div>
-          <p className="brand">FORGE</p>
-          <h1>Decision room</h1>
-        </div>
-        <p className="mast-note">Synthetic fixture · one plant · simulated writeback · discovery prototype</p>
-      </header>
-      <section className="context" aria-label="Decision context">
-        <p className="context-primary">
+      <header className="topbar" aria-label="Decision context">
+        <div className="topbar-main">
+          <span className="brand">FORGE</span>
           <span>{envelope.siteLabel}</span>
           <span>{envelope.user.roleLabel}</span>
-          <span>{envelope.commitmentId}</span>
-          <span>{envelope.scenario.kind === "baseline" ? "Baseline" : envelope.scenario.runId}</span>
+          <span className="mono">{envelope.commitmentId}</span>
           <span>As of 08:15</span>
-        </p>
-        <div className="context-secondary">
-          <label>
-            Role
-            <select
-              value={role}
-              onChange={(event) => setRole(event.target.value as Role)}
-              aria-label="Authorization role"
-            >
-              {ROLES.map((person) => (
-                <option key={person.role} value={person.role}>
-                  {person.roleLabel}
-                </option>
-              ))}
-            </select>
-          </label>
-          <span>{envelope.snapshotId}</span>
-          <span>{MASTER_SET_VERSION}</span>
-          <span>
-            Fresh {envelope.freshness.fresh} · stale {envelope.freshness.stale}
-          </span>
-          <span>{envelope.unresolvedConflicts} unresolved conflict{envelope.unresolvedConflicts === 1 ? "" : "s"}</span>
-          <span>{envelope.authorization.scope}</span>
+        </div>
+        <div className="topbar-role">
+          <select
+            value={role}
+            onChange={(event) => setRole(event.target.value as Role)}
+            aria-label="Authorization role"
+          >
+            {ROLES.map((person) => (
+              <option key={person.role} value={person.role}>
+                {person.roleLabel}
+              </option>
+            ))}
+          </select>
+          <details className="info">
+            <summary aria-label="Context details">i</summary>
+            <dl>
+              <div>
+                <dt>Snapshot</dt>
+                <dd>{envelope.snapshotId}</dd>
+              </div>
+              <div>
+                <dt>Master set</dt>
+                <dd>{MASTER_SET_VERSION}</dd>
+              </div>
+              <div>
+                <dt>Freshness</dt>
+                <dd>
+                  Fresh {envelope.freshness.fresh} · stale {envelope.freshness.stale}
+                </dd>
+              </div>
+              <div>
+                <dt>Conflicts</dt>
+                <dd>
+                  {envelope.unresolvedConflicts} unresolved
+                </dd>
+              </div>
+              <div>
+                <dt>Scope</dt>
+                <dd>{envelope.authorization.scope}</dd>
+              </div>
+            </dl>
+          </details>
           {scenario ? (
             thread.focusedRunId ? (
               <button type="button" onClick={() => setThreads((prev) => ({ ...prev, [activeId]: { ...thread, focusedRunId: null } }))}>
-                Return to baseline
+                Baseline
               </button>
             ) : (
               <button type="button" onClick={() => setThreads((prev) => ({ ...prev, [activeId]: { ...thread, focusedRunId: scenario.id } }))}>
-                Inspect {scenario.id}
+                {scenario.id}
               </button>
             )
           ) : null}
         </div>
-      </section>
+      </header>
       <div className="panes" role="tablist" aria-label="Workspace">
         {(["queue", "ledger", "chat"] as const).map((item) => (
           <button
@@ -320,17 +323,7 @@ export function App() {
             })
           )}
         </aside>
-        <section className="centre" aria-label="Middle: layout and order table">
-          <header className="centre-head">
-            <div>
-              <p className="kicker">{assess(activeId).commitment.customer}</p>
-              <h2>
-                {assess(activeId).commitment.product} · {assess(activeId).commitment.qty}{" "}
-                {assess(activeId).commitment.uom}
-              </h2>
-            </div>
-            <span className="mono">{MASTER_SET_VERSION}</span>
-          </header>
+        <section className="centre" aria-label="Middle: shop floor and order table">
           <div className="centre-split">
             <section className="middle-top" aria-label="COOLIT shop floor">
               <p className="floor-title">COOLIT SHOP FLOOR</p>
@@ -358,23 +351,12 @@ export function App() {
         <aside className="chat" aria-label="Conversation">
           <header className="log-head">
             <div>
-              <p className="kicker">FORGE · {assess(activeId).commitment.customer}</p>
+              <p className="kicker">FORGE</p>
               <h2>Ask about this order</h2>
               <p className="lens">
-                {thread.commitmentId} · Lens · {ROLE_POLICY[role].lens} · {ROLE_POLICY[role].leadQuestion}
+                {thread.commitmentId} · {ROLE_POLICY[role].lens} · {ROLE_POLICY[role].leadQuestion}
               </p>
             </div>
-            <ol className="phases">
-              {PHASES.map(([id, label], index) => {
-                const current = PHASES.findIndex((item) => item[0] === thread.phase);
-                const state = index < current ? "done" : index === current ? "now" : "ahead";
-                return (
-                  <li key={id} className={state} aria-current={state === "now" ? "step" : undefined}>
-                    {label}
-                  </li>
-                );
-              })}
-            </ol>
           </header>
           <div className="forge-chips" aria-label="Quick asks">
             <button type="button" disabled={busy} onClick={() => runAction("why")}>
@@ -426,19 +408,6 @@ export function App() {
             ) : null}
           </section>
           <form className="composer" onSubmit={onSubmit}>
-            <div className="action-strip" aria-label="Governed actions">
-              {(["explain", "why", "blast", "scenario", "compare", "approve", "simulate"] as ActionId[]).map((id) => (
-                <button
-                  key={id}
-                  type="button"
-                  disabled={!actions[id].enabled || busy}
-                  title={actions[id].reason}
-                  onClick={() => runAction(id)}
-                >
-                  {actions[id].label}
-                </button>
-              ))}
-            </div>
             <div className="composer-row">
               <label className="ask">
                 <span className="sr">Ask about this commitment</span>
@@ -449,16 +418,26 @@ export function App() {
                   disabled={busy}
                 />
               </label>
-              <button type="button" disabled={busy} onClick={() => runAction("compare")}>
-                Compare
-              </button>
-              <button type="button" disabled={busy} onClick={() => runAction("draft")}>
-                Draft
-              </button>
               <button type="button" className="primary" disabled={busy} onClick={() => runAction("scenario")}>
                 Run scenario
               </button>
             </div>
+            <details className="more-actions">
+              <summary>More actions</summary>
+              <div className="action-strip" aria-label="Governed actions">
+                {(["explain", "why", "blast", "scenario", "compare", "draft", "approve", "simulate"] as ActionId[]).map((id) => (
+                  <button
+                    key={id}
+                    type="button"
+                    disabled={!actions[id].enabled || busy}
+                    title={actions[id].reason}
+                    onClick={() => runAction(id)}
+                  >
+                    {actions[id].label}
+                  </button>
+                ))}
+              </div>
+            </details>
           </form>
           <p className="forge-footnote">No Approval / Release / Publish controls exist in chat.</p>
         </aside>

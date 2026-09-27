@@ -1,12 +1,7 @@
 import { useMemo, useState, type KeyboardEvent } from "react";
 import { formatDay, type RoleLens } from "./model";
 import { validityLabel } from "./master";
-import {
-  CONSTRAINT_GLYPH,
-  LIFECYCLE_LABEL,
-  capabilityLine,
-  type LedgerRow,
-} from "./ledger";
+import { type LedgerRow } from "./ledger";
 
 const RISK_LABEL: Record<LedgerRow["risk"], string> = {
   "at-risk": "At risk",
@@ -25,30 +20,22 @@ const LIFECYCLE_ORDER: LedgerRow["lifecycle"][] = [
 
 /** Which columns lead for each persona lens (middle-bottom order table). */
 const EMPHASIS: Record<RoleLens, string[]> = {
-  coverage: ["lifecycle", "prov"],
-  throughput: ["constraint", "feasible"],
-  availability: ["constraint", "prov"],
-  demand: ["product", "promised", "capable"],
+  coverage: ["lifecycle", "constraint"],
+  throughput: ["constraint", "lifecycle"],
+  availability: ["constraint", "product"],
+  demand: ["product", "promised"],
 };
 
 type SortKey = "risk" | "promised" | "qty" | "lifecycle";
 
 const COLUMNS: { key: string; label: string; sort?: SortKey }[] = [
-  { key: "rail", label: "" },
-  { key: "commit", label: "Order", sort: "promised" },
-  { key: "product", label: "Product · Qty", sort: "qty" },
   { key: "promised", label: "Promise", sort: "promised" },
-  { key: "capable", label: "Capable" },
+  { key: "commit", label: "Order", sort: "promised" },
+  { key: "product", label: "Product" },
+  { key: "qty", label: "Qty" },
   { key: "constraint", label: "Constraint" },
-  { key: "feasible", label: "Feasible" },
   { key: "lifecycle", label: "State", sort: "lifecycle" },
-  { key: "prov", label: "Provenance" },
 ];
-
-function pct(part: number | null, whole: number | null): number | null {
-  if (part === null || whole === null || whole <= 0) return null;
-  return Math.max(0, Math.min(1, part / whole));
-}
 
 function cls(key: string, base: string, lead: Set<string>): string {
   return `${base}${lead.has(key) ? " lead" : ""}`;
@@ -150,10 +137,7 @@ export function LedgerView({
       {sorted.map((row, index) => {
         const expanded = open === row.commitmentId;
         const active = row.commitmentId === activeId;
-        const coverage = pct(row.constraint.allocated, row.constraint.required);
         const constraintFocus = `${row.commitmentId}:constraint`;
-        const provFocus = `${row.commitmentId}:prov`;
-        const staleAged = row.lanes.some((lane) => lane.primary && lane.facts.some((fact) => fact.freshness === "stale"));
         return (
           <div
             key={row.commitmentId}
@@ -180,24 +164,21 @@ export function LedgerView({
                 }
               }}
             >
-              <span className={`rail ${row.risk}`} role="cell" aria-hidden="true" />
+              <span className={cls("promised", "cell-date", lead)} role="cell">
+                <strong>{formatDay(row.promised)}</strong>
+                <small>T-{row.timeToImpactDays}d</small>
+              </span>
               <span className={cls("commit", "cell-commit clickable", lead)} role="cell" onClick={() => onFocus(`${row.commitmentId}:order`)}>
                 <strong>{row.commitmentId}</strong>
                 <small>{row.customer}</small>
               </span>
               <span className={cls("product", "cell-product", lead)} role="cell">
                 <strong>{row.product}</strong>
-                <small>
-                  {row.family} · {row.qty} {row.uom}
-                </small>
+                <small>{row.family}</small>
               </span>
-              <span className={cls("promised", "cell-date", lead)} role="cell">
-                <strong>{formatDay(row.promised)}</strong>
-                <small>T-{row.timeToImpactDays}d</small>
-              </span>
-              <span className={cls("capable", row.capableDeltaDays > 0 ? "cell-date late" : "cell-date", lead)} role="cell">
-                <strong>{capabilityLine(row)}</strong>
-                <small>{row.capableDeltaDays > 0 ? `${row.capableDeltaDays}d slip` : "on plan"}</small>
+              <span className={cls("qty", "cell-qty", lead)} role="cell">
+                <strong>{row.qty}</strong>
+                <small>{row.uom}</small>
               </span>
               <span
                 className={`${cls("constraint", "cell-constraint clickable", lead)}${focusTarget === constraintFocus ? " hot" : ""}`}
@@ -209,47 +190,9 @@ export function LedgerView({
                 }}
                 title="Focus the binding constraint and its composition"
               >
-                <strong>
-                  {CONSTRAINT_GLYPH[row.constraint.className]} {row.constraint.label}
-                  {row.constraint.resource ? ` · ${row.constraint.resource}` : ""}
-                  {row.constraint.secondaries.length ? `  +${row.constraint.secondaries.length}` : ""}
-                </strong>
-                {coverage !== null ? (
-                  <small>
-                    <span className="bar" aria-hidden="true">
-                      <span style={{ width: `${Math.round(coverage * 100)}%` }} />
-                    </span>
-                    {row.constraint.allocated}/{row.constraint.required} {row.constraint.unit} · short{" "}
-                    {row.constraint.shortfall}
-                  </small>
-                ) : (
-                  <small>no binding constraint</small>
-                )}
+                <strong>{row.constraint.label}</strong>
               </span>
-              <span className={cls("feasible", row.feasibility === "infeasible" ? "state infeasible" : "state feasible", lead)} role="cell">
-                {row.feasibility === "infeasible" ? "✗ infeasible" : "✓ feasible"}
-              </span>
-              <span className={cls("lifecycle", `state ${row.risk}`, lead)} role="cell">{LIFECYCLE_LABEL[row.lifecycle]}</span>
-              <span
-                className={`${cls("prov", "cell-prov clickable", lead)}${focusTarget === provFocus ? " hot" : ""}`}
-                role="cell"
-                data-focus={provFocus}
-                onClick={(event) => {
-                  event.stopPropagation();
-                  onFocus(provFocus);
-                }}
-                title="Focus provenance and conflicts"
-              >
-                {row.lanes
-                  .filter((lane) => lane.primary)
-                  .map((lane) => (
-                    <span key={lane.system} className={lane.facts.some((fact) => fact.freshness === "stale") ? "dot stale" : "dot"}>
-                      ●{lane.system}
-                    </span>
-                  ))}
-                {staleAged ? <span className="dot stale">◐{row.provenance.stale}</span> : null}
-                {row.provenance.conflicts > 0 ? <span className="dot conflict">⚠{row.provenance.conflicts}</span> : null}
-              </span>
+              <span className={cls("lifecycle", `state ${row.risk}`, lead)} role="cell">{RISK_LABEL[row.risk]}</span>
             </div>
             {expanded ? <LedgerDetail row={row} focusTarget={focusTarget} onFocus={onFocus} /> : null}
             <span className="sr">{RISK_LABEL[row.risk]}</span>
