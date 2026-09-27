@@ -403,7 +403,6 @@ export function App() {
               Send
             </button>
           </form>
-          <p className="forge-footnote">No Approval / Release / Publish controls exist in chat.</p>
         </aside>
       </main>
     </div>
