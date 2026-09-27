@@ -41,7 +41,6 @@ export type IntentClass =
   | "action"
   | "outcome"
   | "selection"
-  | "general"
   | "unsupported";
 
 export type SubOrchestrator = "investigate" | "scenario" | "action" | "none";

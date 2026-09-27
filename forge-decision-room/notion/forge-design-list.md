@@ -45,7 +45,7 @@
 | DS-18 | Status & Roadmap Readout | Report | **local** `docs/forge-status-and-roadmap.md` | v1.0 🟡 | PM |
 | DS-19 | Plant floor plan (illustration) | Artifact | `public/floor-plan.png` (from the PRD p14) · Notion · UI/UX §3 | ✅ installed (13 hotspots + badges) | PM + FE |
 | DS-26 | Minimalist Front-Dash Plan | UI plan | Notion · Minimalist Front-Dash Plan · **local** `notion/forge-minimalist-ui-plan.md` | v0.1 ✅ executed (U1–U8; D-U1 pending) | FE + PM |
-| DS-27 | Persona Detail in the Order Table | UI plan | Notion · Persona Detail in the Order Table · **local** `notion/forge-persona-table-plan.md` | v0.1 🟡 (slices T1–T6) | FE + PM |
+| DS-27 | Persona Detail in the Order Table | UI plan | Notion · Persona Detail in the Order Table · **local** `notion/forge-persona-table-plan.md` | v0.1 ✅ executed T1–T4 (T5 data seams pending) | FE + PM |
 | DS-20 | **Data & Algorithm Gaps and Improvements** | Register | Notion · **local** `notion/forge-data-algorithm-gaps.md` | v0.2 🟡 | AI + DATA |
 | DS-21 | **Model `ctp-0.3.0` Migration Note** | Contract note | Notion | v0.1 🟡 | BE |
 | DS-22 | **Context & Region Projections Execution Plan** | Build design | Notion | v0.1 🟡 (Stream CP) | FE |

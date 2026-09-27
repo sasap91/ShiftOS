@@ -309,7 +309,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 .ledger { overflow: auto; min-height: 0; }
 .ledger-head, .ledger-line {
   display: grid;
-  grid-template-columns: 104px 150px minmax(110px, 1fr) 72px minmax(150px, 1.4fr) 96px;
+  grid-template-columns: 104px 150px minmax(96px, 1fr) minmax(122px, 1.25fr) 64px minmax(128px, 1.3fr) 88px;
   gap: 12px;
   align-items: center;
   padding: 9px 16px;
@@ -406,7 +406,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 
 @media (max-width: 1180px) {
   .ledger-head, .ledger-line {
-    grid-template-columns: 96px 140px minmax(100px, 1fr) 64px minmax(130px, 1.3fr) 88px;
+    grid-template-columns: 96px 140px minmax(88px, 1fr) minmax(110px, 1.2fr) 56px minmax(118px, 1.25fr) 80px;
   }
   /* Compact desktop: keep the four regions visible down to tablet width. */
   .workspace { grid-template-columns: 200px minmax(0, 1fr) minmax(280px, 340px); }
@@ -554,3 +554,9 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 .middle-bottom { grid-template-rows: auto minmax(0, 1fr); }
 .zone.bound .zone-rect { stroke: var(--watch); stroke-width: 1.5; }
 .zone-hotspot.bound { border-color: var(--watch); border-style: dashed; }
+
+/* ---- Persona detail in the order table (T1/T2) ---- */
+.cell-lens { font-size: 12px; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ledger-head .lead, .ledger-line .lead { color: var(--ink); }
+.tier.persona { background: var(--panel); border-left: 2px solid var(--watch); }
+.tier.persona .tier-kind { color: var(--ink); }

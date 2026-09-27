@@ -50,6 +50,17 @@ export type LedgerLadderRung = {
   unit: string;
 };
 
+export type LedgerPersona = {
+  /** Manufacturing manager — recovery. */
+  recovery: { costCad: number | null; feasible: number; total: number; authority: string | null };
+  /** Shift executive / planner — coverage. */
+  coverage: { workOrder: string | null; certs: number; expiring: number; handover: string | null };
+  /** Maintenance manager — availability. */
+  availability: { resource: string | null; event: string | null; back: string | null; criticality: string | null };
+  /** Demand planner — demand triple. */
+  demand: { requested: string | null; promised: string; capable: string; slipDays: number; priority: number };
+};
+
 export type LedgerRow = {
   commitmentId: string;
   customer: string;
@@ -75,6 +86,7 @@ export type LedgerRow = {
   derived: { id: string; result: string; formula: string }[];
   lanes: LedgerLane[];
   ladder: LedgerLadderRung[];
+  persona: LedgerPersona;
 };
 
 export const CONSTRAINT_GLYPH: Record<ConstraintClass, string> = {
@@ -210,6 +222,40 @@ export function buildLedgerRow(thread: Thread): LedgerRow {
 
   const eligible = view.materialShortfall === 0 ? row.qty : Math.max(0, row.qty - view.materialShortfall);
 
+  const scenario = [...thread.runs].reverse().find((run) => run.kind === "scenario");
+  const alternatives = scenario?.alternatives ?? [];
+  const feasibleOptions = alternatives.filter((option) => option.feasibility === "feasible");
+  const bestOption = feasibleOptions.find((option) => option.meetsPromise) ?? feasibleOptions[0];
+  const mesFacts = packet.sourceFacts.filter((fact) => fact.sourceSystem === "MES");
+  const downtimeFact = mesFacts.find((fact) => /^EVT-/.test(fact.sourceRecordId));
+  const persona: LedgerPersona = {
+    recovery: {
+      costCad: bestOption?.costCad ?? null,
+      feasible: feasibleOptions.length,
+      total: alternatives.length,
+      authority: bestOption?.approvers.find((approver) => approver.authority)?.authority ?? null,
+    },
+    coverage: {
+      workOrder: mesFacts.find((fact) => /^WO-/.test(fact.sourceRecordId))?.sourceRecordId ?? null,
+      certs: mesFacts.length,
+      expiring: 0,
+      handover: null,
+    },
+    availability: {
+      resource: constraint.resource,
+      event: downtimeFact?.sourceRecordId ?? null,
+      back: null,
+      criticality: constraint.className === "capacity" ? "hard_gate" : constraint.className === "none" ? null : "material",
+    },
+    demand: {
+      requested: null,
+      promised: row.promiseDate,
+      capable: view.earliestShipDate,
+      slipDays: capableDeltaDays,
+      priority: row.priority,
+    },
+  };
+
   return {
     commitmentId,
     customer: row.customer,
@@ -253,6 +299,7 @@ export function buildLedgerRow(thread: Thread): LedgerRow {
       { key: "tested", label: "Tested", value: 0, unit: row.uom },
       { key: "shipped", label: "Shipped", value: 0, unit: row.uom },
     ],
+    persona,
   };
 }
 

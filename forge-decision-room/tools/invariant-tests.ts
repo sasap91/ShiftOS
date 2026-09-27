@@ -279,6 +279,23 @@ const centreOf = (id: string) => {
 check("T-11", "cross-pane", "the same snapshot renders the same numbers for every role",
   centreOf("COM-1042") === "infeasible|2026-10-19|56" && ALL_ROLES.every(() => centreOf("COM-1042") === "infeasible|2026-10-19|56"));
 
+// --- Persona detail in the order table (T1/T2/T3) --------------------------
+const personaRow = buildLedgerRow(openThread("COM-1042"));
+check("T-11", "persona", "demand persona carries the promise→capable gap",
+  personaRow.persona.demand.promised === personaRow.promised &&
+    personaRow.persona.demand.capable === personaRow.capable &&
+    personaRow.persona.demand.slipDays === personaRow.capableDeltaDays);
+check("T-11", "persona", "availability persona names the constraint resource and its downtime event",
+  personaRow.persona.availability.resource === "RES-LT-01" && personaRow.persona.availability.event === "EVT-LT-041");
+check("T-11", "persona", "coverage persona counts the MES facts for the commitment",
+  personaRow.persona.coverage.certs >= 1);
+const scenarioForPersona = reduce(openThread("COM-1042"), envManager, { type: "scenario" });
+const recoveryRow = buildLedgerRow(scenarioForPersona.thread);
+check("T-11", "persona", "recovery persona summarises the scenario options (feasible/total + policy authority)",
+  recoveryRow.persona.recovery.total === 6 &&
+    recoveryRow.persona.recovery.feasible >= 1 &&
+    recoveryRow.persona.recovery.authority === "finance");
+
 // --- T-15: defect -> test closure map --------------------------------------
 // Register of defects that are CLOSED, each pinned to the test that proves it.
 // Every entry must reference a suite that actually exists and is run in `npm test`.

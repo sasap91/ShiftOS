@@ -695,10 +695,10 @@ function askBlocks(thread: Thread, text: string): Block[] {
     ];
   }
   return [
-    { kind: "answer", text: "The general AI assistant is temporarily unavailable." },
+    { kind: "answer", text: "That cannot be established from this commitment." },
     {
       kind: "why",
-      text: "The decision-room services are still available, but broad questions need the configured language model.",
+      text: "The room can explain evidence, compare solver options, and move a governed action. It will not invent an answer outside that packet.",
     },
     { kind: "next", actions: nextFor(thread) },
   ];

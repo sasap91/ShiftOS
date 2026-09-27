@@ -1,7 +1,7 @@
-import { useMemo, useState, type KeyboardEvent } from "react";
-import { formatDay, type RoleLens } from "./model";
+import { useMemo, useState, type KeyboardEvent, type ReactNode } from "react";
+import { formatDay, formatMoney, type RoleLens } from "./model";
 import { validityLabel } from "./master";
-import { type LedgerRow } from "./ledger";
+import { LIFECYCLE_LABEL, type LedgerRow } from "./ledger";
 
 const RISK_LABEL: Record<LedgerRow["risk"], string> = {
   "at-risk": "At risk",
@@ -20,11 +20,91 @@ const LIFECYCLE_ORDER: LedgerRow["lifecycle"][] = [
 
 /** Which columns lead for each persona lens (middle-bottom order table). */
 const EMPHASIS: Record<RoleLens, string[]> = {
-  coverage: ["lifecycle", "constraint"],
-  throughput: ["constraint", "lifecycle"],
-  availability: ["constraint", "product"],
-  demand: ["product", "promised"],
+  coverage: ["lifecycle", "lens", "constraint"],
+  throughput: ["constraint", "lifecycle", "lens"],
+  availability: ["constraint", "lens"],
+  demand: ["promised", "lens", "product"],
 };
+
+/** The one lens column (T1): a single cell that answers this persona's question. */
+const LENS_COLUMN: Record<RoleLens, { label: string; render: (row: LedgerRow) => ReactNode }> = {
+  throughput: {
+    label: "Recovery",
+    render: (row) => {
+      const p = row.persona.recovery;
+      if (!p.total) return "—";
+      const cost = p.costCad !== null ? formatMoney(p.costCad) : "—";
+      return `${cost} · ${p.feasible}/${p.total}${p.authority ? ` · ${p.authority}` : ""}`;
+    },
+  },
+  coverage: {
+    label: "Coverage",
+    render: (row) => {
+      const p = row.persona.coverage;
+      if (!p.certs && !p.workOrder) return "—";
+      return `${p.certs} certs${p.workOrder ? ` · ${p.workOrder}` : ""}`;
+    },
+  },
+  availability: {
+    label: "Availability",
+    render: (row) => {
+      const p = row.persona.availability;
+      if (p.event) return `${p.event}${p.resource ? ` · ${p.resource}` : ""}`;
+      return p.criticality ?? "—";
+    },
+  },
+  demand: {
+    label: "Gap",
+    render: (row) => `${formatDay(row.promised)} → ${formatDay(row.capable)}${row.capableDeltaDays > 0 ? ` · +${row.capableDeltaDays}d` : ""} · P${row.persona.demand.priority}`,
+  },
+};
+
+/** The persona's expanded first tier (T2). */
+function personaTier(row: LedgerRow, lens: RoleLens): { title: string; items: string[] } {
+  const p = row.persona;
+  switch (lens) {
+    case "throughput":
+      return {
+        title: "Manufacturing · recovery",
+        items: [
+          `Capable ${formatDay(row.capable)} vs promise ${formatDay(row.promised)}${row.capableDeltaDays > 0 ? ` (slip ${row.capableDeltaDays}d)` : ""}`,
+          `Binding constraint: ${row.constraint.label}${row.constraint.resource ? ` · ${row.constraint.resource}` : ""}${row.constraint.required ? ` — shortfall ${row.constraint.shortfall}/${row.constraint.required} ${row.constraint.unit}` : ""}`,
+          `Recovery cost: ${p.recovery.costCad !== null ? formatMoney(p.recovery.costCad) : "—"} · feasible ${p.recovery.feasible}/${p.recovery.total}`,
+          `Authority: ${p.recovery.authority ?? "see the approval card"}`,
+        ],
+      };
+    case "coverage":
+      return {
+        title: "Shift · coverage",
+        items: [
+          `Lifecycle: ${LIFECYCLE_LABEL[row.lifecycle]}`,
+          `Work order: ${p.coverage.workOrder ?? "— (MES seam D-07)"}`,
+          `Coverage: ${p.coverage.certs} certified facts · ${p.coverage.expiring} expiring`,
+          `Handover Δ: ${p.coverage.handover ?? "— (shift handover C-03)"}`,
+        ],
+      };
+    case "availability":
+      return {
+        title: "Maintenance · availability",
+        items: [
+          `Resource: ${p.availability.resource ?? "—"}`,
+          `Downtime event: ${p.availability.event ?? "—"}`,
+          `Restoration: ${p.availability.back ?? "— (EAM seam D-08)"}`,
+          `Criticality: ${p.availability.criticality ?? "—"}`,
+        ],
+      };
+    case "demand":
+      return {
+        title: "Demand · gap",
+        items: [
+          `Requested: ${p.demand.requested ?? "— (CRM requested date D-02)"}`,
+          `Promised ${formatDay(p.demand.promised)} → Capable ${formatDay(p.demand.capable)}${p.demand.slipDays > 0 ? ` · +${p.demand.slipDays}d` : " · on plan"}`,
+          `Priority: P${p.demand.priority}`,
+          `On-time ${row.onTimeQty}/${row.qty} ${row.uom}`,
+        ],
+      };
+  }
+}
 
 type SortKey = "risk" | "promised" | "qty" | "lifecycle";
 
@@ -32,6 +112,7 @@ const COLUMNS: { key: string; label: string; sort?: SortKey }[] = [
   { key: "promised", label: "Promise", sort: "promised" },
   { key: "commit", label: "Order", sort: "promised" },
   { key: "product", label: "Product" },
+  { key: "lens", label: "" },
   { key: "qty", label: "Qty" },
   { key: "constraint", label: "Constraint" },
   { key: "lifecycle", label: "State", sort: "lifecycle" },
@@ -116,23 +197,26 @@ export function LedgerView({
   return (
     <div className={`ledger lens-${lens}`} role="table" aria-label="Order information table" aria-rowcount={sorted.length}>
       <div className="ledger-head" role="row">
-        {COLUMNS.map((column) => (
-          <span
-            key={column.key}
-            role="columnheader"
-            aria-sort={column.sort && sortKey === column.sort ? (sortDir === "asc" ? "ascending" : "descending") : undefined}
-            className={cls(column.key, column.key === "rail" ? "rail" : column.sort ? "sortable" : "", lead)}
-          >
-            {column.sort ? (
-              <button type="button" className="col-sort" onClick={() => onSort(column.sort!)}>
-                {column.label}
-                {sortKey === column.sort ? <em className="sort-mark">{sortDir === "asc" ? "▲" : "▼"}</em> : null}
-              </button>
-            ) : (
-              column.label
-            )}
-          </span>
-        ))}
+        {COLUMNS.map((column) => {
+          const label = column.key === "lens" ? LENS_COLUMN[lens].label : column.label;
+          return (
+            <span
+              key={column.key}
+              role="columnheader"
+              aria-sort={column.sort && sortKey === column.sort ? (sortDir === "asc" ? "ascending" : "descending") : undefined}
+              className={cls(column.key, column.sort ? "sortable" : "", lead)}
+            >
+              {column.sort ? (
+                <button type="button" className="col-sort" onClick={() => onSort(column.sort!)}>
+                  {label}
+                  {sortKey === column.sort ? <em className="sort-mark">{sortDir === "asc" ? "▲" : "▼"}</em> : null}
+                </button>
+              ) : (
+                label
+              )}
+            </span>
+          );
+        })}
       </div>
       {sorted.map((row, index) => {
         const expanded = open === row.commitmentId;
@@ -176,6 +260,9 @@ export function LedgerView({
                 <strong>{row.product}</strong>
                 <small>{row.family}</small>
               </span>
+              <span className={cls("lens", "cell-lens", lead)} role="cell">
+                {LENS_COLUMN[lens].render(row)}
+              </span>
               <span className={cls("qty", "cell-qty", lead)} role="cell">
                 <strong>{row.qty}</strong>
                 <small>{row.uom}</small>
@@ -194,7 +281,7 @@ export function LedgerView({
               </span>
               <span className={cls("lifecycle", `state ${row.risk}`, lead)} role="cell">{RISK_LABEL[row.risk]}</span>
             </div>
-            {expanded ? <LedgerDetail row={row} focusTarget={focusTarget} onFocus={onFocus} /> : null}
+            {expanded ? <LedgerDetail row={row} lens={lens} focusTarget={focusTarget} onFocus={onFocus} /> : null}
             <span className="sr">{RISK_LABEL[row.risk]}</span>
           </div>
         );
@@ -205,15 +292,26 @@ export function LedgerView({
 
 function LedgerDetail({
   row,
+  lens,
   focusTarget,
   onFocus,
 }: {
   row: LedgerRow;
+  lens: RoleLens;
   focusTarget: string | null;
   onFocus: (key: string) => void;
 }) {
+  const persona = personaTier(row, lens);
   return (
     <div className="ledger-detail">
+      <div className="tier persona">
+        <p className="tier-kind">{persona.title}</p>
+        <ul>
+          {persona.items.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </div>
       <div className="tier">
         <p className="tier-kind">Records · transaction · timestamped</p>
         {row.lanes.map((lane) => (
