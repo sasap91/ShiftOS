@@ -295,3 +295,4 @@ Harness: Playwright (recommended) driving the built app; `npm run test:e2e`; scr
 | v0.17 | 2026-09-27 | **Layout sketch verified**: ATTRIBUTES · Floor Layer (‹ › zone nav browses zones) · TABLES (active order highlights 11 bound zones; zone select filters) · Chat. 3 rounds green; health `mode:ai`; URL 200 |
 | v0.18 | 2026-09-27 | **Persona table detail verified** (DS-27 T1–T4): 7 columns; lens column header = Recovery (mfg) / Gap (demand); persona expanded tier per lens; `persona` projection asserted by 4 new invariants (**58/58**). 3 rounds green |
 | v0.19 | 2026-09-27 | **Chat chrome trimmed**: removed the Publish/Approval footnote; chat renders only `FORGE · How can I help? · Message FORGE · Send`. 3 rounds green; URL 200 |
+| v0.20 | 2026-09-27 | **Chat header removed**: right pane renders only `Message FORGE… · Send` (no header/heading). 3 rounds green; URL 200 |

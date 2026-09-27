@@ -365,13 +365,7 @@ export function App() {
             </section>
           </div>
         </section>
-        <aside className="chat" aria-label="Conversation">
-          <header className="log-head">
-            <div>
-              <p className="kicker">FORGE</p>
-              <h2>How can I help?</h2>
-            </div>
-          </header>
+        <aside className="chat" aria-label="Chat">
           <div className="log" ref={logRef}>
             {thread.notice ? <p className="notice">{thread.notice}</p> : null}
             {thread.turns.slice(1).map((item, index) => (
