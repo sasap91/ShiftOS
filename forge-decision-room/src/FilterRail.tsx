@@ -77,7 +77,7 @@ export function FilterRail({ filters, count, selectedZone, zoneLabel, activeCoun
   return (
     <div className="filter-rail">
       <header className="rail-head">
-        <h2>SCOPE</h2>
+        <h2>ATTRIBUTES</h2>
         <button type="button" className="rail-clear" onClick={onClearAll} disabled={!activeCount}>
           Clear {activeCount || ""}
         </button>

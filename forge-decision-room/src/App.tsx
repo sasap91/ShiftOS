@@ -25,7 +25,7 @@ import { buildLedger } from "./ledger";
 import { MASTER_SET_VERSION } from "./master";
 import { FilterRail, DEFAULT_FILTERS, type Filters } from "./FilterRail";
 import { ShopFloor } from "./ShopFloor";
-import { HORIZONS, flowStagesForRow, lensSort, ownerOf, rowsInZone, zoneById, type Horizon } from "./zones";
+import { HORIZONS, ZONES, flowStagesForRow, lensSort, ownerOf, rowsInZone, zoneById, type Horizon } from "./zones";
 
 const ROLES = [
   PEOPLE["manufacturing-manager"],
@@ -195,6 +195,14 @@ export function App() {
 
   const scenario = [...thread.runs].reverse().find((row) => row.kind === "scenario");
 
+  /** ← / → browse the floor layer zone by zone (the sketch's floor navigation). */
+  function stepZone(direction: number) {
+    const ids = ZONES.map((zone) => zone.id);
+    const current = selectedZone ? ids.indexOf(selectedZone) : -1;
+    const next = (current + direction + ids.length) % ids.length;
+    setSelectedZone(ids[next]);
+  }
+
   return (
     <div className="app">
       <header className="topbar" aria-label="Decision context">
@@ -323,11 +331,22 @@ export function App() {
         </aside>
         <section className="centre" aria-label="Middle: shop floor and order table">
           <div className="centre-split">
-            <section className="middle-top" aria-label="COOLIT shop floor">
-              <p className="floor-title">COOLIT SHOP FLOOR</p>
-              <ShopFloor rows={ledgerRows} selectedZone={selectedZone} onSelectZone={setSelectedZone} />
+            <section className="middle-top" aria-label="Floor layer">
+              <div className="floor-head">
+                <p className="floor-title">COOLIT SHOP FLOOR</p>
+                <div className="floor-nav" aria-label="Navigate the floor">
+                  <button type="button" aria-label="Previous zone" onClick={() => stepZone(-1)}>
+                    ‹
+                  </button>
+                  <button type="button" aria-label="Next zone" onClick={() => stepZone(1)}>
+                    ›
+                  </button>
+                </div>
+              </div>
+              <ShopFloor rows={ledgerRows} activeId={activeId} selectedZone={selectedZone} onSelectZone={setSelectedZone} />
             </section>
-            <section className="middle-bottom" aria-label="Order information table">
+            <section className="middle-bottom" aria-label="Tables">
+              <p className="region-label">TABLES</p>
               <LedgerView
                 rows={filteredRows}
                 activeId={activeId}

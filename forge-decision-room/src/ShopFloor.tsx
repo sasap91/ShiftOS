@@ -12,7 +12,7 @@
  */
 import { useEffect, useState } from "react";
 import type { LedgerRow } from "./ledger";
-import { PLAN, ZONES, zoneLoad, type Zone } from "./zones";
+import { PLAN, ZONES, zoneLoad, zonesForRow, type Zone } from "./zones";
 
 const DOT: Record<string, string> = {
   "at-risk": "#b3261e",
@@ -55,8 +55,9 @@ function Arrow({ x1, y1, x2, y2, dashed }: { x1: number; y1: number; x2: number;
   );
 }
 
-function Schematic({ load, selectedZone, onSelectZone }: {
+function Schematic({ load, bound, selectedZone, onSelectZone }: {
   load: Map<string, { count: number; worst: LedgerRow["risk"] | null }>;
+  bound: Set<string>;
   selectedZone: string | null;
   onSelectZone: (id: string | null) => void;
 }) {
@@ -81,7 +82,7 @@ function Schematic({ load, selectedZone, onSelectZone }: {
         return (
           <g
             key={zone.id}
-            className={selectedZone === zone.id ? "zone selected" : "zone"}
+            className={["zone", selectedZone === zone.id ? "selected" : "", bound.has(zone.id) ? "bound" : ""].filter(Boolean).join(" ")}
             role="button"
             tabIndex={0}
             aria-label={`${zone.label}${count ? `, ${count} open decisions` : ""}`}
@@ -127,8 +128,9 @@ function Schematic({ load, selectedZone, onSelectZone }: {
 }
 
 /** Authoritative illustration + clickable zone hotspots (used when the asset exists). */
-function Illustration({ load, selectedZone, onSelectZone }: {
+function Illustration({ load, bound, selectedZone, onSelectZone }: {
   load: Map<string, { count: number; worst: LedgerRow["risk"] | null }>;
+  bound: Set<string>;
   selectedZone: string | null;
   onSelectZone: (id: string | null) => void;
 }) {
@@ -141,7 +143,7 @@ function Illustration({ load, selectedZone, onSelectZone }: {
           <button
             key={zone.id}
             type="button"
-            className={selectedZone === zone.id ? "zone-hotspot selected" : "zone-hotspot"}
+            className={["zone-hotspot", selectedZone === zone.id ? "selected" : "", bound.has(zone.id) ? "bound" : ""].filter(Boolean).join(" ")}
             style={{
               left: `${(zone.x / PLAN.width) * 100}%`,
               top: `${(zone.y / PLAN.height) * 100}%`,
@@ -161,12 +163,15 @@ function Illustration({ load, selectedZone, onSelectZone }: {
   );
 }
 
-export function ShopFloor({ rows, selectedZone, onSelectZone }: {
+export function ShopFloor({ rows, activeId, selectedZone, onSelectZone }: {
   rows: LedgerRow[];
+  activeId?: string;
   selectedZone: string | null;
   onSelectZone: (id: string | null) => void;
 }) {
   const load = zoneLoad(rows);
+  const activeRow = activeId ? rows.find((row) => row.commitmentId === activeId) : undefined;
+  const bound = new Set(activeRow ? zonesForRow(activeRow) : []);
   const [hasImage, setHasImage] = useState(false);
 
   useEffect(() => {
@@ -177,8 +182,8 @@ export function ShopFloor({ rows, selectedZone, onSelectZone }: {
   }, []);
 
   return hasImage ? (
-    <Illustration load={load} selectedZone={selectedZone} onSelectZone={onSelectZone} />
+    <Illustration load={load} bound={bound} selectedZone={selectedZone} onSelectZone={onSelectZone} />
   ) : (
-    <Schematic load={load} selectedZone={selectedZone} onSelectZone={onSelectZone} />
+    <Schematic load={load} bound={bound} selectedZone={selectedZone} onSelectZone={onSelectZone} />
   );
 }

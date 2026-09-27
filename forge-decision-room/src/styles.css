@@ -544,3 +544,13 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 .chat .recommendation { margin: 6px 0 0; font-size: 14px; }
 .chat .action-line { margin: 6px 0 0; color: var(--muted); font-size: 13px; }
 .chat .progress { margin: 0 0 6px; padding-left: 18px; color: var(--muted); font-size: 12px; }
+
+/* ---- Sketch layout: Attributes · Floor Layer (←→) · Tables · Chat ---- */
+.floor-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.floor-nav { display: flex; gap: 2px; }
+.floor-nav button { width: 22px; height: 22px; border: 1px solid var(--line); background: var(--log); color: var(--muted); border-radius: 3px; line-height: 1; }
+.floor-nav button:hover { color: var(--ink); border-color: var(--ink); }
+.region-label { margin: 0; padding: 7px 16px 2px; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--muted); }
+.middle-bottom { grid-template-rows: auto minmax(0, 1fr); }
+.zone.bound .zone-rect { stroke: var(--watch); stroke-width: 1.5; }
+.zone-hotspot.bound { border-color: var(--watch); border-style: dashed; }
