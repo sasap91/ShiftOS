@@ -6,6 +6,7 @@ import { assess, envelopeFor } from "../src/model";
 import type { Block, Turn } from "../src/shared/contracts";
 import { aiEnabled } from "./model/client";
 import { mergeProse } from "./orchestrators/explain";
+import { generalTurn } from "./orchestrators/general";
 import { investigateTurn } from "./orchestrators/investigate";
 import { insufficiencyPlan, validateInvestigation, type InvestigationPlan } from "./validate/respond";
 import type { ToolContext } from "./tools/types";
@@ -80,6 +81,29 @@ assert.equal(merged.blocks.some((b) => b.kind === "options"), true);
 assert.equal(merged.blocks.some((b) => b.kind === "next"), true);
 assert.equal(merged.blocks.filter((b) => b.kind === "answer").length, 1);
 console.log("explain merge verified (prose replaced · governed blocks preserved)");
+
+// --- general route: broad answer, no operational tools ---
+const generalContext: ToolContext = {
+  traceId: "tr-general-verify",
+  requestId: "req-general-verify",
+  envelope: envelopeFor("manufacturing-manager", "COM-1042", { kind: "baseline" }),
+  role: "manufacturing-manager",
+  commitmentId: "COM-1042",
+  now: "2026-09-26T08:15:00-06:00",
+};
+const general = await generalTurn(generalContext, "Why is the sky blue?", async () => ({
+  value: {
+    answer: "Blue light is scattered more strongly by Earth's atmosphere than longer wavelengths.",
+    basis: "This is established general scientific knowledge.",
+  },
+  raw: "",
+  model: "test-model",
+  finishReason: "stop",
+}));
+assert.equal(general.turn.tools.length, 0);
+assert.equal(general.turn.blocks[0].kind, "answer");
+assert.equal(general.model, "test-model");
+console.log("general assistant verified (broad answer · zero operational tools)");
 
 if (aiEnabled()) {
   const role = "manufacturing-manager" as const;

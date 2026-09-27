@@ -88,6 +88,15 @@ export const ROUTE_RULES: RouteRule[] = [
     pattern: /status|snapshot|inventory|eligible|capacity|promise|commitment|feasible|infeasible/,
     actions: [],
   },
+  {
+    // Keep this last: it deliberately catches ordinary questions that do not
+    // belong to a governed decision-room workflow.
+    intentClass: "general",
+    subOrchestrator: "none",
+    tools: [],
+    pattern: /[\s\S]+/,
+    actions: [],
+  },
 ];
 
 export function ruleFor(intentClass: IntentClass): RouteRule | undefined {

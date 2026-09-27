@@ -1,6 +1,6 @@
 /**
  * Router + chat control-plane verification (P1 acceptance).
- * Deterministic routing, authorized tool subsets, fail-closed, role policy.
+ * Deterministic routing, authorized tool subsets, general questions, role policy.
  */
 import { classify } from "./router/router";
 import { runTurn } from "./chat";
@@ -55,11 +55,13 @@ assert.equal(demandExec.policy.allowed, false);
 const plannerApprove = classify({ role: "shift-planner", action: "approve" });
 assert.equal(plannerApprove.policy.allowed, true);
 
-// --- fail closed ---
+// --- broad questions use the tool-free general route ---
 const ambiguous = classify({ role: "manufacturing-manager", text: "what is the weather tomorrow" });
-assert.equal(ambiguous.intentClass, "unsupported");
-assert.equal(ambiguous.fallback, "clarify");
+assert.equal(ambiguous.intentClass, "general");
+assert.equal(ambiguous.fallback, null);
 assert.equal(ambiguous.subOrchestrator, "none");
+assert.deepEqual(ambiguous.tools, []);
+assert.equal(ambiguous.policy.allowed, true);
 
 // --- empty composer submit orients the thread ---
 const orient = classify({ role: "manufacturing-manager" });
@@ -80,6 +82,6 @@ assert.equal(refusedAnswer?.kind === "answer" && refusedAnswer.text, "That actio
 
 const unknown = await runTurn({ role: "manufacturing-manager", commitmentId: "COM-1042", text: "what is the weather tomorrow" });
 const clarify = unknown.turn.blocks.find((block) => block.kind === "answer");
-assert.match(clarify?.kind === "answer" ? clarify.text : "", /outside what this room can establish/);
+assert.match(clarify?.kind === "answer" ? clarify.text : "", /general AI assistant is temporarily unavailable/i);
 
 console.log("router + chat control plane verified");

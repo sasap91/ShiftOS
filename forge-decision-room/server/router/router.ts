@@ -3,7 +3,8 @@
  *
  * Classifies a request into an allowed intent class BEFORE any model sees
  * tools, selects exactly one bounded sub-orchestrator and its authorized tool
- * subset, applies role policy, and fails closed (clarify) when ambiguous.
+ * subset, applies role policy, and routes ordinary questions to the tool-free
+ * general assistant.
  *
  * This module never calls a model.
  */
@@ -30,6 +31,7 @@ const SUB_FOR_PROGRESS: Record<IntentClass, string> = {
   action: "Validating approval and idempotency",
   outcome: "Comparing expected and realized results",
   selection: "Committing the selection",
+  general: "Answering a general question",
   unsupported: "Checking what can be established",
 };
 
@@ -56,8 +58,8 @@ export function classify(input: ClassifyInput): RouteDecision {
     const byText = ROUTE_RULES.find((rule) => rule.pattern.test(text));
     if (byText) intentClass = byText.intentClass;
   }
-  // A bare question with no operational keyword fails closed unless it is empty
-  // (an empty composer submit orients the thread).
+  // An empty composer submit orients the thread. Non-empty text is covered by
+  // the final, tool-free general rule in the taxonomy.
   if (!intentClass) {
     intentClass = text ? "unsupported" : "lookup";
   }
