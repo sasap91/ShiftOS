@@ -1,0 +1,29 @@
+dataset_name: COOLIT_Synthetic_Enterprise_Data_v2
+dataset_status: synthetic_fixture
+company_reference: COOLIT Systems
+customer_relationship_claimed: false
+actual_company_data_included: false
+generated_at: 2026-09-26T08:00:00-06:00
+as_of_at: 2026-09-25T23:59:59-06:00
+deterministic_seed: 20260927
+tenant_id: TEN-COOLIT-SYN-001
+active_site_id: SITE-COOLIT-SYN-01
+historical_weeks: 104
+planning_weeks: 26
+raw_dataset_count: 159
+overall_review_status: PASS
+anchors:
+  product_configurations: 12
+  item_master_rows: 250
+  suppliers: 10
+  canonical_commitments: 60
+  work_orders: 40
+  actual_test_executions: 100
+semantic_guards:
+  - planned_not_available
+  - on_hand_not_eligible
+  - allocated_not_committed
+  - completed_not_shipped
+  - draft_not_published
+  - recommendation_not_approval
+source_note: Public sources ground only high-level product families and manufacturing themes.

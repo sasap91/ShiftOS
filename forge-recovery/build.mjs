@@ -1,0 +1,10 @@
+import {mkdir,cp,copyFile,readFile,writeFile,rm} from 'node:fs/promises';
+await rm('dist',{recursive:true,force:true});
+await mkdir('dist/server',{recursive:true});
+await cp('public','dist/client',{recursive:true});
+await writeFile('dist/server/index.js',(await readFile('src/worker.js','utf8')).replace("../public/engine.mjs","./engine.mjs"));
+await copyFile('public/engine.mjs','dist/server/engine.mjs');
+await copyFile('public/dataset.mjs','dist/server/dataset.mjs');
+await writeFile('dist/server/chat.js',(await readFile('src/chat.js','utf8')).replaceAll('../public/','./'));
+const manifest=JSON.parse(await readFile('.openai/hosting.json','utf8'));delete manifest.static;await writeFile('.openai/hosting.json',JSON.stringify(manifest,null,2)+'\n');
+console.log('FORGE built: Worker + public assets.');
