@@ -1,0 +1,2271 @@
+{
+  "contract": {
+    "capacity_bucket": "available_minutes_per_day \u00d7 business_days \u00d7 concurrent_units",
+    "operation_duration": "setup_minutes + quantity \u00d7 run_minutes_per_unit"
+  },
+  "feasibility": {
+    "feasibleWithinHorizon": false,
+    "horizonDays": 130,
+    "overloadedWeeks": [
+      {
+        "band": "OVERLOADED",
+        "resourceId": "LINE-CPL-01",
+        "utilisation": 1.825,
+        "week": "2026-P01"
+      },
+      {
+        "band": "OVERLOADED",
+        "resourceId": "LINE-CPL-01",
+        "utilisation": 4.075,
+        "week": "2026-P04"
+      },
+      {
+        "band": "OVERLOADED",
+        "resourceId": "LINE-CPL-01",
+        "utilisation": 3.625,
+        "week": "2026-P08"
+      },
+      {
+        "band": "OVERLOADED",
+        "resourceId": "LINE-RM-01",
+        "utilisation": 2.725,
+        "week": "2026-P02"
+      },
+      {
+        "band": "OVERLOADED",
+        "resourceId": "LINE-RM-01",
+        "utilisation": 3.625,
+        "week": "2026-P03"
+      },
+      {
+        "band": "OVERLOADED",
+        "resourceId": "LINE-RM-01",
+        "utilisation": 1.375,
+        "week": "2026-P05"
+      },
+      {
+        "band": "OVERLOADED",
+        "resourceId": "LINE-RM-01",
+        "utilisation": 2.275,
+        "week": "2026-P06"
+      },
+      {
+        "band": "OVERLOADED",
+        "resourceId": "LINE-CDU-01",
+        "utilisation": 3.175,
+        "week": "2026-P07"
+      },
+      {
+        "band": "OVERLOADED",
+        "resourceId": "LINE-CDU-01",
+        "utilisation": 4.075,
+        "week": "2026-P08"
+      },
+      {
+        "band": "OVERLOADED",
+        "resourceId": "TEST-LEAK-01",
+        "utilisation": 4.5417,
+        "week": "2026-P01"
+      },
+      {
+        "band": "OVERLOADED",
+        "resourceId": "TEST-LEAK-01",
+        "utilisation": 3.4071,
+        "week": "2026-P02"
+      },
+      {
+        "band": "OVERLOADED",
+        "resourceId": "TEST-LEAK-01",
+        "utilisation": 4.0929,
+        "week": "2026-P03"
+      },
+      {
+        "band": "OVERLOADED",
+        "resourceId": "TEST-LEAK-01",
+        "utilisation": 3.4857,
+        "week": "2026-P04"
+      },
+      {
+        "band": "OVERLOADED",
+        "resourceId": "TEST-LEAK-01",
+        "utilisation": 1.1714,
+        "week": "2026-P05"
+      },
+      {
+        "band": "OVERLOADED",
+        "resourceId": "TEST-LEAK-01",
+        "utilisation": 2.8071,
+        "week": "2026-P06"
+      },
+      {
+        "band": "OVERLOADED",
+        "resourceId": "TEST-LEAK-01",
+        "utilisation": 3.5357,
+        "week": "2026-P07"
+      },
+      {
+        "band": "OVERLOADED",
+        "resourceId": "TEST-LEAK-01",
+        "utilisation": 3.1,
+        "week": "2026-P08"
+      }
+    ],
+    "resources": {
+      "CELL-ROBOT-01": {
+        "capacityMinutes": 249600.0,
+        "demandMinutes": 20000.0,
+        "overloadedWeeks": [],
+        "utilisation": 0.08
+      },
+      "LINE-CDU-01": {
+        "capacityMinutes": 124800.0,
+        "demandMinutes": 30190.0,
+        "overloadedWeeks": [
+          "2026-P07",
+          "2026-P08"
+        ],
+        "utilisation": 0.242
+      },
+      "LINE-CPL-01": {
+        "capacityMinutes": 124800.0,
+        "demandMinutes": 33872.0,
+        "overloadedWeeks": [
+          "2026-P01",
+          "2026-P04",
+          "2026-P08"
+        ],
+        "utilisation": 0.271
+      },
+      "LINE-RM-01": {
+        "capacityMinutes": 124800.0,
+        "demandMinutes": 27054.0,
+        "overloadedWeeks": [
+          "2026-P02",
+          "2026-P03",
+          "2026-P05",
+          "2026-P06"
+        ],
+        "utilisation": 0.217
+      },
+      "TEST-FUNC-01": {
+        "capacityMinutes": 109200.0,
+        "demandMinutes": 21520.0,
+        "overloadedWeeks": [],
+        "utilisation": 0.197
+      },
+      "TEST-LEAK-01": {
+        "capacityMinutes": 106440.0,
+        "demandMinutes": 59800.0,
+        "overloadedWeeks": [
+          "2026-P01",
+          "2026-P02",
+          "2026-P03",
+          "2026-P04",
+          "2026-P05",
+          "2026-P06",
+          "2026-P07",
+          "2026-P08"
+        ],
+        "utilisation": 0.562
+      }
+    }
+  },
+  "method": "contract-dispatch (rate-based cumulative)",
+  "plan": {
+    "completedAll": true,
+    "jobs": [
+      {
+        "completionDay": "2026-10-07",
+        "dueDay": "2026-10-02",
+        "id": "WO-0001",
+        "onTime": false,
+        "operations": [
+          {
+            "endDay": "2026-09-28",
+            "minutes": 185.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-09-28"
+          },
+          {
+            "endDay": "2026-09-29",
+            "minutes": 740.0,
+            "overflow": false,
+            "resourceId": "LINE-CPL-01",
+            "seq": 20,
+            "startDay": "2026-09-29"
+          },
+          {
+            "endDay": "2026-09-30",
+            "minutes": 245.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-09-30"
+          },
+          {
+            "endDay": "2026-10-02",
+            "minutes": 305.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-10-01"
+          },
+          {
+            "endDay": "2026-10-05",
+            "minutes": 425.0,
+            "overflow": false,
+            "resourceId": "TEST-FUNC-01",
+            "seq": 50,
+            "startDay": "2026-10-05"
+          },
+          {
+            "endDay": "2026-10-06",
+            "minutes": 221.0,
+            "overflow": false,
+            "resourceId": "LINE-CPL-01",
+            "seq": 60,
+            "startDay": "2026-10-06"
+          }
+        ],
+        "priority": "P1",
+        "product": "CFG-CPL-02",
+        "qty": 12,
+        "tardinessDays": 3
+      },
+      {
+        "completionDay": "2026-11-06",
+        "dueDay": "2026-10-08",
+        "id": "WO-0002",
+        "onTime": false,
+        "operations": [
+          {
+            "endDay": "2026-10-01",
+            "minutes": 275.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-01"
+          },
+          {
+            "endDay": "2026-10-15",
+            "minutes": 1100.0,
+            "overflow": false,
+            "resourceId": "LINE-CDU-01",
+            "seq": 20,
+            "startDay": "2026-10-14"
+          },
+          {
+            "endDay": "2026-11-02",
+            "minutes": 365.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-10-29"
+          },
+          {
+            "endDay": "2026-11-03",
+            "minutes": 455.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-11-03"
+          },
+          {
+            "endDay": "2026-11-04",
+            "minutes": 635.0,
+            "overflow": false,
+            "resourceId": "TEST-FUNC-01",
+            "seq": 50,
+            "startDay": "2026-11-04"
+          },
+          {
+            "endDay": "2026-11-05",
+            "minutes": 329.0,
+            "overflow": false,
+            "resourceId": "LINE-CDU-01",
+            "seq": 60,
+            "startDay": "2026-11-05"
+          }
+        ],
+        "priority": "P2",
+        "product": "CFG-CDU-01",
+        "qty": 18,
+        "tardinessDays": 21
+      },
+      {
+        "completionDay": "2026-12-21",
+        "dueDay": "2026-10-10",
+        "id": "WO-0003",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-10-07",
+            "minutes": 365.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-07"
+          },
+          {
+            "endDay": "2026-10-26",
+            "minutes": 1460.0,
+            "overflow": false,
+            "resourceId": "LINE-CPL-01",
+            "seq": 20,
+            "startDay": "2026-10-23"
+          },
+          {
+            "endDay": "2026-12-11",
+            "minutes": 485.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-12-11"
+          },
+          {
+            "endDay": "2026-12-15",
+            "minutes": 605.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-12-14"
+          },
+          {
+            "endDay": "2026-12-17",
+            "minutes": 845.0,
+            "overflow": false,
+            "resourceId": "TEST-FUNC-01",
+            "seq": 50,
+            "startDay": "2026-12-16"
+          },
+          {
+            "endDay": "2026-12-18",
+            "minutes": 437.0,
+            "overflow": false,
+            "resourceId": "LINE-CPL-01",
+            "seq": 60,
+            "startDay": "2026-12-18"
+          }
+        ],
+        "priority": "P3",
+        "product": "CFG-CPL-04",
+        "qty": 24,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2026-10-12",
+        "dueDay": "2026-10-14",
+        "id": "WO-0004",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-09-28",
+            "minutes": 455.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-09-28"
+          },
+          {
+            "endDay": "2026-09-30",
+            "minutes": 1820.0,
+            "overflow": false,
+            "resourceId": "LINE-CDU-01",
+            "seq": 20,
+            "startDay": "2026-09-29"
+          },
+          {
+            "endDay": "2026-10-05",
+            "minutes": 605.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-10-02"
+          },
+          {
+            "endDay": "2026-10-06",
+            "minutes": 755.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-10-06"
+          },
+          {
+            "endDay": "2026-10-08",
+            "minutes": 1055.0,
+            "overflow": false,
+            "resourceId": "TEST-FUNC-01",
+            "seq": 50,
+            "startDay": "2026-10-07"
+          },
+          {
+            "endDay": "2026-10-09",
+            "minutes": 545.0,
+            "overflow": false,
+            "resourceId": "LINE-CDU-01",
+            "seq": 60,
+            "startDay": "2026-10-09"
+          }
+        ],
+        "priority": "P1",
+        "product": "CFG-CDU-03",
+        "qty": 30,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2026-11-12",
+        "dueDay": "2026-10-14",
+        "id": "WO-0005",
+        "onTime": false,
+        "operations": [
+          {
+            "endDay": "2026-10-01",
+            "minutes": 545.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-01"
+          },
+          {
+            "endDay": "2026-10-13",
+            "minutes": 2180.0,
+            "overflow": false,
+            "resourceId": "LINE-RM-01",
+            "seq": 20,
+            "startDay": "2026-10-09"
+          },
+          {
+            "endDay": "2026-11-04",
+            "minutes": 725.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-11-02"
+          },
+          {
+            "endDay": "2026-11-06",
+            "minutes": 905.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-11-05"
+          },
+          {
+            "endDay": "2026-11-10",
+            "minutes": 1265.0,
+            "overflow": false,
+            "resourceId": "TEST-FUNC-01",
+            "seq": 50,
+            "startDay": "2026-11-09"
+          },
+          {
+            "endDay": "2026-11-11",
+            "minutes": 653.0,
+            "overflow": false,
+            "resourceId": "LINE-RM-01",
+            "seq": 60,
+            "startDay": "2026-11-11"
+          }
+        ],
+        "priority": "P2",
+        "product": "CFG-RM-02",
+        "qty": 36,
+        "tardinessDays": 21
+      },
+      {
+        "completionDay": "2026-12-24",
+        "dueDay": "2026-10-18",
+        "id": "WO-0006",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-10-08",
+            "minutes": 635.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-07"
+          },
+          {
+            "endDay": "2026-10-29",
+            "minutes": 2540.0,
+            "overflow": false,
+            "resourceId": "LINE-CPL-01",
+            "seq": 20,
+            "startDay": "2026-10-26"
+          },
+          {
+            "endDay": "2026-12-16",
+            "minutes": 845.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-12-11"
+          },
+          {
+            "endDay": "2026-12-18",
+            "minutes": 1055.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-12-17"
+          },
+          {
+            "endDay": "2026-12-22",
+            "minutes": 1475.0,
+            "overflow": false,
+            "resourceId": "TEST-FUNC-01",
+            "seq": 50,
+            "startDay": "2026-12-21"
+          },
+          {
+            "endDay": "2026-12-23",
+            "minutes": 761.0,
+            "overflow": false,
+            "resourceId": "LINE-CPL-01",
+            "seq": 60,
+            "startDay": "2026-12-23"
+          }
+        ],
+        "priority": "P3",
+        "product": "CFG-CPL-01",
+        "qty": 42,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2026-10-29",
+        "dueDay": "2026-10-24",
+        "id": "WO-0007",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-09-30",
+            "minutes": 725.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-09-29"
+          },
+          {
+            "endDay": "2026-10-09",
+            "minutes": 2900.0,
+            "overflow": false,
+            "resourceId": "LINE-RM-01",
+            "seq": 20,
+            "startDay": "2026-10-06"
+          },
+          {
+            "endDay": "2026-10-20",
+            "minutes": 965.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-10-16"
+          },
+          {
+            "endDay": "2026-10-22",
+            "minutes": 1205.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-10-21"
+          },
+          {
+            "endDay": "2026-10-27",
+            "minutes": 1685.0,
+            "overflow": false,
+            "resourceId": "TEST-FUNC-01",
+            "seq": 50,
+            "startDay": "2026-10-23"
+          },
+          {
+            "endDay": "2026-10-28",
+            "minutes": 869.0,
+            "overflow": false,
+            "resourceId": "LINE-RM-01",
+            "seq": 60,
+            "startDay": "2026-10-28"
+          }
+        ],
+        "priority": "P1",
+        "product": "CFG-RM-04",
+        "qty": 48,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2026-11-18",
+        "dueDay": "2026-10-26",
+        "id": "WO-0008",
+        "onTime": false,
+        "operations": [
+          {
+            "endDay": "2026-10-01",
+            "minutes": 815.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-01"
+          },
+          {
+            "endDay": "2026-10-13",
+            "minutes": 3260.0,
+            "overflow": false,
+            "resourceId": "LINE-CPL-01",
+            "seq": 20,
+            "startDay": "2026-10-08"
+          },
+          {
+            "endDay": "2026-11-06",
+            "minutes": 1085.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-11-04"
+          },
+          {
+            "endDay": "2026-11-10",
+            "minutes": 1355.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-11-09"
+          },
+          {
+            "endDay": "2026-11-13",
+            "minutes": 1895.0,
+            "overflow": false,
+            "resourceId": "TEST-FUNC-01",
+            "seq": 50,
+            "startDay": "2026-11-11"
+          },
+          {
+            "endDay": "2026-11-17",
+            "minutes": 977.0,
+            "overflow": false,
+            "resourceId": "LINE-CPL-01",
+            "seq": 60,
+            "startDay": "2026-11-16"
+          }
+        ],
+        "priority": "P2",
+        "product": "CFG-CPL-03",
+        "qty": 54,
+        "tardinessDays": 17
+      },
+      {
+        "completionDay": "2026-12-03",
+        "dueDay": "2026-10-26",
+        "id": "WO-0009",
+        "onTime": false,
+        "operations": [
+          {
+            "endDay": "2026-10-06",
+            "minutes": 185.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-05"
+          },
+          {
+            "endDay": "2026-11-03",
+            "minutes": 740.0,
+            "overflow": false,
+            "resourceId": "LINE-CDU-01",
+            "seq": 20,
+            "startDay": "2026-11-02"
+          },
+          {
+            "endDay": "2026-11-26",
+            "minutes": 245.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-11-26"
+          },
+          {
+            "endDay": "2026-11-30",
+            "minutes": 305.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-11-30"
+          },
+          {
+            "endDay": "2026-12-01",
+            "minutes": 425.0,
+            "overflow": false,
+            "resourceId": "TEST-FUNC-01",
+            "seq": 50,
+            "startDay": "2026-12-01"
+          },
+          {
+            "endDay": "2026-12-02",
+            "minutes": 221.0,
+            "overflow": false,
+            "resourceId": "LINE-CDU-01",
+            "seq": 60,
+            "startDay": "2026-12-02"
+          }
+        ],
+        "priority": "P3",
+        "product": "CFG-CDU-02",
+        "qty": 12,
+        "tardinessDays": 28
+      },
+      {
+        "completionDay": "2026-10-13",
+        "dueDay": "2026-10-30",
+        "id": "WO-0010",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-09-28",
+            "minutes": 275.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-09-28"
+          },
+          {
+            "endDay": "2026-09-30",
+            "minutes": 1100.0,
+            "overflow": false,
+            "resourceId": "LINE-RM-01",
+            "seq": 20,
+            "startDay": "2026-09-29"
+          },
+          {
+            "endDay": "2026-10-05",
+            "minutes": 365.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-10-05"
+          },
+          {
+            "endDay": "2026-10-07",
+            "minutes": 455.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-10-06"
+          },
+          {
+            "endDay": "2026-10-09",
+            "minutes": 635.0,
+            "overflow": false,
+            "resourceId": "TEST-FUNC-01",
+            "seq": 50,
+            "startDay": "2026-10-08"
+          },
+          {
+            "endDay": "2026-10-12",
+            "minutes": 329.0,
+            "overflow": false,
+            "resourceId": "LINE-RM-01",
+            "seq": 60,
+            "startDay": "2026-10-12"
+          }
+        ],
+        "priority": "P1",
+        "product": "CFG-RM-01",
+        "qty": 18,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2026-11-18",
+        "dueDay": "2026-11-03",
+        "id": "WO-0011",
+        "onTime": false,
+        "operations": [
+          {
+            "endDay": "2026-10-02",
+            "minutes": 365.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-01"
+          },
+          {
+            "endDay": "2026-10-19",
+            "minutes": 1460.0,
+            "overflow": false,
+            "resourceId": "LINE-CDU-01",
+            "seq": 20,
+            "startDay": "2026-10-15"
+          },
+          {
+            "endDay": "2026-11-10",
+            "minutes": 485.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-11-06"
+          },
+          {
+            "endDay": "2026-11-11",
+            "minutes": 605.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-11-11"
+          },
+          {
+            "endDay": "2026-11-16",
+            "minutes": 845.0,
+            "overflow": false,
+            "resourceId": "TEST-FUNC-01",
+            "seq": 50,
+            "startDay": "2026-11-13"
+          },
+          {
+            "endDay": "2026-11-17",
+            "minutes": 437.0,
+            "overflow": false,
+            "resourceId": "LINE-CDU-01",
+            "seq": 60,
+            "startDay": "2026-11-17"
+          }
+        ],
+        "priority": "P2",
+        "product": "CFG-CDU-04",
+        "qty": 24,
+        "tardinessDays": 11
+      },
+      {
+        "completionDay": "2026-12-08",
+        "dueDay": "2026-11-09",
+        "id": "WO-0012",
+        "onTime": false,
+        "operations": [
+          {
+            "endDay": "2026-10-06",
+            "minutes": 455.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-06"
+          },
+          {
+            "endDay": "2026-10-21",
+            "minutes": 1820.0,
+            "overflow": false,
+            "resourceId": "LINE-RM-01",
+            "seq": 20,
+            "startDay": "2026-10-16"
+          },
+          {
+            "endDay": "2026-12-01",
+            "minutes": 605.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-11-26"
+          },
+          {
+            "endDay": "2026-12-02",
+            "minutes": 755.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-12-02"
+          },
+          {
+            "endDay": "2026-12-04",
+            "minutes": 1055.0,
+            "overflow": false,
+            "resourceId": "TEST-FUNC-01",
+            "seq": 50,
+            "startDay": "2026-12-03"
+          },
+          {
+            "endDay": "2026-12-07",
+            "minutes": 545.0,
+            "overflow": false,
+            "resourceId": "LINE-RM-01",
+            "seq": 60,
+            "startDay": "2026-12-07"
+          }
+        ],
+        "priority": "P3",
+        "product": "CFG-RM-03",
+        "qty": 30,
+        "tardinessDays": 21
+      },
+      {
+        "completionDay": "2026-10-30",
+        "dueDay": "2026-11-07",
+        "id": "WO-0013",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-09-30",
+            "minutes": 545.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-09-30"
+          },
+          {
+            "endDay": "2026-10-05",
+            "minutes": 2180.0,
+            "overflow": false,
+            "resourceId": "LINE-CPL-01",
+            "seq": 20,
+            "startDay": "2026-10-01"
+          },
+          {
+            "endDay": "2026-10-22",
+            "minutes": 725.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-10-20"
+          },
+          {
+            "endDay": "2026-10-26",
+            "minutes": 905.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-10-23"
+          },
+          {
+            "endDay": "2026-10-28",
+            "minutes": 1265.0,
+            "overflow": false,
+            "resourceId": "TEST-FUNC-01",
+            "seq": 50,
+            "startDay": "2026-10-27"
+          },
+          {
+            "endDay": "2026-10-29",
+            "minutes": 653.0,
+            "overflow": false,
+            "resourceId": "LINE-CPL-01",
+            "seq": 60,
+            "startDay": "2026-10-29"
+          }
+        ],
+        "priority": "P1",
+        "product": "CFG-CPL-02",
+        "qty": 36,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2026-11-20",
+        "dueDay": "2026-11-11",
+        "id": "WO-0014",
+        "onTime": false,
+        "operations": [
+          {
+            "endDay": "2026-10-02",
+            "minutes": 635.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-02"
+          },
+          {
+            "endDay": "2026-10-22",
+            "minutes": 2540.0,
+            "overflow": false,
+            "resourceId": "LINE-CDU-01",
+            "seq": 20,
+            "startDay": "2026-10-19"
+          },
+          {
+            "endDay": "2026-11-12",
+            "minutes": 845.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-11-10"
+          },
+          {
+            "endDay": "2026-11-16",
+            "minutes": 1055.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-11-13"
+          },
+          {
+            "endDay": "2026-11-18",
+            "minutes": 1475.0,
+            "overflow": false,
+            "resourceId": "TEST-FUNC-01",
+            "seq": 50,
+            "startDay": "2026-11-17"
+          },
+          {
+            "endDay": "2026-11-19",
+            "minutes": 761.0,
+            "overflow": false,
+            "resourceId": "LINE-CDU-01",
+            "seq": 60,
+            "startDay": "2026-11-19"
+          }
+        ],
+        "priority": "P2",
+        "product": "CFG-CDU-01",
+        "qty": 42,
+        "tardinessDays": 7
+      },
+      {
+        "completionDay": "2026-12-29",
+        "dueDay": "2026-11-15",
+        "id": "WO-0015",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-10-08",
+            "minutes": 725.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-08"
+          },
+          {
+            "endDay": "2026-11-04",
+            "minutes": 2900.0,
+            "overflow": false,
+            "resourceId": "LINE-CPL-01",
+            "seq": 20,
+            "startDay": "2026-10-29"
+          },
+          {
+            "endDay": "2026-12-18",
+            "minutes": 965.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-12-16"
+          },
+          {
+            "endDay": "2026-12-22",
+            "minutes": 1205.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-12-21"
+          },
+          {
+            "endDay": "2026-12-25",
+            "minutes": 1685.0,
+            "overflow": false,
+            "resourceId": "TEST-FUNC-01",
+            "seq": 50,
+            "startDay": "2026-12-23"
+          },
+          {
+            "endDay": "2026-12-28",
+            "minutes": 869.0,
+            "overflow": false,
+            "resourceId": "LINE-CPL-01",
+            "seq": 60,
+            "startDay": "2026-12-28"
+          }
+        ],
+        "priority": "P3",
+        "product": "CFG-CPL-04",
+        "qty": 48,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2026-10-20",
+        "dueDay": "2026-11-19",
+        "id": "WO-0016",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-09-28",
+            "minutes": 815.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-09-28"
+          },
+          {
+            "endDay": "2026-10-06",
+            "minutes": 3260.0,
+            "overflow": false,
+            "resourceId": "LINE-CDU-01",
+            "seq": 20,
+            "startDay": "2026-09-30"
+          },
+          {
+            "endDay": "2026-10-08",
+            "minutes": 1085.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-10-07"
+          },
+          {
+            "endDay": "2026-10-12",
+            "minutes": 1355.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-10-09"
+          },
+          {
+            "endDay": "2026-10-15",
+            "minutes": 1895.0,
+            "overflow": false,
+            "resourceId": "TEST-FUNC-01",
+            "seq": 50,
+            "startDay": "2026-10-13"
+          },
+          {
+            "endDay": "2026-10-19",
+            "minutes": 977.0,
+            "overflow": false,
+            "resourceId": "LINE-CDU-01",
+            "seq": 60,
+            "startDay": "2026-10-16"
+          }
+        ],
+        "priority": "P1",
+        "product": "CFG-CDU-03",
+        "qty": 54,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2026-12-01",
+        "dueDay": "2026-11-21",
+        "id": "WO-0017",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-10-05",
+            "minutes": 185.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-05"
+          },
+          {
+            "endDay": "2026-10-16",
+            "minutes": 740.0,
+            "overflow": false,
+            "resourceId": "LINE-RM-01",
+            "seq": 20,
+            "startDay": "2026-10-16"
+          },
+          {
+            "endDay": "2026-11-25",
+            "minutes": 245.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-11-23"
+          },
+          {
+            "endDay": "2026-11-26",
+            "minutes": 305.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-11-26"
+          },
+          {
+            "endDay": "2026-11-27",
+            "minutes": 425.0,
+            "overflow": false,
+            "resourceId": "TEST-FUNC-01",
+            "seq": 50,
+            "startDay": "2026-11-27"
+          },
+          {
+            "endDay": "2026-11-30",
+            "minutes": 221.0,
+            "overflow": false,
+            "resourceId": "LINE-RM-01",
+            "seq": 60,
+            "startDay": "2026-11-30"
+          }
+        ],
+        "priority": "P2",
+        "product": "CFG-RM-02",
+        "qty": 12,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2026-12-09",
+        "dueDay": "2026-11-23",
+        "id": "WO-0018",
+        "onTime": false,
+        "operations": [
+          {
+            "endDay": "2026-10-06",
+            "minutes": 275.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-06"
+          },
+          {
+            "endDay": "2026-10-16",
+            "minutes": 1100.0,
+            "overflow": false,
+            "resourceId": "LINE-CPL-01",
+            "seq": 20,
+            "startDay": "2026-10-15"
+          },
+          {
+            "endDay": "2026-12-01",
+            "minutes": 365.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-12-01"
+          },
+          {
+            "endDay": "2026-12-03",
+            "minutes": 455.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-12-02"
+          },
+          {
+            "endDay": "2026-12-07",
+            "minutes": 635.0,
+            "overflow": false,
+            "resourceId": "TEST-FUNC-01",
+            "seq": 50,
+            "startDay": "2026-12-04"
+          },
+          {
+            "endDay": "2026-12-08",
+            "minutes": 329.0,
+            "overflow": false,
+            "resourceId": "LINE-CPL-01",
+            "seq": 60,
+            "startDay": "2026-12-08"
+          }
+        ],
+        "priority": "P3",
+        "product": "CFG-CPL-01",
+        "qty": 18,
+        "tardinessDays": 12
+      },
+      {
+        "completionDay": "2026-10-20",
+        "dueDay": "2026-11-27",
+        "id": "WO-0019",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-09-29",
+            "minutes": 365.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-09-28"
+          },
+          {
+            "endDay": "2026-10-01",
+            "minutes": 1460.0,
+            "overflow": false,
+            "resourceId": "LINE-RM-01",
+            "seq": 20,
+            "startDay": "2026-09-30"
+          },
+          {
+            "endDay": "2026-10-12",
+            "minutes": 485.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-10-05"
+          },
+          {
+            "endDay": "2026-10-13",
+            "minutes": 605.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-10-13"
+          },
+          {
+            "endDay": "2026-10-16",
+            "minutes": 845.0,
+            "overflow": false,
+            "resourceId": "TEST-FUNC-01",
+            "seq": 50,
+            "startDay": "2026-10-15"
+          },
+          {
+            "endDay": "2026-10-19",
+            "minutes": 437.0,
+            "overflow": false,
+            "resourceId": "LINE-RM-01",
+            "seq": 60,
+            "startDay": "2026-10-19"
+          }
+        ],
+        "priority": "P1",
+        "product": "CFG-RM-04",
+        "qty": 24,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2026-11-24",
+        "dueDay": "2026-12-01",
+        "id": "WO-0020",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-10-02",
+            "minutes": 455.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-02"
+          },
+          {
+            "endDay": "2026-10-15",
+            "minutes": 1820.0,
+            "overflow": false,
+            "resourceId": "LINE-CPL-01",
+            "seq": 20,
+            "startDay": "2026-10-13"
+          },
+          {
+            "endDay": "2026-11-16",
+            "minutes": 605.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-11-12"
+          },
+          {
+            "endDay": "2026-11-17",
+            "minutes": 755.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-11-17"
+          },
+          {
+            "endDay": "2026-11-20",
+            "minutes": 1055.0,
+            "overflow": false,
+            "resourceId": "TEST-FUNC-01",
+            "seq": 50,
+            "startDay": "2026-11-18"
+          },
+          {
+            "endDay": "2026-11-23",
+            "minutes": 545.0,
+            "overflow": false,
+            "resourceId": "LINE-CPL-01",
+            "seq": 60,
+            "startDay": "2026-11-23"
+          }
+        ],
+        "priority": "P2",
+        "product": "CFG-CPL-03",
+        "qty": 30,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2026-12-08",
+        "dueDay": "2026-12-01",
+        "id": "WO-0021",
+        "onTime": false,
+        "operations": [
+          {
+            "endDay": "2026-10-06",
+            "minutes": 545.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-06"
+          },
+          {
+            "endDay": "2026-11-05",
+            "minutes": 2180.0,
+            "overflow": false,
+            "resourceId": "LINE-CDU-01",
+            "seq": 20,
+            "startDay": "2026-11-03"
+          },
+          {
+            "endDay": "2026-12-03",
+            "minutes": 725.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-12-01"
+          },
+          {
+            "endDay": "2026-12-07",
+            "minutes": 905.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-12-04"
+          }
+        ],
+        "priority": "P3",
+        "product": "CFG-CDU-02",
+        "qty": 36,
+        "tardinessDays": 5
+      },
+      {
+        "completionDay": "2026-10-19",
+        "dueDay": "2026-12-07",
+        "id": "WO-0022",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-09-29",
+            "minutes": 635.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-09-29"
+          },
+          {
+            "endDay": "2026-10-06",
+            "minutes": 2540.0,
+            "overflow": false,
+            "resourceId": "LINE-RM-01",
+            "seq": 20,
+            "startDay": "2026-10-01"
+          },
+          {
+            "endDay": "2026-10-14",
+            "minutes": 845.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-10-12"
+          },
+          {
+            "endDay": "2026-10-16",
+            "minutes": 1055.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-10-15"
+          }
+        ],
+        "priority": "P1",
+        "product": "CFG-RM-01",
+        "qty": 42,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2026-11-23",
+        "dueDay": "2026-12-09",
+        "id": "WO-0023",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-10-05",
+            "minutes": 725.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-02"
+          },
+          {
+            "endDay": "2026-10-27",
+            "minutes": 2900.0,
+            "overflow": false,
+            "resourceId": "LINE-CDU-01",
+            "seq": 20,
+            "startDay": "2026-10-22"
+          },
+          {
+            "endDay": "2026-11-18",
+            "minutes": 965.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-11-16"
+          },
+          {
+            "endDay": "2026-11-20",
+            "minutes": 1205.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-11-19"
+          }
+        ],
+        "priority": "P2",
+        "product": "CFG-CDU-04",
+        "qty": 48,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2026-12-28",
+        "dueDay": "2026-12-13",
+        "id": "WO-0024",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-10-08",
+            "minutes": 815.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-08"
+          },
+          {
+            "endDay": "2026-10-29",
+            "minutes": 3260.0,
+            "overflow": false,
+            "resourceId": "LINE-RM-01",
+            "seq": 20,
+            "startDay": "2026-10-23"
+          },
+          {
+            "endDay": "2026-12-23",
+            "minutes": 1085.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-12-18"
+          },
+          {
+            "endDay": "2026-12-25",
+            "minutes": 1355.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-12-24"
+          }
+        ],
+        "priority": "P3",
+        "product": "CFG-RM-03",
+        "qty": 54,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2026-10-28",
+        "dueDay": "2026-12-13",
+        "id": "WO-0025",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-09-30",
+            "minutes": 185.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-09-30"
+          },
+          {
+            "endDay": "2026-10-06",
+            "minutes": 740.0,
+            "overflow": false,
+            "resourceId": "LINE-CPL-01",
+            "seq": 20,
+            "startDay": "2026-10-05"
+          },
+          {
+            "endDay": "2026-10-26",
+            "minutes": 245.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-10-22"
+          },
+          {
+            "endDay": "2026-10-27",
+            "minutes": 305.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-10-27"
+          }
+        ],
+        "priority": "P1",
+        "product": "CFG-CPL-02",
+        "qty": 12,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2026-11-23",
+        "dueDay": "2026-12-17",
+        "id": "WO-0026",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-10-05",
+            "minutes": 275.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-05"
+          },
+          {
+            "endDay": "2026-10-28",
+            "minutes": 1100.0,
+            "overflow": false,
+            "resourceId": "LINE-CDU-01",
+            "seq": 20,
+            "startDay": "2026-10-27"
+          },
+          {
+            "endDay": "2026-11-18",
+            "minutes": 365.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-11-18"
+          },
+          {
+            "endDay": "2026-11-20",
+            "minutes": 455.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-11-20"
+          }
+        ],
+        "priority": "P2",
+        "product": "CFG-CDU-01",
+        "qty": 18,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2026-12-09",
+        "dueDay": "2026-12-23",
+        "id": "WO-0027",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-10-06",
+            "minutes": 365.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-06"
+          },
+          {
+            "endDay": "2026-10-20",
+            "minutes": 1460.0,
+            "overflow": false,
+            "resourceId": "LINE-CPL-01",
+            "seq": 20,
+            "startDay": "2026-10-16"
+          },
+          {
+            "endDay": "2026-12-07",
+            "minutes": 485.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-12-03"
+          },
+          {
+            "endDay": "2026-12-08",
+            "minutes": 605.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-12-08"
+          }
+        ],
+        "priority": "P3",
+        "product": "CFG-CPL-04",
+        "qty": 24,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2026-10-20",
+        "dueDay": "2026-12-25",
+        "id": "WO-0028",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-09-29",
+            "minutes": 455.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-09-29"
+          },
+          {
+            "endDay": "2026-10-08",
+            "minutes": 1820.0,
+            "overflow": false,
+            "resourceId": "LINE-CDU-01",
+            "seq": 20,
+            "startDay": "2026-10-06"
+          },
+          {
+            "endDay": "2026-10-16",
+            "minutes": 605.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-10-14"
+          },
+          {
+            "endDay": "2026-10-19",
+            "minutes": 755.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-10-19"
+          }
+        ],
+        "priority": "P1",
+        "product": "CFG-CDU-03",
+        "qty": 30,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2026-11-26",
+        "dueDay": "2026-12-25",
+        "id": "WO-0029",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-10-05",
+            "minutes": 545.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-05"
+          },
+          {
+            "endDay": "2026-10-16",
+            "minutes": 2180.0,
+            "overflow": false,
+            "resourceId": "LINE-RM-01",
+            "seq": 20,
+            "startDay": "2026-10-13"
+          },
+          {
+            "endDay": "2026-11-23",
+            "minutes": 725.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-11-18"
+          },
+          {
+            "endDay": "2026-11-25",
+            "minutes": 905.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-11-24"
+          }
+        ],
+        "priority": "P2",
+        "product": "CFG-RM-02",
+        "qty": 36,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2026-12-14",
+        "dueDay": "2026-12-29",
+        "id": "WO-0030",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-10-07",
+            "minutes": 635.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-06"
+          },
+          {
+            "endDay": "2026-10-23",
+            "minutes": 2540.0,
+            "overflow": false,
+            "resourceId": "LINE-CPL-01",
+            "seq": 20,
+            "startDay": "2026-10-20"
+          },
+          {
+            "endDay": "2026-12-09",
+            "minutes": 845.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-12-07"
+          },
+          {
+            "endDay": "2026-12-11",
+            "minutes": 1055.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-12-10"
+          }
+        ],
+        "priority": "P3",
+        "product": "CFG-CPL-01",
+        "qty": 42,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2027-01-11",
+        "dueDay": "2027-01-02",
+        "id": "WO-0031",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-10-12",
+            "minutes": 725.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-09"
+          },
+          {
+            "endDay": "2026-11-03",
+            "minutes": 2900.0,
+            "overflow": false,
+            "resourceId": "LINE-RM-01",
+            "seq": 20,
+            "startDay": "2026-10-29"
+          },
+          {
+            "endDay": "2027-01-06",
+            "minutes": 965.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2027-01-04"
+          },
+          {
+            "endDay": "2027-01-08",
+            "minutes": 1205.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2027-01-07"
+          }
+        ],
+        "priority": "P1_RECOVERY",
+        "product": "CFG-RM-04",
+        "qty": 48,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2027-01-05",
+        "dueDay": "2027-01-08",
+        "id": "WO-0032",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-10-09",
+            "minutes": 815.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-09"
+          },
+          {
+            "endDay": "2026-11-12",
+            "minutes": 3260.0,
+            "overflow": false,
+            "resourceId": "LINE-CPL-01",
+            "seq": 20,
+            "startDay": "2026-11-09"
+          },
+          {
+            "endDay": "2026-12-31",
+            "minutes": 1085.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-12-28"
+          },
+          {
+            "endDay": "2027-01-04",
+            "minutes": 1355.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2027-01-01"
+          }
+        ],
+        "priority": "P1_RECOVERY",
+        "product": "CFG-CPL-03",
+        "qty": 54,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2026-12-31",
+        "dueDay": "2027-01-06",
+        "id": "WO-0033",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-10-09",
+            "minutes": 185.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-09"
+          },
+          {
+            "endDay": "2026-11-06",
+            "minutes": 740.0,
+            "overflow": false,
+            "resourceId": "LINE-CDU-01",
+            "seq": 20,
+            "startDay": "2026-11-05"
+          },
+          {
+            "endDay": "2026-12-28",
+            "minutes": 245.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-12-28"
+          },
+          {
+            "endDay": "2026-12-30",
+            "minutes": 305.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-12-30"
+          }
+        ],
+        "priority": "P1_RECOVERY",
+        "product": "CFG-CDU-02",
+        "qty": 12,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2027-01-12",
+        "dueDay": "2027-01-10",
+        "id": "WO-0034",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-10-12",
+            "minutes": 275.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-12"
+          },
+          {
+            "endDay": "2026-11-04",
+            "minutes": 1100.0,
+            "overflow": false,
+            "resourceId": "LINE-RM-01",
+            "seq": 20,
+            "startDay": "2026-11-03"
+          },
+          {
+            "endDay": "2027-01-08",
+            "minutes": 365.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2027-01-06"
+          },
+          {
+            "endDay": "2027-01-11",
+            "minutes": 455.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2027-01-11"
+          }
+        ],
+        "priority": "P1_RECOVERY",
+        "product": "CFG-RM-01",
+        "qty": 18,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2027-01-06",
+        "dueDay": "2027-01-14",
+        "id": "WO-0035",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-10-09",
+            "minutes": 365.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-09"
+          },
+          {
+            "endDay": "2026-11-09",
+            "minutes": 1460.0,
+            "overflow": false,
+            "resourceId": "LINE-CDU-01",
+            "seq": 20,
+            "startDay": "2026-11-06"
+          },
+          {
+            "endDay": "2027-01-04",
+            "minutes": 485.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-12-31"
+          },
+          {
+            "endDay": "2027-01-05",
+            "minutes": 605.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2027-01-05"
+          }
+        ],
+        "priority": "P1_RECOVERY",
+        "product": "CFG-CDU-04",
+        "qty": 24,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2026-12-15",
+        "dueDay": "2027-01-18",
+        "id": "WO-0036",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-10-07",
+            "minutes": 455.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-07"
+          },
+          {
+            "endDay": "2026-10-23",
+            "minutes": 1820.0,
+            "overflow": false,
+            "resourceId": "LINE-RM-01",
+            "seq": 20,
+            "startDay": "2026-10-21"
+          },
+          {
+            "endDay": "2026-12-11",
+            "minutes": 605.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-12-09"
+          },
+          {
+            "endDay": "2026-12-14",
+            "minutes": 755.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-12-14"
+          }
+        ],
+        "priority": "P3",
+        "product": "CFG-RM-03",
+        "qty": 30,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2026-10-30",
+        "dueDay": "2026-07-08",
+        "id": "WO-0037",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-09-30",
+            "minutes": 545.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-09-30"
+          },
+          {
+            "endDay": "2026-10-08",
+            "minutes": 2180.0,
+            "overflow": false,
+            "resourceId": "LINE-CPL-01",
+            "seq": 20,
+            "startDay": "2026-10-06"
+          },
+          {
+            "endDay": "2026-10-27",
+            "minutes": 725.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-10-26"
+          },
+          {
+            "endDay": "2026-10-29",
+            "minutes": 905.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-10-28"
+          }
+        ],
+        "priority": "P1",
+        "product": "CFG-CPL-02",
+        "qty": 36,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2026-12-01",
+        "dueDay": "2026-07-10",
+        "id": "WO-0038",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-10-05",
+            "minutes": 635.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-05"
+          },
+          {
+            "endDay": "2026-11-02",
+            "minutes": 2540.0,
+            "overflow": false,
+            "resourceId": "LINE-CDU-01",
+            "seq": 20,
+            "startDay": "2026-10-28"
+          },
+          {
+            "endDay": "2026-11-26",
+            "minutes": 845.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-11-25"
+          },
+          {
+            "endDay": "2026-11-30",
+            "minutes": 1055.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-11-27"
+          }
+        ],
+        "priority": "P2",
+        "product": "CFG-CDU-01",
+        "qty": 42,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2026-12-31",
+        "dueDay": "2026-07-14",
+        "id": "WO-0039",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-10-09",
+            "minutes": 725.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-10-08"
+          },
+          {
+            "endDay": "2026-11-09",
+            "minutes": 2900.0,
+            "overflow": false,
+            "resourceId": "LINE-CPL-01",
+            "seq": 20,
+            "startDay": "2026-11-04"
+          },
+          {
+            "endDay": "2026-12-28",
+            "minutes": 965.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-12-23"
+          },
+          {
+            "endDay": "2026-12-30",
+            "minutes": 1205.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-12-29"
+          }
+        ],
+        "priority": "P3",
+        "product": "CFG-CPL-04",
+        "qty": 48,
+        "tardinessDays": 0
+      },
+      {
+        "completionDay": "2026-11-03",
+        "dueDay": "2026-07-18",
+        "id": "WO-0040",
+        "onTime": true,
+        "operations": [
+          {
+            "endDay": "2026-10-01",
+            "minutes": 815.0,
+            "overflow": false,
+            "resourceId": "CELL-ROBOT-01",
+            "seq": 10,
+            "startDay": "2026-09-30"
+          },
+          {
+            "endDay": "2026-10-14",
+            "minutes": 3260.0,
+            "overflow": false,
+            "resourceId": "LINE-CDU-01",
+            "seq": 20,
+            "startDay": "2026-10-08"
+          },
+          {
+            "endDay": "2026-10-29",
+            "minutes": 1085.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 30,
+            "startDay": "2026-10-27"
+          },
+          {
+            "endDay": "2026-11-02",
+            "minutes": 1355.0,
+            "overflow": false,
+            "resourceId": "TEST-LEAK-01",
+            "seq": 40,
+            "startDay": "2026-10-30"
+          }
+        ],
+        "priority": "P1",
+        "product": "CFG-CDU-03",
+        "qty": 54,
+        "tardinessDays": 0
+      }
+    ]
+  },
+  "resultHash": "3118532ea75aeeb9d77712b7b3e5ba7be008b48a22728b8fc0f0fda45be07e78",
+  "solver": {
+    "method": 2,
+    "mipGap": 0.0,
+    "name": "gurobi",
+    "presolve": 2,
+    "seed": 0,
+    "threads": 1,
+    "version": "12.0.3",
+    "workLimit": 1000000
+  },
+  "source": "COOLIT_Synthetic_Enterprise_Data_v3.2"
+}

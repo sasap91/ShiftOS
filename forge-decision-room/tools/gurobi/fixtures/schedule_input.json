@@ -1,0 +1,49 @@
+{
+  "note": "PROVISIONAL scheduling input derived from the COOLIT plan (W4 routing fixture). Rates are synthetic but internally consistent; replace with the routing/resource masters when W4 lands.",
+  "horizonDays": [
+    "2026-09-28", "2026-09-29", "2026-09-30",
+    "2026-10-01", "2026-10-02",
+    "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09",
+    "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16",
+    "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23"
+  ],
+  "resources": [
+    { "id": "RES-ASM-01", "zone": "Z-ASM", "ratePerDay": 20 },
+    { "id": "RES-ASM-02", "zone": "Z-ASM", "ratePerDay": 20 },
+    { "id": "RES-ELEC-01", "zone": "Z-ELEC", "ratePerDay": 24 },
+    { "id": "RES-LT-01", "zone": "Z-LT", "ratePerDay": 32, "derates": [
+      { "from": "2026-10-06", "to": "2026-10-14", "factor": 0.5 }
+    ] },
+    { "id": "RES-FT-02", "zone": "Z-FT", "ratePerDay": 40 },
+    { "id": "RES-SHIP-01", "zone": "Z-SHIP", "ratePerDay": 64 }
+  ],
+  "routings": {
+    "CPL-480": [
+      { "seq": 10, "resourceId": "RES-ASM-01", "stdRate": 20 },
+      { "seq": 20, "resourceId": "RES-LT-01", "stdRate": 32 },
+      { "seq": 30, "resourceId": "RES-SHIP-01", "stdRate": 64 }
+    ],
+    "CPL-320": [
+      { "seq": 10, "resourceId": "RES-ASM-02", "stdRate": 20 },
+      { "seq": 20, "resourceId": "RES-LT-01", "stdRate": 32 },
+      { "seq": 30, "resourceId": "RES-SHIP-01", "stdRate": 64 }
+    ],
+    "RM-42": [
+      { "seq": 10, "resourceId": "RES-ASM-02", "stdRate": 20 },
+      { "seq": 20, "resourceId": "RES-FT-02", "stdRate": 40 },
+      { "seq": 30, "resourceId": "RES-SHIP-01", "stdRate": 64 }
+    ],
+    "CDU-2400": [
+      { "seq": 10, "resourceId": "RES-ASM-01", "stdRate": 20, "fixedStartDay": 0 },
+      { "seq": 20, "resourceId": "RES-ELEC-01", "stdRate": 24, "fixedStartDay": 2 },
+      { "seq": 30, "resourceId": "RES-LT-01", "stdRate": 32, "fixedStartDay": 4 },
+      { "seq": 40, "resourceId": "RES-SHIP-01", "stdRate": 64, "fixedStartDay": 6 }
+    ]
+  },
+  "jobs": [
+    { "id": "COM-1104", "product": "CDU-2400", "qty": 24, "dueDay": "2026-10-10", "priority": 1 },
+    { "id": "COM-1018", "product": "RM-42", "qty": 80, "dueDay": "2026-10-15", "priority": 2 },
+    { "id": "COM-1042", "product": "CPL-480", "qty": 120, "dueDay": "2026-10-15", "priority": 3 },
+    { "id": "COM-0991", "product": "CPL-320", "qty": 40, "dueDay": "2026-11-06", "priority": 5 }
+  ]
+}

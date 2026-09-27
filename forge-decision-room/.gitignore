@@ -1,0 +1,26 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+.vite/
+
+# runtime artifacts (audit log, persona-acceptance matrices)
+var/
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+
+# env / secrets
+.env
+.env.*
+!.env.example
+
+# os / editor
+.DS_Store
+*.log
+coverage/
+.idea/
+.vscode/
