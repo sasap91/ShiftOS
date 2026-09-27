@@ -77,7 +77,7 @@ export const ROUTE_RULES: RouteRule[] = [
   {
     intentClass: "investigation",
     subOrchestrator: "investigate",
-    tools: ["explain_risk_chain", "get_evidence_packet"],
+    tools: ["explain_risk_chain", "get_evidence_packet", "get_dataset"],
     pattern: /^why\b|causal|evidence chain|root cause|at risk|explain/,
     actions: ["why", "explain"],
   },

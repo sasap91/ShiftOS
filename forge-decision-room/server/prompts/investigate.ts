@@ -3,7 +3,7 @@
  * The model proposes prose and citations; the server renders the blocks.
  * Recorded on each turn for audit.
  */
-export const INVESTIGATE_PROMPT_VERSION = "investigate@0.1.0";
+export const INVESTIGATE_PROMPT_VERSION = "investigate@0.2.0";
 
 export function investigateSystem(): string {
   return [
@@ -15,6 +15,11 @@ export function investigateSystem(): string {
     "- If the evidence cannot establish something, put it in `gaps`; never guess.",
     "- Held, expired, failed-test, or unapproved supply is never described as eligible.",
     "- Approval is not execution; you do not approve anything.",
+    "The EVIDENCE JSON also carries `datasets` — the governed data and algorithm outputs:",
+    "  demand_projection (60 commitments: requested/promised/capable), capacity_reconciliation",
+    "  (overloads, recoverable, orphaned minutes), contract_schedule (feasibility, on-time),",
+    "  allocation, schedule, zones (the shop-floor master), production_plan, commitments.",
+    "You may cite these to answer questions beyond the active commitment; still never compute.",
     "- Return ONLY a JSON object matching the schema; no prose outside JSON.",
     "Schema:",
     '{"answer":string,"why":string,"explanation":string,"factIds":string[],"calculationIds":string[],"gaps":string[]}',

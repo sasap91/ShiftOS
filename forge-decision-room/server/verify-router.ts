@@ -24,7 +24,7 @@ const assert = {
 // --- intent classification: investigation vs scenario vs approval/action ---
 const why = classify({ role: "manufacturing-manager", text: "Why is this at risk?" });
 assert.equal(why.intentClass, "investigation");
-assert.deepEqual(why.tools, ["explain_risk_chain", "get_evidence_packet"]);
+assert.deepEqual(why.tools, ["explain_risk_chain", "get_evidence_packet", "get_dataset"]);
 assert.equal(why.subOrchestrator, "investigate");
 
 const scenario = classify({ role: "manufacturing-manager", text: "Run recovery scenario" });

@@ -78,13 +78,14 @@ export function App() {
   const [selectedZone, setSelectedZone] = useState<string | null>(url.zone ?? null);
   const [draft, setDraft] = useState("");
   const [pendingId, setPendingId] = useState<string | null>(null);
+  const [thinking, setThinking] = useState(false);
   const [shownSteps, setShownSteps] = useState(0);
   const [pane, setPane] = useState<"queue" | "ledger" | "chat">("ledger");
   const [focusCell, setFocusCell] = useState<string | null>(null);
   const logRef = useRef<HTMLDivElement>(null);
   const thread = threads[activeId];
   const envelope = activeEnvelope(role, thread);
-  const busy = pendingId !== null;
+  const busy = pendingId !== null || thinking;
   const ledgerRows = useMemo(() => buildLedger(threads), [threads]);
   const filteredRows = useMemo(
     () =>
@@ -162,7 +163,34 @@ export function App() {
     const text = draft.trim();
     if (!text) return;
     setDraft("");
-    commit(thread, interpret(text));
+    void ask(text);
+  }
+
+  /**
+   * Every typed question goes to the server AI control plane (the router selects
+   * tools; the model is DeepSeek-V4.1-Flash). The server falls back to the
+   * deterministic scripted turn itself, and we fall back locally on any error.
+   */
+  async function ask(text: string) {
+    if (busy) return;
+    setThinking(true);
+    try {
+      const response = await fetch("/api/chat/turn", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ role, commitmentId: activeId, text }),
+      });
+      if (!response.ok) throw new Error(`turn ${response.status}`);
+      const data = (await response.json()) as { turn: Turn };
+      setThreads((prev) => {
+        const current = prev[activeId];
+        return { ...prev, [activeId]: { ...current, turns: [...current.turns, data.turn] } };
+      });
+    } catch {
+      commit(thread, interpret(text));
+    } finally {
+      setThinking(false);
+    }
   }
 
   const scenario = [...thread.runs].reverse().find((row) => row.kind === "scenario");

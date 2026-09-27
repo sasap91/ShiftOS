@@ -5,6 +5,7 @@
  */
 import {
   ROLE_POLICY,
+  COMMITMENTS,
   assess,
   blastRadius,
   commitment,
@@ -17,6 +18,10 @@ import {
   type Alternative,
   type DecisionRun,
 } from "../../src/model";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+import { ZONES } from "../../src/zones";
+import { planSummary } from "../../src/plan";
 import type { HumanOverrideEvent, RejectionCode } from "../../src/shared/contracts";
 import {
   addApproval,
@@ -94,6 +99,79 @@ export const TOOLS: AnyTool[] = [
       provenance: [ctx.envelope.snapshotId, ctx.envelope.modelVersion],
       data: ctx.envelope,
     }),
+  },
+  {
+    name: "get_dataset",
+    version: "1.0.0",
+    description:
+      "Read any governed dataset or algorithm output the room holds: demand_projection, capacity_reconciliation, contract_schedule, allocation, schedule, zones, production_plan, commitments.",
+    async: false,
+    timeoutMs: 3000,
+    idempotent: true,
+    parse: (raw) => {
+      const r = expectObject(raw);
+      return { dataset: expectString(r, "dataset") };
+    },
+    authorize: () => ALLOW,
+    run: (_ctx, args): ToolOutcome => {
+      const read = (name: string): Record<string, unknown> =>
+        JSON.parse(readFileSync(resolve(process.cwd(), "tools/gurobi/out", name), "utf8")) as Record<string, unknown>;
+      switch (args.dataset) {
+        case "demand_projection": {
+          const d = read("demand_projection.json");
+          return {
+            ref: "demand_projection",
+            provenance: ["governed/canonical_commitment.csv", "erp/work_order.csv"],
+            data: {
+              commitments: d.commitments,
+              linkedToWorkOrder: d.linkedToWorkOrder,
+              activeCommitments: d.activeCommitments,
+              unlinked: d.unlinked,
+              activeUnlinked: d.activeUnlinked,
+              historicalUnlinked: d.historicalUnlinked,
+              mostAtRisk: d.mostAtRisk,
+            },
+          };
+        }
+        case "capacity_reconciliation": {
+          const d = read("capacity_reconciliation.json");
+          return {
+            ref: "capacity_reconciliation",
+            provenance: ["erp/capacity_bucket.csv", "erp/operation_schedule.csv"],
+            data: {
+              contractOverloadedWeeks: d.contractOverloadedWeeks,
+              forwardOverloads: d.forwardOverloads,
+              forwardOverloadsRecoverable: d.forwardOverloadsRecoverable,
+              forwardOverloadsUnresolved: d.forwardOverloadsUnresolved,
+              currentDemandHistoricalMinutes: d.currentDemandHistoricalMinutes,
+              currentDemandForwardMinutes: d.currentDemandForwardMinutes,
+              currentDemandForwardUnmappedMinutes: d.currentDemandForwardUnmappedMinutes,
+              recoverableOverloads: d.recoverableOverloads,
+            },
+          };
+        }
+        case "contract_schedule": {
+          const d = read("contract_schedule.json");
+          return { ref: "contract_schedule", provenance: ["erp/operation_duration.csv"], data: { feasibility: d.feasibility, source: d.source, resultHash: d.resultHash } };
+        }
+        case "allocation": {
+          const d = read("allocation.json");
+          return { ref: "allocation", provenance: ["governed/canonical_commitment.csv"], data: { baseline: d.baseline, recovery: d.recovery, fixture: d.fixture } };
+        }
+        case "schedule": {
+          const d = read("schedule.json");
+          return { ref: "schedule", provenance: ["tools/gurobi/schedule.py"], data: { status: d.status, objective: d.objective, jobs: d.jobs } };
+        }
+        case "zones":
+          return { ref: "zones", provenance: ["src/zones.ts"], data: ZONES };
+        case "production_plan":
+          return { ref: "production_plan", provenance: ["src/plan.ts"], data: planSummary() };
+        case "commitments":
+          return { ref: "commitments", provenance: ["src/model.ts"], data: COMMITMENTS };
+        default:
+          throw new ToolError("invalid_args", `Unknown dataset ${args.dataset}.`);
+      }
+    },
   },
   {
     name: "get_commitment_snapshot",
