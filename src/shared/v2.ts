@@ -51,6 +51,7 @@ export type ChatThreadRecord = {
 };
 
 export type TablePreference = {
+  presetVersion: number;
   userId: string;
   role: Role;
   visibleColumns: string[];

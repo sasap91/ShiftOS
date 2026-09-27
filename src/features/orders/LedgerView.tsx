@@ -2,7 +2,7 @@ import { useMemo, useState, type CSSProperties, type KeyboardEvent } from "react
 import { formatDay, type Role, type RoleLens } from "../../model";
 import type { LedgerRow } from "../../ledger";
 import type { Thread } from "../../orchestrator";
-import { DEFAULT_COLUMNS, useTablePreferences } from "../preferences/useTablePreferences";
+import { ROLE_DEFAULT_COLUMNS, useTablePreferences } from "../preferences/useTablePreferences";
 
 type SortDirection = "asc" | "desc";
 
@@ -19,6 +19,22 @@ const LABELS: Record<string, string> = {
   onTimeQty: "On-time qty",
   lifecycle: "Lifecycle",
   provenance: "Evidence",
+  gapQty: "Commit gap",
+  workCenter: "Work center",
+  requiredLoad: "Required load",
+  allocatedLoad: "Allocated load",
+  loadGap: "Load gap",
+  asset: "Asset",
+  assetStatus: "Availability",
+  impactQty: "Impact qty",
+  recovery: "Recovery",
+};
+
+const ROLE_VIEW_LABEL: Record<Role, string> = {
+  "manufacturing-manager": "Manufacturing control",
+  "shift-planner": "Shift execution",
+  "maintenance-manager": "Asset readiness",
+  "demand-planner": "Demand commitments",
 };
 
 const STATE_LABEL: Record<LedgerRow["risk"], string> = {
@@ -43,12 +59,22 @@ function displayValue(row: LedgerRow, key: string, role: Role): string | number 
   if (key === "onTimeQty") return row.onTimeQty;
   if (key === "lifecycle") return row.lifecycle.replaceAll("-", " ");
   if (key === "provenance") return `${row.provenance.fresh} fresh · ${row.provenance.stale} stale`;
+  if (key === "gapQty") return row.operational.impactQty;
+  if (key === "workCenter") return row.operational.workCenter;
+  if (key === "requiredLoad") return row.operational.requiredLoad;
+  if (key === "allocatedLoad") return row.operational.allocatedLoad;
+  if (key === "loadGap") return row.operational.loadGap;
+  if (key === "asset") return row.operational.asset;
+  if (key === "assetStatus") return row.operational.assetStatus;
+  if (key === "impactQty") return row.operational.assetImpactQty;
+  if (key === "recovery") return row.operational.recovery;
   return "—";
 }
 
 function compareValue(row: LedgerRow, key: string, role: Role): string | number {
   if (key === "risk") return RISK_ORDER.indexOf(row.risk);
   if (key === "promised" || key === "capable") return row[key];
+  if (["gapQty", "requiredLoad", "allocatedLoad", "loadGap", "impactQty"].includes(key)) return Number(displayValue(row, key, role));
   return displayValue(row, key, role);
 }
 
@@ -139,7 +165,7 @@ export function LedgerView({
   return (
     <div className={`ledger lens-${lens}`} role="table" aria-label="All order details" aria-rowcount={sorted.length} style={gridStyle}>
       <div className="ledger-tools">
-        <span>{sorted.length} orders</span>
+        <span><strong>{ROLE_VIEW_LABEL[role]}</strong> · {sorted.length} orders</span>
         <details className="column-menu">
           <summary>Columns · {visible.length}</summary>
           <div className="column-popover">
@@ -185,7 +211,7 @@ export function LedgerView({
                 </label>
               </div>
             ))}
-            <p>Default view: {DEFAULT_COLUMNS.map((key) => LABELS[key]).join(" · ")}</p>
+            <p>{ROLE_VIEW_LABEL[role]} default: {ROLE_DEFAULT_COLUMNS[role].map((key) => LABELS[key]).join(" · ")}</p>
           </div>
         </details>
       </div>
@@ -238,7 +264,8 @@ export function LedgerView({
                   >
                     {key === "commitmentId" ? <span className="row-caret" aria-hidden="true">{expanded ? "⌄" : "›"}</span> : null}
                     {displayValue(row, key, role)}
-                    {key === "qty" ? <small>{row.uom}</small> : null}
+                    {key === "qty" || key === "onTimeQty" || key === "gapQty" || key === "impactQty" ? <small>{row.uom}</small> : null}
+                    {key === "requiredLoad" || key === "allocatedLoad" || key === "loadGap" ? <small>{row.operational.loadUnit}</small> : null}
                   </span>
                 );
               })}
@@ -272,6 +299,48 @@ function LedgerDetail({ row, thread, role }: { row: LedgerRow; thread: Thread; r
   const latestRun = thread.runs.at(-1);
   return (
     <div className="ledger-detail">
+      {role === "manufacturing-manager" ? (
+        <section>
+          <h3>Manufacturing control</h3>
+          <DetailTable rows={[
+            { label: "Priority", value: `P${row.operational.priority}` },
+            { label: "Feasibility", value: row.feasibility, note: row.lifecycle.replaceAll("-", " ") },
+            { label: "On-time quantity", value: row.onTimeQty, note: row.uom },
+            { label: "Commit gap", value: row.operational.impactQty, note: row.uom },
+            { label: "Binding constraint", value: row.constraint.label, note: row.constraint.className },
+            { label: "Capable date", value: formatDay(row.capable), note: `${row.capableDeltaDays >= 0 ? "+" : ""}${row.capableDeltaDays} days vs promise` },
+          ]} />
+        </section>
+      ) : null}
+
+      {role === "shift-planner" ? (
+        <section>
+          <h3>Shift execution and capacity</h3>
+          <DetailTable rows={[
+            { label: "Work center", value: row.operational.workCenter },
+            { label: "Priority", value: `P${row.operational.priority}` },
+            { label: "Required load", value: row.operational.requiredLoad, note: row.operational.loadUnit },
+            { label: "Allocated load", value: row.operational.allocatedLoad, note: row.operational.loadUnit },
+            { label: "Load gap", value: row.operational.loadGap, note: row.operational.loadUnit },
+            { label: "Crew coverage", value: row.operational.crewStatus },
+          ]} />
+        </section>
+      ) : null}
+
+      {role === "maintenance-manager" ? (
+        <section>
+          <h3>Asset availability and production impact</h3>
+          <DetailTable rows={[
+            { label: "Asset", value: row.operational.asset },
+            { label: "Availability", value: row.operational.assetStatus },
+            { label: "Recovery", value: row.operational.recovery },
+            { label: "Asset-attributed impact", value: row.operational.assetImpactQty, note: row.uom },
+            { label: "Capable date", value: formatDay(row.capable), note: `${row.capableDeltaDays >= 0 ? "+" : ""}${row.capableDeltaDays} days vs promise` },
+            { label: "Asset evidence", value: row.operational.assetEvidence },
+          ]} />
+        </section>
+      ) : null}
+
       <section>
         <h3>Promise and order</h3>
         <DetailTable rows={[

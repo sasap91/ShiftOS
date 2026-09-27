@@ -50,6 +50,22 @@ export type LedgerLadderRung = {
   unit: string;
 };
 
+export type OperationalProjection = {
+  priority: number;
+  workCenter: string;
+  requiredLoad: number;
+  allocatedLoad: number;
+  loadGap: number;
+  loadUnit: string;
+  crewStatus: string;
+  asset: string;
+  assetStatus: string;
+  recovery: string;
+  assetEvidence: string;
+  impactQty: number;
+  assetImpactQty: number;
+};
+
 export type LedgerRow = {
   commitmentId: string;
   customer: string;
@@ -75,6 +91,7 @@ export type LedgerRow = {
   derived: { id: string; result: string; formula: string }[];
   lanes: LedgerLane[];
   ladder: LedgerLadderRung[];
+  operational: OperationalProjection;
 };
 
 export const CONSTRAINT_GLYPH: Record<ConstraintClass, string> = {
@@ -171,6 +188,65 @@ function constraintFor(commitmentId: string): LedgerConstraint {
   };
 }
 
+function operationalProjection(
+  row: ReturnType<typeof assess>["commitment"],
+  view: ReturnType<typeof assess>,
+  constraint: LedgerConstraint,
+): OperationalProjection {
+  const mesFacts = view.packet.sourceFacts.filter((fact) => fact.sourceSystem === "MES");
+  const assetFact = mesFacts.find((fact) => /^RES-/.test(fact.sourceRecordId) || /fixture|resource/i.test(fact.statement));
+  const lineageResource = view.packet.lineage.find((edge) => /^RES-/.test(edge.to))?.to;
+  const crewFact = mesFacts.find((fact) => /crew|shift|staff/i.test(fact.statement));
+  const degradedFact = mesFacts.find((fact) => /half rate|degraded|down|downtime/i.test(fact.statement));
+  const recoveryMatch = degradedFact?.statement.match(/event ends\s+([^.]*)/i)
+    ?? degradedFact?.statement.match(/through\s+([^.]*)/i);
+  const workCenter = constraint.className === "capacity" && constraint.resource
+    ? constraint.resource
+    : assetFact?.sourceRecordId ?? lineageResource ?? "No constrained work center";
+  const isCapacityConstraint = constraint.className === "capacity";
+  const requiredLoad = isCapacityConstraint && constraint.required !== null
+    ? constraint.required
+    : view.baseline.requiredTests > 0
+      ? view.baseline.requiredTests
+      : row.qty;
+  const allocatedLoad = isCapacityConstraint && constraint.allocated !== null
+    ? constraint.allocated
+    : view.baseline.requiredTests > 0
+      ? view.baseline.allocatedTests
+      : row.qty;
+  const loadUnit = isCapacityConstraint && constraint.unit
+    ? constraint.unit
+    : view.baseline.requiredTests > 0
+      ? "tests"
+      : row.uom;
+  const asset = constraint.className === "capacity" && constraint.resource
+    ? constraint.resource
+    : assetFact?.sourceRecordId ?? lineageResource ?? "No constrained asset";
+  const assetStatus = degradedFact
+    ? "Degraded"
+    : assetFact && /slack|available/i.test(assetFact.statement)
+      ? "Available"
+      : assetFact
+        ? "No exception recorded"
+        : "No constrained asset";
+
+  return {
+    priority: row.priority,
+    workCenter,
+    requiredLoad,
+    allocatedLoad,
+    loadGap: Math.max(0, requiredLoad - allocatedLoad),
+    loadUnit,
+    crewStatus: crewFact?.statement ?? "No crew exception recorded",
+    asset,
+    assetStatus,
+    recovery: recoveryMatch?.[1]?.trim() ?? (assetStatus === "Available" ? "Available now" : "No recovery event recorded"),
+    assetEvidence: degradedFact?.statement ?? assetFact?.statement ?? "No asset exception is present in the evidence packet.",
+    impactQty: Math.max(0, row.qty - view.onTimeQty),
+    assetImpactQty: isCapacityConstraint ? Math.max(0, row.qty - view.onTimeQty) : 0,
+  };
+}
+
 const PRIMARY_SYSTEMS = ["CRM", "ERP", "MES"];
 
 function laneOf(
@@ -209,6 +285,7 @@ export function buildLedgerRow(thread: Thread): LedgerRow {
     .map((system) => laneOf(packet.sourceFacts, system, false));
 
   const eligible = view.materialShortfall === 0 ? row.qty : Math.max(0, row.qty - view.materialShortfall);
+  const operational = operationalProjection(row, view, constraint);
 
   return {
     commitmentId,
@@ -253,6 +330,7 @@ export function buildLedgerRow(thread: Thread): LedgerRow {
       { key: "tested", label: "Tested", value: 0, unit: row.uom },
       { key: "shipped", label: "Shipped", value: 0, unit: row.uom },
     ],
+    operational,
   };
 }
 
