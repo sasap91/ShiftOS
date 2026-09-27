@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type FormEvent, type ReactNode } from "react";
 import {
   type ApprovalRequest,
   type QueueState,
@@ -30,6 +30,7 @@ import { ShopFloor } from "./features/floor/ShopFloor";
 import { HORIZONS, flowStagesForRow, lensSort, ownerOf, rowsInZone, zoneById, type Horizon } from "./zones";
 import type { ActiveContext, DemandProjectionRow } from "./shared/v2";
 import { assistantHealth, sendChatMessage } from "./features/chat/client";
+import { ResizeHandle } from "./design-system/ResizeHandle";
 
 const ROLES = [
   PEOPLE["manufacturing-manager"],
@@ -50,6 +51,28 @@ type UrlState = { role?: Role; order?: string; zone?: string; horizon?: Horizon 
 type ConversationEntry = { kind: "turn"; id: string; commitmentId: string; role: Role; turn: Turn };
 
 const CHAT_CACHE = "forge-v2:chat:local-user";
+const LAYOUT_CACHE = "forge-v2:layout:local-user";
+const DEFAULT_LAYOUT = { scopeWidth: 220, assistantWidth: 380, floorPercent: 46 };
+
+type WorkspaceLayout = typeof DEFAULT_LAYOUT;
+
+function clampLayout(candidate: Partial<WorkspaceLayout>): WorkspaceLayout {
+  const numeric = (value: unknown, fallback: number) => typeof value === "number" && Number.isFinite(value) ? value : fallback;
+  return {
+    scopeWidth: Math.min(300, Math.max(180, numeric(candidate.scopeWidth, DEFAULT_LAYOUT.scopeWidth))),
+    assistantWidth: Math.min(500, Math.max(320, numeric(candidate.assistantWidth, DEFAULT_LAYOUT.assistantWidth))),
+    floorPercent: Math.min(68, Math.max(38, numeric(candidate.floorPercent, DEFAULT_LAYOUT.floorPercent))),
+  };
+}
+
+function initialWorkspaceLayout(): WorkspaceLayout {
+  if (typeof window === "undefined") return DEFAULT_LAYOUT;
+  try {
+    return clampLayout(JSON.parse(window.localStorage.getItem(LAYOUT_CACHE) ?? "{}") as Partial<WorkspaceLayout>);
+  } catch {
+    return DEFAULT_LAYOUT;
+  }
+}
 
 /** Read the room context from the URL (V-09): role · order · zone · horizon. */
 function readUrl(): UrlState {
@@ -104,6 +127,7 @@ export function App() {
   const [demandLoading, setDemandLoading] = useState(true);
   const [pane, setPane] = useState<"queue" | "ledger" | "chat">("ledger");
   const [focusCell, setFocusCell] = useState<string | null>(null);
+  const [layout, setLayout] = useState(initialWorkspaceLayout);
   const logRef = useRef<HTMLDivElement>(null);
   const abortRef = useRef<AbortController | null>(null);
   const thread = threads[activeId];
@@ -183,6 +207,10 @@ export function App() {
   useEffect(() => {
     window.localStorage.setItem(CHAT_CACHE, JSON.stringify(conversation));
   }, [conversation]);
+
+  useEffect(() => {
+    window.localStorage.setItem(LAYOUT_CACHE, JSON.stringify(layout));
+  }, [layout]);
 
   useEffect(() => {
     assistantHealth()
@@ -382,7 +410,13 @@ export function App() {
           </button>
         ))}
       </div>
-      <main className={`workspace pane-${pane}`}>
+      <main
+        className={`workspace pane-${pane}`}
+        style={{
+          "--scope-width": `${layout.scopeWidth}px`,
+          "--assistant-width": `${layout.assistantWidth}px`,
+        } as CSSProperties}
+      >
         <aside className="queue" aria-label="Scope and decision queue">
           <FilterRail
             filters={filters}
@@ -430,12 +464,37 @@ export function App() {
             })
           )}
         </aside>
+        <ResizeHandle
+          orientation="vertical"
+          label="Resize scope rail"
+          value={layout.scopeWidth}
+          min={180}
+          max={300}
+          step={10}
+          unit="px"
+          onChange={(scopeWidth) => setLayout((current) => ({ ...current, scopeWidth }))}
+          onReset={() => setLayout((current) => ({ ...current, scopeWidth: DEFAULT_LAYOUT.scopeWidth }))}
+        />
         <section className="centre" aria-label="Middle: shop floor and order table">
-          <div className="centre-split">
+          <div
+            className="centre-split"
+            style={{ "--floor-split": `${layout.floorPercent}%` } as CSSProperties}
+          >
             <section className="middle-top" aria-label="COOLIT shop floor">
               <p className="floor-title">CoolIT shop floor</p>
               <ShopFloor rows={ledgerRows} selectedZone={selectedZone} onSelectZone={setSelectedZone} />
             </section>
+            <ResizeHandle
+              orientation="horizontal"
+              label="Resize floor layout and order table"
+              value={layout.floorPercent}
+              min={38}
+              max={68}
+              step={2}
+              unit="%"
+              onChange={(floorPercent) => setLayout((current) => ({ ...current, floorPercent }))}
+              onReset={() => setLayout((current) => ({ ...current, floorPercent: DEFAULT_LAYOUT.floorPercent }))}
+            />
             <section className="middle-bottom" aria-label="Order information table">
               {role === "demand-planner" ? (
                 <DemandLedgerView rows={demandFilteredRows} loading={demandLoading} />
@@ -461,6 +520,18 @@ export function App() {
             </section>
           </div>
         </section>
+        <ResizeHandle
+          orientation="vertical"
+          label="Resize assistant"
+          value={layout.assistantWidth}
+          min={320}
+          max={500}
+          step={10}
+          unit="px"
+          direction={-1}
+          onChange={(assistantWidth) => setLayout((current) => ({ ...current, assistantWidth }))}
+          onReset={() => setLayout((current) => ({ ...current, assistantWidth: DEFAULT_LAYOUT.assistantWidth }))}
+        />
         <aside className="chat" aria-label="Conversation">
           <div className="log" ref={logRef}>
             {conversation.map((entry) => {
