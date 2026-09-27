@@ -8,7 +8,7 @@
  * Run: npm run verify:persona            (now mode)
  *      npm run verify:persona -- --phase=target
  *
- * Writes var/acceptance/{date}.json and var/acceptance/matrix.md.
+ * Writes var/v2/acceptance/{date}.json and var/v2/acceptance/matrix.md.
  * Exits non-zero if any counted case fails (the persona matrix gates CI).
  */
 import { mkdirSync, writeFileSync } from "node:fs";
@@ -83,7 +83,7 @@ async function main() {
   const gate = phase === "target" ? failed.length + skipped.length : failed.length;
 
   const here = dirname(fileURLToPath(import.meta.url));
-  const outDir = resolve(here, "../../var/acceptance");
+  const outDir = resolve(here, "../../var/v2/acceptance");
   mkdirSync(outDir, { recursive: true });
   const date = new Date().toISOString().slice(0, 10);
   const summary = {
@@ -128,7 +128,7 @@ async function main() {
     console.log(`${mark.padEnd(4)} ${row.id}  C${row.criterion}  ${row.role.padEnd(20)} ${row.detail}`);
   }
   console.log(`\n${summary.passed}/${summary.counted} counted pass · ${summary.skipped} skipped · ${summary.failed} failed · phase=${phase}`);
-  console.log(`wrote var/acceptance/${date}.json and var/acceptance/matrix.md`);
+  console.log(`wrote var/v2/acceptance/${date}.json and var/v2/acceptance/matrix.md`);
   if (gate) {
     console.log(`\n${gate} case(s) blocked the gate`);
     process.exit(1);

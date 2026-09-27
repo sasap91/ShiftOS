@@ -8,6 +8,7 @@ import type { ChatRequest } from "../src/shared/contracts";
 import { audit } from "./audit/log";
 import { runTurn } from "./chat";
 import { aiEnabled } from "./model/client";
+import { handleV2Api } from "./api/v2";
 
 const AI_MODE = aiEnabled() ? "ai" : "scripted";
 
@@ -27,6 +28,8 @@ async function readJson(req: IncomingMessage): Promise<unknown> {
 
 export async function apiHandler(req: IncomingMessage, res: ServerResponse): Promise<void> {
   const url = new URL(req.url ?? "/", "http://localhost");
+
+  if (await handleV2Api(req, res, url)) return;
 
   if (req.method === "GET" && url.pathname === "/api/health") {
     send(res, 200, { ok: true, service: "forge-ai-chat", mode: AI_MODE });

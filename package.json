@@ -1,5 +1,5 @@
 {
-  "name": "forge-decision-room",
+  "name": "forge-decision-room-v2",
   "private": true,
   "type": "module",
   "scripts": {
@@ -12,11 +12,12 @@
     "verify:ai": "tsx server/verify-ai.ts",
     "lint": "tsx tools/fixture-lint.ts",
     "test": "npm run verify && npm run verify:server && npm run verify:tools && npm run verify:ai && npm run verify:persona && npm run test:coolit && npm run test:invariants && npm run test:contract && npm run test:capacity && npm run lint",
-    "ci": "npm run build && npm run test",
+    "ci": "npm run build && npm run test && npm run verify:v2",
     "sample": "tsx tools/sample-run.ts",
     "test:coolit": "tsx tools/coolit-test.ts",
     "test:invariants": "tsx tools/invariant-tests.ts",
     "verify:persona": "tsx server/persona-acceptance/run.ts",
+    "verify:v2": "tsx server/verify-v2.ts",
     "verify:persona:target": "tsx server/persona-acceptance/run.ts --phase=target",
     "solver": "python3 tools/gurobi/allocate_leaktests.py && python3 tools/gurobi/schedule.py && python3 tools/gurobi/generate_ts.py",
     "test:contract": "tsx tools/contract-tests.ts",

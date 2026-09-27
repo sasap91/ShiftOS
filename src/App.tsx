@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from "react";
 import {
-  type Alternative,
   type ApprovalRequest,
   type QueueState,
   type Role,
@@ -12,23 +11,23 @@ import {
   formatMoney,
 } from "./model";
 import {
-  type ActionId,
   type Block,
   type Intent,
   type Thread,
   type Turn,
-  actionAvailability,
   activeEnvelope,
   interpret,
   openThread,
   reduce,
 } from "./orchestrator";
-import { LedgerView } from "./LedgerView";
+import { LedgerView } from "./features/orders/LedgerView";
 import { buildLedger } from "./ledger";
 import { MASTER_SET_VERSION } from "./master";
-import { FilterRail, DEFAULT_FILTERS, type Filters } from "./FilterRail";
-import { ShopFloor } from "./ShopFloor";
+import { FilterRail, DEFAULT_FILTERS, type Filters } from "./features/scope/FilterRail";
+import { ShopFloor } from "./features/floor/ShopFloor";
 import { HORIZONS, flowStagesForRow, lensSort, ownerOf, rowsInZone, zoneById, type Horizon } from "./zones";
+import type { ActiveContext } from "./shared/v2";
+import { assistantHealth, clearChatHistory, sendChatMessage } from "./features/chat/client";
 
 const ROLES = [
   PEOPLE["manufacturing-manager"],
@@ -46,6 +45,11 @@ const COMMITMENT_IDS = ["COM-1042", "COM-1018", "COM-1104", "COM-0991"];
 const RISK_GROUPS: QueueState[] = ["at-risk", "awaiting", "approved", "monitoring"];
 
 type UrlState = { role?: Role; order?: string; zone?: string; horizon?: Horizon };
+type ConversationEntry =
+  | { kind: "context"; id: string; label: string }
+  | { kind: "turn"; id: string; commitmentId: string; role: Role; turn: Turn };
+
+const CHAT_CACHE = "forge-v2:chat:local-user";
 
 /** Read the room context from the URL (V-09): role · order · zone · horizon. */
 function readUrl(): UrlState {
@@ -64,12 +68,22 @@ function readUrl(): UrlState {
 }
 
 function initialThreads(): Record<string, Thread> {
-  return {
+  const seeded = {
     "COM-1042": openThread("COM-1042"),
     "COM-1018": openThread("COM-1018"),
     "COM-1104": openThread("COM-1104"),
     "COM-0991": openThread("COM-0991"),
   };
+  return Object.fromEntries(Object.entries(seeded).map(([id, thread]) => [id, { ...thread, turns: [] }]));
+}
+
+function initialConversation(): ConversationEntry[] {
+  if (typeof window === "undefined") return [];
+  try {
+    return JSON.parse(window.localStorage.getItem(CHAT_CACHE) ?? "[]") as ConversationEntry[];
+  } catch {
+    return [];
+  }
 }
 
 export function App() {
@@ -80,18 +94,18 @@ export function App() {
   const [filters, setFilters] = useState<Filters>(url.horizon ? { ...DEFAULT_FILTERS, horizon: url.horizon } : DEFAULT_FILTERS);
   const [selectedZone, setSelectedZone] = useState<string | null>(url.zone ?? null);
   const [draft, setDraft] = useState("");
+  const [conversation, setConversation] = useState<ConversationEntry[]>(initialConversation);
   const [pendingId, setPendingId] = useState<string | null>(null);
   const [shownSteps, setShownSteps] = useState(0);
+  const [generalBusy, setGeneralBusy] = useState(false);
+  const [connection, setConnection] = useState<"checking" | "connected" | "limited">("checking");
   const [pane, setPane] = useState<"queue" | "ledger" | "chat">("ledger");
-  const [evidenceOpen, setEvidenceOpen] = useState(false);
-  const [focusFact, setFocusFact] = useState<string | null>(null);
   const [focusCell, setFocusCell] = useState<string | null>(null);
   const logRef = useRef<HTMLDivElement>(null);
+  const abortRef = useRef<AbortController | null>(null);
   const thread = threads[activeId];
   const envelope = activeEnvelope(role, thread);
-  const packet = assess(activeId).packet;
-  const actions = actionAvailability(thread, role);
-  const busy = pendingId !== null;
+  const busy = pendingId !== null || generalBusy;
   const ledgerRows = useMemo(() => buildLedger(threads), [threads]);
   const filteredRows = useMemo(
     () =>
@@ -116,18 +130,18 @@ export function App() {
 
   useEffect(() => {
     if (!pendingId) return;
-    const pending = thread.turns.find((row) => row.id === pendingId);
+    const pending = conversation.find((entry) => entry.kind === "turn" && entry.turn.id === pendingId);
     if (!pending) return;
-    if (shownSteps >= pending.progress.length) {
+    if (pending.kind !== "turn" || shownSteps >= pending.turn.progress.length) {
       setPendingId(null);
       return;
     }
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const timer = window.setTimeout(() => setShownSteps((count) => count + 1), reduceMotion ? 0 : 420);
     return () => window.clearTimeout(timer);
-  }, [pendingId, shownSteps, thread.turns]);
+  }, [conversation, pendingId, shownSteps]);
 
-  const turnCount = thread.turns.length;
+  const turnCount = conversation.length;
   useEffect(() => {
     const log = logRef.current;
     if (!log) return;
@@ -136,7 +150,32 @@ export function App() {
       return;
     }
     log.scrollTo({ top: log.scrollHeight });
-  }, [activeId, turnCount, shownSteps, pendingId]);
+  }, [turnCount, shownSteps, pendingId]);
+
+  useEffect(() => {
+    window.localStorage.setItem(CHAT_CACHE, JSON.stringify(conversation));
+  }, [conversation]);
+
+  useEffect(() => {
+    assistantHealth()
+      .then(setConnection)
+      .catch(() => setConnection("limited"));
+  }, []);
+
+  const contextSignature = `${role}|${activeId}|${selectedZone ?? "all"}|${filters.horizon}`;
+  const priorContext = useRef(contextSignature);
+  useEffect(() => {
+    if (priorContext.current === contextSignature) return;
+    priorContext.current = contextSignature;
+    setConversation((entries) => [
+      ...entries,
+      {
+        kind: "context",
+        id: `context-${Date.now()}`,
+        label: `${PEOPLE[role].roleLabel} · ${activeId}${selectedZone ? ` · ${selectedZone}` : ""} · ${filters.horizon} weeks`,
+      },
+    ]);
+  }, [activeId, contextSignature, filters.horizon, role, selectedZone]);
 
   // Persist the room context to the URL (V-09) so a reload restores it.
   useEffect(() => {
@@ -158,44 +197,72 @@ export function App() {
     }
     const next = { ...result.thread, turns: [...result.thread.turns, result.turn] };
     setThreads((prev) => ({ ...prev, [current.commitmentId]: next }));
+    setConversation((entries) => [
+      ...entries,
+      { kind: "turn", id: result.turn.id, commitmentId: current.commitmentId, role, turn: result.turn },
+    ]);
     if (result.turn.progress.length) {
       setShownSteps(0);
       setPendingId(result.turn.id);
     }
   }
 
-  function onSubmit(event: FormEvent) {
+  async function onSubmit(event: FormEvent) {
     event.preventDefault();
     const text = draft.trim();
     if (!text) return;
     setDraft("");
-    commit(thread, interpret(text));
+    const intent = interpret(text);
+    if (intent.type !== "ask") {
+      commit(thread, intent);
+      void sendChatMessage(text, activeContext()).catch(() => undefined);
+      return;
+    }
+
+    const controller = new AbortController();
+    abortRef.current = controller;
+    setGeneralBusy(true);
+    try {
+      const payload = await sendChatMessage(text, activeContext(), controller.signal);
+      const turn: Turn = {
+        id: payload.message.id,
+        speaker: PEOPLE[role].roleLabel,
+        prompt: text,
+        tools: [],
+        progress: [],
+        blocks: [
+          { kind: "answer", text: payload.message.content },
+          ...(payload.limitations.length ? [{ kind: "note" as const, text: `Availability: ${payload.limitations.join(" · ")}` }] : []),
+        ],
+      };
+      setConversation((entries) => [...entries, { kind: "turn", id: turn.id, commitmentId: activeId, role, turn }]);
+    } catch (error) {
+      if ((error as Error).name !== "AbortError") {
+        const turn: Turn = {
+          id: `error-${Date.now()}`,
+          speaker: PEOPLE[role].roleLabel,
+          prompt: text,
+          tools: [],
+          progress: [],
+          blocks: [{ kind: "answer", text: "The assistant could not be reached. Your order data remains available in the table." }],
+        };
+        setConversation((entries) => [...entries, { kind: "turn", id: turn.id, commitmentId: activeId, role, turn }]);
+      }
+    } finally {
+      abortRef.current = null;
+      setGeneralBusy(false);
+    }
   }
 
-  function runAction(id: ActionId) {
-    const action = actions[id];
-    if (!action.enabled || busy) return;
-    const intent: Intent =
-      id === "explain"
-        ? { type: "explain" }
-        : id === "why"
-          ? { type: "why" }
-          : id === "blast"
-            ? { type: "blast" }
-            : id === "scenario"
-              ? { type: "scenario" }
-              : id === "compare"
-                ? { type: "compare" }
-                : id === "draft"
-                  ? { type: "draft" }
-                  : id === "approve"
-                    ? { type: "request-approval", rationale: "" }
-                    : { type: "simulate" };
-    commit(thread, intent);
+  function activeContext(): ActiveContext {
+    return { role, orderId: activeId, ...(selectedZone ? { zone: selectedZone } : {}), horizon: filters.horizon };
   }
 
-  const scenario = [...thread.runs].reverse().find((row) => row.kind === "scenario");
-  const viewedRun = thread.focusedRunId ? thread.runs.find((row) => row.id === thread.focusedRunId) : undefined;
+  function clearConversation() {
+    setConversation([]);
+    window.localStorage.removeItem(CHAT_CACHE);
+    void clearChatHistory().catch(() => undefined);
+  }
 
   return (
     <div className="app">
@@ -205,7 +272,7 @@ export function App() {
           <span>{envelope.siteLabel}</span>
           <span>{envelope.user.roleLabel}</span>
           <span className="mono">{envelope.commitmentId}</span>
-          <span>As of 08:15</span>
+          <span className={`connection ${connection}`}><i aria-hidden="true" />{connection === "connected" ? "Assistant connected" : connection === "checking" ? "Checking assistant" : "Local evidence mode"}</span>
         </div>
         <div className="topbar-role">
           <select
@@ -248,17 +315,6 @@ export function App() {
               </div>
             </dl>
           </details>
-          {scenario ? (
-            thread.focusedRunId ? (
-              <button type="button" onClick={() => setThreads((prev) => ({ ...prev, [activeId]: { ...thread, focusedRunId: null } }))}>
-                Baseline
-              </button>
-            ) : (
-              <button type="button" onClick={() => setThreads((prev) => ({ ...prev, [activeId]: { ...thread, focusedRunId: scenario.id } }))}>
-                {scenario.id}
-              </button>
-            )
-          ) : null}
         </div>
       </header>
       <div className="panes" role="tablist" aria-label="Workspace">
@@ -326,13 +382,15 @@ export function App() {
         <section className="centre" aria-label="Middle: shop floor and order table">
           <div className="centre-split">
             <section className="middle-top" aria-label="COOLIT shop floor">
-              <p className="floor-title">COOLIT SHOP FLOOR</p>
+              <p className="floor-title">CoolIT shop floor</p>
               <ShopFloor rows={ledgerRows} selectedZone={selectedZone} onSelectZone={setSelectedZone} />
             </section>
             <section className="middle-bottom" aria-label="Order information table">
               <LedgerView
                 rows={filteredRows}
+                threads={threads}
                 activeId={activeId}
+                role={role}
                 lens={ROLE_POLICY[role].lens}
                 focusTarget={focusCell}
                 onFocus={(key: string) => {
@@ -351,74 +409,67 @@ export function App() {
         <aside className="chat" aria-label="Conversation">
           <header className="log-head">
             <div>
-              <p className="kicker">FORGE</p>
-              <h2>Ask about this order</h2>
+              <p className="kicker">FORGE assistant</p>
+              <h2>What do you need?</h2>
               <p className="lens">
-                {thread.commitmentId} · {ROLE_POLICY[role].lens} · {ROLE_POLICY[role].leadQuestion}
+                {activeId} · {connection === "connected" ? "general + governed workspace" : "governed workspace available"}
               </p>
             </div>
-            <button
-              type="button"
-              className="ghost"
-              aria-expanded={evidenceOpen}
-              onClick={() => setEvidenceOpen((open) => !open)}
-            >
-              Evidence
-            </button>
+            <button type="button" className="ghost" onClick={clearConversation} disabled={!conversation.length}>Clear</button>
           </header>
-          {evidenceOpen ? (
-            <section className="evidence open" aria-label="Evidence">
-              <Evidence
-                packetId={packet.id}
-                focusFact={focusFact}
-                runLabel={viewedRun?.id ?? null}
-                alternatives={viewedRun?.alternatives ?? []}
-              />
-            </section>
-          ) : null}
           <div className="log" ref={logRef}>
-            {thread.notice ? <p className="notice">{thread.notice}</p> : null}
-            {thread.turns.map((item, index) => (
-              <LogTurn
-                key={item.id}
-                turn={item}
-                thread={thread}
-                hidden={item.id === pendingId && shownSteps < item.progress.length}
-                shownSteps={item.id === pendingId ? shownSteps : item.progress.length}
-                latestRecord={(kind, id) => isLatestRecord(thread.turns, index, kind, id)}
-                onIntent={(intent) => commit(thread, intent)}
-                onFact={setFocusFact}
-                role={role}
-                busy={busy}
-              />
-            ))}
-          </div>
-          <div className="forge-chips" aria-label="Suggested asks">
-            <button type="button" disabled={busy} onClick={() => runAction("why")}>
-              Why at risk?
-            </button>
-            <button type="button" disabled={busy} onClick={() => runAction("explain")}>
-              Show constraint
-            </button>
-            <button type="button" disabled={busy} onClick={() => runAction("compare")}>
-              Compare options
-            </button>
+            {!conversation.length ? (
+              <div className="chat-empty">
+                <p>Ask about an order, test a recovery path, prepare a governed action, or ask a general question.</p>
+                <small>Order evidence is grounded in the selected context. External sources are identified when connected.</small>
+              </div>
+            ) : null}
+            {conversation.map((entry) => {
+              if (entry.kind === "context") return <p className="context-divider" key={entry.id}><span>{entry.label}</span></p>;
+              const entryThread = threads[entry.commitmentId];
+              const index = entryThread.turns.findIndex((item) => item.id === entry.turn.id);
+              return (
+                <LogTurn
+                  key={entry.id}
+                  turn={entry.turn}
+                  thread={entryThread}
+                  hidden={entry.turn.id === pendingId && shownSteps < entry.turn.progress.length}
+                  shownSteps={entry.turn.id === pendingId ? shownSteps : entry.turn.progress.length}
+                  latestRecord={(kind, id) => isLatestRecord(entryThread.turns, index, kind, id)}
+                  onIntent={(intent) => {
+                    if (activeId !== entry.commitmentId) setActiveId(entry.commitmentId);
+                    commit(entryThread, intent);
+                  }}
+                  onFact={(id) => { window.location.hash = `#/evidence/${entry.commitmentId}/${id}`; }}
+                  role={role}
+                  busy={busy}
+                />
+              );
+            })}
           </div>
           <form className="composer chat-composer" onSubmit={onSubmit}>
             <label className="ask">
               <span className="sr">Message FORGE</span>
-              <input
+              <textarea
                 value={draft}
                 onChange={(event) => setDraft(event.target.value)}
-                placeholder="Message FORGE…"
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" && !event.shiftKey) {
+                    event.preventDefault();
+                    event.currentTarget.form?.requestSubmit();
+                  }
+                }}
+                placeholder="Ask anything…"
+                rows={2}
                 disabled={busy}
               />
             </label>
-            <button type="submit" className="primary" disabled={busy}>
-              Send
-            </button>
+            {generalBusy ? (
+              <button type="button" onClick={() => abortRef.current?.abort()}>Stop</button>
+            ) : (
+              <button type="submit" className="primary" disabled={!draft.trim()}>Send</button>
+            )}
           </form>
-          <p className="forge-footnote">No Approval / Release / Publish controls exist in chat.</p>
         </aside>
       </main>
     </div>
@@ -852,106 +903,6 @@ function ApproverRow({
         <span className="footnote">Switch the authorization role to {PEOPLE[person.role].roleLabel} to record this decision.</span>
       ) : null}
     </li>
-  );
-}
-
-function Evidence({
-  packetId,
-  focusFact,
-  runLabel,
-  alternatives,
-}: {
-  packetId: string;
-  focusFact: string | null;
-  runLabel: string | null;
-  alternatives: Alternative[];
-}) {
-  const packet = useMemo(() => {
-    const found = ["COM-1042", "COM-1018", "COM-1104", "COM-0991"]
-      .map((id) => assess(id).packet)
-      .find((item) => item.id === packetId);
-    if (!found) throw new Error("Missing packet");
-    return found;
-  }, [packetId]);
-  return (
-    <div className="evidence-body">
-      <section>
-        <h3>Source records</h3>
-        {packet.sourceFacts.map((fact) => (
-          <article key={fact.id} id={fact.id} className={focusFact === fact.id ? "record hot" : "record"}>
-            <header>
-              <span>{fact.sourceSystem}</span>
-              <span>{fact.sourceRecordId}</span>
-            </header>
-            <p>{fact.statement}</p>
-          </article>
-        ))}
-      </section>
-      <section>
-        <h3>Freshness</h3>
-        <p>
-          {packet.freshness.fresh} fresh · {packet.freshness.stale} stale
-          {packet.freshness.staleRecords.length ? ` · ${packet.freshness.staleRecords.join(", ")}` : ""}
-        </p>
-      </section>
-      <section>
-        <h3>Conflicts</h3>
-        {packet.conflicts.length ? (
-          packet.conflicts.map((conflict) => (
-            <article key={conflict.id} className="record">
-              <p>{conflict.statement}</p>
-              <p className="footnote">Disposition: {conflict.disposition}</p>
-            </article>
-          ))
-        ) : (
-          <p>No unresolved conflicts on this commitment.</p>
-        )}
-      </section>
-      <section>
-        <h3>Calculations</h3>
-        {packet.derivedFacts.map((fact) => (
-          <article key={fact.id} id={fact.id} className={focusFact === fact.id ? "record hot" : "record"}>
-            <header>
-              <span>{fact.result}</span>
-              <span>{fact.service}</span>
-            </header>
-            <p>{fact.formula}</p>
-            <p className="footnote">{fact.traceId}</p>
-          </article>
-        ))}
-        {runLabel && alternatives.length ? (
-          <>
-            <h3>Scenario {runLabel}</h3>
-            {alternatives.map((option) => (
-              <article key={option.id} className="record">
-                <header>
-                  <span>{option.feasibility}</span>
-                  <span>{option.id}</span>
-                </header>
-                <p>
-                  {option.label}. Residual shortfall {option.residualShortfall}. Ship {formatDay(option.shipDate, true)}.
-                </p>
-              </article>
-            ))}
-          </>
-        ) : null}
-      </section>
-      <section>
-        <h3>Lineage</h3>
-        <ul>
-          {packet.lineage.map((link) => (
-            <li key={`${link.from}-${link.to}`}>
-              {link.from} → {link.to} · {link.via}
-            </li>
-          ))}
-        </ul>
-        <ul className="assumptions">
-          {packet.assumptions.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </section>
-    </div>
   );
 }
 

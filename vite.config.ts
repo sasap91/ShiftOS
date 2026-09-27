@@ -14,6 +14,6 @@ function forgeApi(): Plugin {
 
 export default defineConfig({
   plugins: [react(), forgeApi()],
-  server: { host: true, port: 5173, strictPort: false },
-  preview: { host: true, port: 5273, strictPort: true },
+  server: { host: "127.0.0.1", port: 5373, strictPort: true },
+  preview: { host: "127.0.0.1", port: 5374, strictPort: true },
 });

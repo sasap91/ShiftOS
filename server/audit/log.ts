@@ -5,7 +5,7 @@
 import { appendFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
 
-const DIR = process.env.FORGE_AUDIT_DIR ?? "var/audit";
+const DIR = process.env.FORGE_AUDIT_DIR ?? "var/v2/audit";
 
 export function audit(event: Record<string, unknown>): void {
   try {

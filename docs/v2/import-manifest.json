@@ -1,0 +1,36 @@
+{
+  "version": "forge-decision-room-v2",
+  "sourcePath": "/Users/ujjal/Desktop/Glasswing/decision-room",
+  "destinationPath": "/Users/ujjal/Desktop/Glasswing/decision-room-v2",
+  "importedAt": "2026-09-27T11:38:59-04:00",
+  "baselineCommit": "3fba677",
+  "baselineTreeSha1": "4201da06a3256ac78d0536aacdf7228252367546",
+  "authoredFileCount": 126,
+  "fixtureFileCount": 11,
+  "documentationFileCount": 8,
+  "notionMarkdownCount": 25,
+  "baselineOrderIds": ["COM-1042", "COM-1018", "COM-1104", "COM-0991"],
+  "copied": [
+    "src",
+    "server",
+    "tools",
+    "public",
+    "docs",
+    "notion",
+    "var historical evidence",
+    "root configuration and research files"
+  ],
+  "excludedAndRegenerated": [
+    "node_modules",
+    "dist",
+    ".vite",
+    "__pycache__",
+    "*.pyc",
+    ".DS_Store"
+  ],
+  "runtimeIsolation": {
+    "historical": "archive/v1-runtime",
+    "active": "var/v2",
+    "browserNamespace": "forge-v2"
+  }
+}

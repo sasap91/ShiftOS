@@ -5,7 +5,7 @@
 import { createServer } from "node:http";
 import { apiHandler } from "./app";
 
-const PORT = Number(process.env.PORT ?? 8787);
+const PORT = Number(process.env.PORT ?? 8788);
 
 const server = createServer((req, res) => {
   apiHandler(req, res).catch(() => {

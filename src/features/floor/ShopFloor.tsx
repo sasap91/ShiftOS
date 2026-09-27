@@ -11,8 +11,8 @@
  * fact the table cannot show.
  */
 import { useEffect, useState } from "react";
-import type { LedgerRow } from "./ledger";
-import { PLAN, ZONES, zoneLoad, type Zone } from "./zones";
+import type { LedgerRow } from "../../ledger";
+import { PLAN, ZONES, zoneLoad, type Zone } from "../../zones";
 
 const DOT: Record<string, string> = {
   "at-risk": "#b3261e",
@@ -168,6 +168,7 @@ export function ShopFloor({ rows, selectedZone, onSelectZone }: {
 }) {
   const load = zoneLoad(rows);
   const [hasImage, setHasImage] = useState(false);
+  const [zoom, setZoom] = useState(1);
 
   useEffect(() => {
     const probe = new Image();
@@ -176,9 +177,24 @@ export function ShopFloor({ rows, selectedZone, onSelectZone }: {
     probe.src = FLOOR_IMAGE;
   }, []);
 
-  return hasImage ? (
-    <Illustration load={load} selectedZone={selectedZone} onSelectZone={onSelectZone} />
-  ) : (
-    <Schematic load={load} selectedZone={selectedZone} onSelectZone={onSelectZone} />
+  return (
+    <div className="shop-floor-shell">
+      <div className="floor-controls" aria-label="Floor plan controls">
+        <button type="button" onClick={() => setZoom(1)}>Fit</button>
+        <button type="button" aria-label="Zoom out" onClick={() => setZoom((value) => Math.max(0.8, value - 0.1))}>−</button>
+        <span>{Math.round(zoom * 100)}%</span>
+        <button type="button" aria-label="Zoom in" onClick={() => setZoom((value) => Math.min(1.8, value + 0.1))}>+</button>
+        {selectedZone ? <button type="button" onClick={() => onSelectZone(null)}>Reset</button> : null}
+      </div>
+      <div className="floor-stage">
+        <div className="floor-scale" style={{ transform: `scale(${zoom})` }}>
+          {hasImage ? (
+            <Illustration load={load} selectedZone={selectedZone} onSelectZone={onSelectZone} />
+          ) : (
+            <Schematic load={load} selectedZone={selectedZone} onSelectZone={onSelectZone} />
+          )}
+        </div>
+      </div>
+    </div>
   );
 }

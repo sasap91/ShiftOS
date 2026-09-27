@@ -1,6 +1,6 @@
 # Persona Acceptance Matrix
 
-Generated 2026-09-27T15:27:04.190Z · phase **target** · commitment COM-1042
+Generated 2026-09-27T15:28:31.475Z · phase **now** · commitment COM-1042
 
 | Role | C1 | C2 | C3 | C4 | C5 | C6 | C7 | C8 | C9 | C10 | Overall |
 |---|---|---|---|---|---|---|---|---|---|---|---|
