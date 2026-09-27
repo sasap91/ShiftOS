@@ -31,6 +31,7 @@ export function validateInvestigation(
   plan: InvestigationPlan,
   packet: CommitEvidencePacket,
   extraEvidenceText = "",
+  options: { allowGeneralKnowledgeNumbers?: boolean } = {},
 ): ValidationResult {
   const violations: string[] = [];
 
@@ -55,8 +56,10 @@ export function validateInvestigation(
   const evidenceJson = `${JSON.stringify(packet)} ${extraEvidenceText}`;
   const allowed = allowedNumbers(evidenceJson);
   const prose = `${plan.answer ?? ""} ${plan.why ?? ""} ${plan.explanation ?? ""}`;
-  for (const number of numbersIn(prose)) {
-    if (!allowed.has(number)) violations.push(`number ${number} is not grounded in the evidence packet`);
+  if (!options.allowGeneralKnowledgeNumbers) {
+    for (const number of numbersIn(prose)) {
+      if (!allowed.has(number)) violations.push(`number ${number} is not grounded in the evidence packet`);
+    }
   }
 
   if (packet.conflicts.length > 0 && /approved/i.test(prose)) {

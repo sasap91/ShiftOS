@@ -3,8 +3,15 @@
  * deterministic decision services. The model may request these by name; the
  * gateway authorizes and executes them. No tool touches a database directly.
  */
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import {
+  CODE_VERSION,
+  COMMITMENTS,
+  MEMORY_SET_VERSION,
+  MODEL_VERSION,
   ROLE_POLICY,
+  SNAPSHOT_ID,
   assess,
   blastRadius,
   commitment,
@@ -17,7 +24,10 @@ import {
   type Alternative,
   type DecisionRun,
 } from "../../src/model";
+import { MASTER_SET_VERSION } from "../../src/master";
+import { planSummary } from "../../src/plan";
 import type { HumanOverrideEvent, RejectionCode } from "../../src/shared/contracts";
+import { ZONES } from "../../src/zones";
 import {
   addApproval,
   addOutcome,
@@ -45,6 +55,56 @@ import {
 import type { AnyTool, PolicyDecision, ToolContext, ToolOutcome } from "./types";
 
 const ALLOW: PolicyDecision = { allowed: true, reason: "Authorized for this role." };
+
+export const GOVERNED_DATASETS = [
+  "demand_projection",
+  "capacity_reconciliation",
+  "contract_schedule",
+  "allocation",
+  "schedule",
+  "aib_schedule",
+  "zones",
+  "production_plan",
+  "commitments",
+  "algorithm_catalog",
+] as const;
+
+export type GovernedDataset = (typeof GOVERNED_DATASETS)[number];
+
+function readSolverOutput(name: string): unknown {
+  return JSON.parse(readFileSync(resolve(process.cwd(), "tools/gurobi/out", name), "utf8")) as unknown;
+}
+
+function algorithmCatalog(): Record<string, unknown> {
+  return {
+    versions: {
+      snapshotId: SNAPSHOT_ID,
+      modelVersion: MODEL_VERSION,
+      codeVersion: CODE_VERSION,
+      memorySetVersion: MEMORY_SET_VERSION,
+      masterSetVersion: MASTER_SET_VERSION,
+    },
+    semanticRules: [
+      "planned is not available",
+      "available is not eligible",
+      "eligible is not allocated",
+      "allocated is not committed",
+      "approval is not execution",
+      "a scenario never rewrites the baseline",
+      "optimal may be used only when the recorded solver status and policy support it",
+    ],
+    services: [
+      { id: "commitment-assessment", implementation: "src/model.ts::assess", authority: "canonical deterministic service" },
+      { id: "recovery-scenario", implementation: "src/model.ts::createScenarioRun", authority: "immutable scenario service" },
+      { id: "allocation", implementation: "tools/gurobi/allocate_leaktests.py", output: "allocation.json" },
+      { id: "schedule", implementation: "tools/gurobi/schedule.py", output: "schedule.json" },
+      { id: "aib-schedule", implementation: "tools/gurobi/schedule_contract.py", output: "aib_schedule.json" },
+      { id: "capacity-reconciliation", implementation: "tools/gurobi/reconcile_capacity.py", output: "capacity_reconciliation.json" },
+      { id: "demand-projection", implementation: "tools/gurobi/demand_projection.py", output: "demand_projection.json" },
+      { id: "governed-tool-gateway", implementation: "server/tools/gateway.ts", authority: "authorization, validation, timeout and audit boundary" },
+    ],
+  };
+}
 
 const REJECTION_CODES: RejectionCode[] = [
   "LABOR_NOT_REALISTIC",
@@ -94,6 +154,46 @@ export const TOOLS: AnyTool[] = [
       provenance: [ctx.envelope.snapshotId, ctx.envelope.modelVersion],
       data: ctx.envelope,
     }),
+  },
+  {
+    name: "get_dataset",
+    version: "2.0.0",
+    description:
+      "Read a governed FORGE dataset, complete solver output, canonical record set, zone/plan view, or algorithm catalog.",
+    async: false,
+    timeoutMs: 3000,
+    idempotent: true,
+    parse: (raw) => {
+      const r = expectObject(raw);
+      return { dataset: expectString(r, "dataset") };
+    },
+    authorize: () => ALLOW,
+    run: (_ctx, args): ToolOutcome => {
+      switch (args.dataset as GovernedDataset) {
+        case "demand_projection":
+          return { ref: "demand_projection", provenance: ["governed/canonical_commitment.csv", "erp/work_order.csv"], data: readSolverOutput("demand_projection.json") };
+        case "capacity_reconciliation":
+          return { ref: "capacity_reconciliation", provenance: ["erp/capacity_bucket.csv", "erp/operation_schedule.csv"], data: readSolverOutput("capacity_reconciliation.json") };
+        case "contract_schedule":
+          return { ref: "contract_schedule", provenance: ["erp/operation_duration.csv"], data: readSolverOutput("contract_schedule.json") };
+        case "allocation":
+          return { ref: "allocation", provenance: ["governed/canonical_commitment.csv", "tools/gurobi/allocate_leaktests.py"], data: readSolverOutput("allocation.json") };
+        case "schedule":
+          return { ref: "schedule", provenance: ["tools/gurobi/schedule.py"], data: readSolverOutput("schedule.json") };
+        case "aib_schedule":
+          return { ref: "aib_schedule", provenance: ["tools/gurobi/schedule_contract.py"], data: readSolverOutput("aib_schedule.json") };
+        case "zones":
+          return { ref: "zones", provenance: ["src/zones.ts"], data: ZONES };
+        case "production_plan":
+          return { ref: "production_plan", provenance: ["src/plan.ts"], data: planSummary() };
+        case "commitments":
+          return { ref: "commitments", provenance: ["src/model.ts"], data: COMMITMENTS };
+        case "algorithm_catalog":
+          return { ref: "algorithm_catalog", provenance: [MODEL_VERSION, CODE_VERSION, MEMORY_SET_VERSION], data: algorithmCatalog() };
+        default:
+          throw new ToolError("invalid_args", `Unknown governed dataset ${String(args.dataset)}.`);
+      }
+    },
   },
   {
     name: "get_commitment_snapshot",

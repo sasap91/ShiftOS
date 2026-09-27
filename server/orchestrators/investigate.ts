@@ -6,12 +6,13 @@
  * repair once → render typed blocks. The model never calculates and never
  * chooses tools outside this phase.
  */
-import { assess, commitment, type CommitEvidencePacket } from "../../src/model";
+import { COMMITMENTS, assess, commitment, type CommitEvidencePacket } from "../../src/model";
 import type { NextAction } from "../../src/orchestrator";
-import type { Block, Turn } from "../../src/shared/contracts";
+import type { Block, RouteDecision, Turn } from "../../src/shared/contracts";
 import { chatJson } from "../model/client";
 import { INVESTIGATE_PROMPT_VERSION, investigateSystem, investigateUser } from "../prompts/investigate";
 import { invoke } from "../tools/gateway";
+import { GOVERNED_DATASETS } from "../tools/registry";
 import type { ToolContext } from "../tools/types";
 import {
   insufficiencyPlan,
@@ -27,6 +28,12 @@ export type InvestigationResult = {
   model: string;
   promptVersion: string;
   repaired: boolean;
+};
+
+export type InvestigationOptions = {
+  history?: { actor: "user" | "assistant" | "system"; content: string; contextSnapshot?: unknown }[];
+  route?: RouteDecision;
+  deterministicPreview?: Turn;
 };
 
 function normalize(raw: Partial<InvestigationPlan> | undefined): InvestigationPlan {
@@ -69,15 +76,40 @@ function toBlocks(plan: InvestigationPlan, feasibility: "feasible" | "infeasible
   return blocks;
 }
 
-export async function investigateTurn(ctx: ToolContext, question: string): Promise<InvestigationResult> {
+function combinedPacket(packets: CommitEvidencePacket[], selected: CommitEvidencePacket): CommitEvidencePacket {
+  const uniqueById = <T extends { id: string }>(rows: T[]): T[] => [...new Map(rows.map((row) => [row.id, row])).values()];
+  return {
+    ...selected,
+    sourceFacts: uniqueById(packets.flatMap((packet) => packet.sourceFacts)),
+    derivedFacts: uniqueById(packets.flatMap((packet) => packet.derivedFacts)),
+    lineage: packets.flatMap((packet) => packet.lineage),
+    assumptions: [...new Set(packets.flatMap((packet) => packet.assumptions))],
+    conflicts: uniqueById(packets.flatMap((packet) => packet.conflicts)),
+    missing: [...new Set(packets.flatMap((packet) => packet.missing))],
+    freshness: {
+      fresh: packets.reduce((sum, packet) => sum + packet.freshness.fresh, 0),
+      stale: packets.reduce((sum, packet) => sum + packet.freshness.stale, 0),
+      staleRecords: [...new Set(packets.flatMap((packet) => packet.freshness.staleRecords))],
+    },
+  };
+}
+
+export async function investigateTurn(
+  ctx: ToolContext,
+  question: string,
+  options: InvestigationOptions = {},
+): Promise<InvestigationResult> {
   const packetResult = await invoke("get_evidence_packet", {}, ctx);
   const chainResult = await invoke("explain_risk_chain", {}, ctx);
   const packet = packetResult.data as CommitEvidencePacket;
   const chain = chainResult.data as { feasibility: "feasible" | "infeasible"; bindingConstraint: string | null };
   const view = assess(ctx.commitmentId);
   const row = commitment(ctx.commitmentId);
+  const orderViews = COMMITMENTS.map((order) => assess(order.id));
+  const validationPacket = combinedPacket(orderViews.map((order) => order.packet), packet);
 
   const evidence = {
+    activeContext: ctx.envelope,
     commitment: {
       id: row.id,
       customer: row.customer,
@@ -98,7 +130,37 @@ export async function investigateTurn(ctx: ToolContext, question: string): Promi
     conflicts: packet.conflicts,
     missing: packet.missing,
     freshness: packet.freshness,
+    orders: orderViews.map((order) => ({
+      commitment: order.commitment,
+      baseline: order.baseline,
+      testShortfall: order.testShortfall,
+      materialShortfall: order.materialShortfall,
+      onTimeQty: order.onTimeQty,
+      earliestShipDate: order.earliestShipDate,
+      sourceFacts: order.packet.sourceFacts,
+      derivedFacts: order.packet.derivedFacts,
+      assumptions: order.packet.assumptions,
+      conflicts: order.packet.conflicts,
+      missing: order.packet.missing,
+      freshness: order.packet.freshness,
+    })),
+    datasets: {} as Record<string, unknown>,
+    algorithmRoute: options.route ?? null,
+    deterministicPreview: options.deterministicPreview ?? null,
+    conversationHistory: (options.history ?? []).slice(-16),
   };
+  for (const dataset of GOVERNED_DATASETS) {
+    try {
+      const result = await invoke("get_dataset", { dataset }, ctx);
+      evidence.datasets[dataset] = {
+        ref: result.ref,
+        provenance: result.provenance,
+        data: result.data,
+      };
+    } catch (error) {
+      evidence.datasets[dataset] = { unavailable: true, reason: error instanceof Error ? error.message : String(error) };
+    }
+  }
   const evidenceJson = JSON.stringify(evidence);
   const extraEvidence = JSON.stringify(evidence);
   const messages = [
@@ -108,7 +170,8 @@ export async function investigateTurn(ctx: ToolContext, question: string): Promi
 
   const first = await chatJson<InvestigationPlan>(messages);
   let plan = normalize(first.value);
-  let validation = validateInvestigation(plan, packet, extraEvidence);
+  const allowGeneralKnowledgeNumbers = options.route?.intentClass === "unsupported";
+  let validation = validateInvestigation(plan, validationPacket, extraEvidence, { allowGeneralKnowledgeNumbers });
   let repaired = false;
 
   if (!validation.ok) {
@@ -122,7 +185,7 @@ export async function investigateTurn(ctx: ToolContext, question: string): Promi
       },
     ]);
     plan = normalize(repair.value);
-    validation = validateInvestigation(plan, packet, extraEvidence);
+    validation = validateInvestigation(plan, validationPacket, extraEvidence, { allowGeneralKnowledgeNumbers });
   }
 
   if (!validation.ok) {
@@ -133,8 +196,8 @@ export async function investigateTurn(ctx: ToolContext, question: string): Promi
     id: `${ctx.commitmentId}-ai`,
     speaker: ctx.envelope.user.roleLabel,
     prompt: question,
-    tools: ["get_evidence_packet", "explain_risk_chain"],
-    progress: ["Reading the evidence packet", "Explaining the causal chain"],
+    tools: ["get_evidence_packet", "explain_risk_chain", "get_dataset"],
+    progress: ["Reading governed data", "Reading algorithm outputs", "Grounding the response"],
     blocks: toBlocks(plan, view.baseline.feasibility),
   };
 

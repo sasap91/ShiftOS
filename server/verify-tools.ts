@@ -5,6 +5,7 @@
 import { envelopeFor } from "../src/model";
 import { invoke } from "./tools/gateway";
 import { ToolError } from "./tools/schema";
+import { GOVERNED_DATASETS } from "./tools/registry";
 import type { ToolContext } from "./tools/types";
 
 const assert = {
@@ -55,6 +56,14 @@ assert.equal((chain.data as { bindingConstraint: string }).bindingConstraint, "L
 
 const blast = await invoke("trace_blast_radius", {}, manager);
 assert.ok((blast.data as { id: string }[]).some((row) => row.id === "COM-1042"), "blast radius should include COM-1042");
+
+// --- the model-facing workspace bundle can resolve every governed dataset ---
+for (const dataset of GOVERNED_DATASETS) {
+  const result = await invoke("get_dataset", { dataset }, manager);
+  assert.equal(result.ref, dataset);
+  assert.ok(result.provenance.length > 0, `${dataset} must carry provenance`);
+  assert.ok(result.data !== undefined, `${dataset} must return data`);
+}
 
 // --- scenario + comparison ---
 const run = await invoke("run_recovery_scenario", {}, manager);

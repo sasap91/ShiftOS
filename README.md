@@ -20,10 +20,17 @@ The v1 application remains independent at `http://localhost:5273`.
 
 ## Runtime modes
 
-- Local evidence mode is always available for FORGE records and deterministic
-  workflows.
-- General assistant responses require `FEATURE_AI_CHAT=1` and a server-side
-  model key.
+- Every submitted chat message is routed server-side to the pinned sciforium
+  `DeepSeek-V4.1-Flash` deployment when a server-side model key is configured.
+- The model receives a governed, read-only workspace bundle containing all
+  canonical commitments and evidence packets, complete checked-in solver
+  outputs, plant zones, production-plan summary, algorithm/version metadata,
+  route policy, deterministic previews and recent conversation history.
+- Deterministic services remain authoritative for quantities, dates,
+  feasibility, approvals and writebacks. DeepSeek explains and proposes; it
+  does not replace calculations or bypass confirmations.
+- Copy `.env.example` to `.env` and set `LLM_API_KEY` (or provide
+  `SCIFORIUM_API_KEY` in the server environment). The key never reaches React.
 - Web, Notion and enterprise connectors report unavailable until their
   respective feature flags and server integrations are configured. The UI
   never implies a source was searched when it was not.

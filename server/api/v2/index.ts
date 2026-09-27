@@ -6,7 +6,6 @@ import type { Citation, TablePreference, V2ChatRequest, V2ChatResponse } from ".
 import { connectorStatus } from "../../connectors";
 import { answerGeneralQuestion } from "../../chat/general";
 import { runTurn } from "../../chat";
-import { classify } from "../../router/router";
 import { appendChatMessage, clearChatThread, getChatThread } from "../../repositories/chat-threads";
 import { getTablePreference, putTablePreference } from "../../repositories/preferences";
 
@@ -44,9 +43,9 @@ function plainText(turn: Awaited<ReturnType<typeof runTurn>>["turn"]): string {
 }
 
 function citationsFor(orderId: string, turn: Awaited<ReturnType<typeof runTurn>>["turn"]): Citation[] {
-  const packet = assess(orderId).packet;
+  const packets = [orderId, ...ORDER_IDS.filter((id) => id !== orderId)].map((id) => assess(id).packet);
   const ids = new Set(turn.blocks.flatMap((block) => (block.kind === "facts" ? block.ids : [])));
-  return packet.sourceFacts
+  return packets.flatMap((packet) => packet.sourceFacts)
     .filter((fact) => ids.has(fact.id))
     .map((fact) => ({
       id: fact.id,
@@ -57,11 +56,15 @@ function citationsFor(orderId: string, turn: Awaited<ReturnType<typeof runTurn>>
 }
 
 async function createMessage(body: V2ChatRequest): Promise<V2ChatResponse> {
+  const history = getChatThread(body.userId).messages.slice(-16).map((message) => ({
+    actor: message.actor,
+    content: message.content,
+    contextSnapshot: message.contextSnapshot,
+  }));
   appendChatMessage(body.userId, "user", body.text, body.context, { citations: [] });
   const orderId = body.context.orderId;
-  const route = classify({ role: body.context.role, text: body.text, action: body.action });
 
-  if (!orderId || route.intentClass === "unsupported") {
+  if (!orderId || !ORDER_IDS.includes(orderId)) {
     const answer = await answerGeneralQuestion(body.text, body.context);
     const message = appendChatMessage(body.userId, "assistant", answer.content, body.context, { citations: [] });
     return { message, mode: answer.mode, limitations: answer.limitations };
@@ -72,7 +75,7 @@ async function createMessage(body: V2ChatRequest): Promise<V2ChatResponse> {
     commitmentId: orderId,
     text: body.text,
     ...(body.action ? { action: body.action } : {}),
-  });
+  }, history);
   const citations = citationsFor(orderId, result.turn);
   const message = appendChatMessage(body.userId, "assistant", plainText(result.turn), body.context, { citations });
   return { message, mode: result.mode, turn: result.turn, limitations: [] };

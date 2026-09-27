@@ -3,7 +3,6 @@
  *
  * The key lives only on the server. The client is provider-agnostic via env:
  *   LLM_BASE_URL  (default https://api.sciforium.com/v1)
- *   LLM_MODEL     (default the sciforium DeepSeek deployment)
  *   LLM_API_KEY   (falls back to SCIFORIUM_API_KEY)
  *   LLM_MAX_TOKENS
  * AI turns are only used when FEATURE_AI_CHAT=1.
@@ -21,7 +20,8 @@ export class ModelError extends Error {
 }
 
 const BASE = (process.env.LLM_BASE_URL ?? "https://api.sciforium.com/v1").replace(/\/$/, "");
-const MODEL = process.env.LLM_MODEL ?? "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash";
+export const DEEPSEEK_V41_FLASH_MODEL = "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash";
+const MODEL = DEEPSEEK_V41_FLASH_MODEL;
 const KEY = process.env.LLM_API_KEY ?? process.env.SCIFORIUM_API_KEY ?? "";
 const DEFAULT_MAX = Number(process.env.LLM_MAX_TOKENS ?? 3000);
 const TIMEOUT_MS = Number(process.env.LLM_TIMEOUT_MS ?? 90000);
@@ -31,7 +31,11 @@ export function modelConfigured(): boolean {
 }
 
 export function aiEnabled(): boolean {
-  return process.env.FEATURE_AI_CHAT === "1" && modelConfigured();
+  return process.env.FEATURE_AI_CHAT !== "0" && modelConfigured();
+}
+
+export function modelName(): string {
+  return MODEL;
 }
 
 export type ChatResult = {

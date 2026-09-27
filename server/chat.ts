@@ -9,7 +9,7 @@
 import { randomUUID } from "node:crypto";
 import { AS_OF } from "../src/model";
 import { openThread, reduce, type Intent, type Turn } from "../src/orchestrator";
-import type { ChatMode, ChatRequest, ChatResponse, ContextEnvelope, RouteDecision } from "../src/shared/contracts";
+import type { Block, ChatMode, ChatRequest, ChatResponse, ContextEnvelope, RouteDecision } from "../src/shared/contracts";
 import { audit } from "./audit/log";
 import { buildEnvelope } from "./context/envelope";
 import { aiEnabled } from "./model/client";
@@ -79,7 +79,43 @@ function scriptedTurn(route: RouteDecision, input: ChatRequest, envelope: Contex
   return turn;
 }
 
-export async function runTurn(input: ChatRequest): Promise<ChatResponse> {
+export type TurnHistory = {
+  actor: "user" | "assistant" | "system";
+  content: string;
+  contextSnapshot?: unknown;
+}[];
+
+function mergeModelAndDeterministic(modelTurn: Turn, deterministic: Turn, route: RouteDecision): Turn {
+  if (route.intentClass === "unsupported") return modelTurn;
+
+  const preserve = new Set<Block["kind"]>([
+    "blast",
+    "options",
+    "approval-draft",
+    "approval",
+    "receipt",
+    "outcome",
+    "recommendation",
+    "action",
+    "note",
+    "next",
+  ]);
+  const deterministicBlocks = deterministic.blocks.filter((block) => preserve.has(block.kind));
+  if (!route.policy.allowed) {
+    deterministicBlocks.unshift({ kind: "note", text: route.policy.reason });
+  }
+  const modelBlocks = deterministicBlocks.some((block) => block.kind === "next")
+    ? modelTurn.blocks.filter((block) => block.kind !== "next")
+    : modelTurn.blocks;
+  return {
+    ...modelTurn,
+    tools: [...new Set([...modelTurn.tools, ...deterministic.tools])],
+    progress: [...new Set([...modelTurn.progress, ...deterministic.progress])],
+    blocks: [...modelBlocks, ...deterministicBlocks],
+  };
+}
+
+export async function runTurn(input: ChatRequest, history: TurnHistory = []): Promise<ChatResponse> {
   const traceId = randomUUID();
   const route = classify({
     role: input.role,
@@ -89,12 +125,13 @@ export async function runTurn(input: ChatRequest): Promise<ChatResponse> {
   });
   const envelope = buildEnvelope(input.role, input.commitmentId, input.runId);
 
-  let turn: Turn;
+  const deterministic = route.fallback || !route.policy.allowed
+    ? guidanceTurn(input.commitmentId, envelope.user.roleLabel, route)
+    : scriptedTurn(route, input, envelope);
+  let turn: Turn = deterministic;
   let mode: ChatMode = "scripted";
 
-  if (route.fallback || !route.policy.allowed) {
-    turn = guidanceTurn(input.commitmentId, envelope.user.roleLabel, route);
-  } else if (aiEnabled() && (route.intentClass === "investigation" || route.intentClass === "lookup")) {
+  if (aiEnabled()) {
     const question =
       input.text && input.text.trim().length > 0
         ? input.text.trim()
@@ -110,8 +147,9 @@ export async function runTurn(input: ChatRequest): Promise<ChatResponse> {
           now: AS_OF,
         },
         question,
+        { history, route, deterministicPreview: deterministic },
       );
-      turn = result.turn;
+      turn = mergeModelAndDeterministic(result.turn, deterministic, route);
       mode = "ai";
       audit({
         kind: "ai_turn",
@@ -125,10 +163,8 @@ export async function runTurn(input: ChatRequest): Promise<ChatResponse> {
       });
     } catch (error) {
       audit({ kind: "ai_fallback", traceId, intentClass: route.intentClass, detail: String(error) });
-      turn = scriptedTurn(route, input, envelope);
+      turn = deterministic;
     }
-  } else {
-    turn = scriptedTurn(route, input, envelope);
   }
 
   audit({

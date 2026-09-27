@@ -197,39 +197,69 @@ export function App() {
     if (!text) return;
     setDraft("");
     const intent = interpret(text);
-    if (intent.type !== "ask") {
-      commit(thread, intent);
-      void sendChatMessage(text, activeContext()).catch(() => undefined);
-      return;
-    }
+    const statefulIntent = new Set(["scenario", "select-option", "request-approval", "record-approval", "simulate", "observe"]);
+    const localResult = statefulIntent.has(intent.type)
+      ? reduce(thread, activeEnvelope(role, thread), intent)
+      : null;
 
     const controller = new AbortController();
     abortRef.current = controller;
     setGeneralBusy(true);
     try {
       const payload = await sendChatMessage(text, activeContext(), controller.signal);
-      const turn: Turn = {
+      const baseTurn: Turn = payload.turn ?? {
         id: payload.message.id,
         speaker: PEOPLE[role].roleLabel,
         prompt: text,
         tools: [],
         progress: [],
+        blocks: [{ kind: "answer", text: payload.message.content }],
+      };
+      const operationalKinds = new Set<Block["kind"]>([
+        "blast", "options", "approval-draft", "approval", "receipt", "outcome", "recommendation", "action", "note", "next",
+      ]);
+      const localOperational = localResult
+        ? localResult.turn.blocks.filter((block) => operationalKinds.has(block.kind))
+        : [];
+      const turn: Turn = {
+        ...baseTurn,
+        id: payload.message.id,
+        prompt: text,
+        tools: [...new Set([...baseTurn.tools, ...(localResult?.turn.tools ?? [])])],
+        progress: [...new Set([...baseTurn.progress, ...(localResult?.turn.progress ?? [])])],
         blocks: [
-          { kind: "answer", text: payload.message.content },
+          ...baseTurn.blocks.filter((block) => !localResult || block.kind !== "next"),
+          ...localOperational,
           ...(payload.limitations.length ? [{ kind: "note" as const, text: `Availability: ${payload.limitations.join(" · ")}` }] : []),
         ],
       };
+      if (localResult) {
+        setThreads((prev) => ({
+          ...prev,
+          [activeId]: { ...localResult.thread, turns: [...localResult.thread.turns, turn] },
+        }));
+      }
       setConversation((entries) => [...entries, { kind: "turn", id: turn.id, commitmentId: activeId, role, turn }]);
+      if (turn.progress.length) {
+        setShownSteps(0);
+        setPendingId(turn.id);
+      }
     } catch (error) {
       if ((error as Error).name !== "AbortError") {
-        const turn: Turn = {
+        const turn: Turn = localResult?.turn ?? {
           id: `error-${Date.now()}`,
           speaker: PEOPLE[role].roleLabel,
           prompt: text,
           tools: [],
           progress: [],
-          blocks: [{ kind: "answer", text: "The assistant could not be reached. Your order data remains available in the table." }],
+          blocks: [{ kind: "answer", text: "DeepSeek V4.1 Flash could not be reached. No model answer was substituted." }],
         };
+        if (localResult) {
+          setThreads((prev) => ({
+            ...prev,
+            [activeId]: { ...localResult.thread, turns: [...localResult.thread.turns, turn] },
+          }));
+        }
         setConversation((entries) => [...entries, { kind: "turn", id: turn.id, commitmentId: activeId, role, turn }]);
       }
     } finally {

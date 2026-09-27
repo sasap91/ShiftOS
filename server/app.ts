@@ -7,7 +7,7 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 import type { ChatRequest } from "../src/shared/contracts";
 import { audit } from "./audit/log";
 import { runTurn } from "./chat";
-import { aiEnabled } from "./model/client";
+import { aiEnabled, modelName } from "./model/client";
 import { handleV2Api } from "./api/v2";
 
 const AI_MODE = aiEnabled() ? "ai" : "scripted";
@@ -32,7 +32,7 @@ export async function apiHandler(req: IncomingMessage, res: ServerResponse): Pro
   if (await handleV2Api(req, res, url)) return;
 
   if (req.method === "GET" && url.pathname === "/api/health") {
-    send(res, 200, { ok: true, service: "forge-ai-chat", mode: AI_MODE });
+    send(res, 200, { ok: true, service: "forge-ai-chat", mode: AI_MODE, model: modelName() });
     return;
   }
 
