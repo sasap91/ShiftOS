@@ -698,9 +698,6 @@ body { overflow: hidden; background: var(--paper); }
 /* The right rail is only conversation. */
 .chat { background: var(--log); }
 .log { padding: 14px 14px 18px; }
-.context-divider { display: flex; align-items: center; gap: 8px; margin: 14px 0 4px; color: var(--muted); font-size: 10px; }
-.context-divider::before, .context-divider::after { content: ""; height: 1px; flex: 1; background: var(--line); }
-.context-divider span { white-space: nowrap; }
 .turn { padding: 13px 0 8px; }
 .prompt { margin-bottom: 8px; padding: 8px 10px; background: #f2efe8; border-radius: 5px; }
 .prompt span { text-transform: none; letter-spacing: 0; }

@@ -45,9 +45,7 @@ const COMMITMENT_IDS = ["COM-1042", "COM-1018", "COM-1104", "COM-0991"];
 const RISK_GROUPS: QueueState[] = ["at-risk", "awaiting", "approved", "monitoring"];
 
 type UrlState = { role?: Role; order?: string; zone?: string; horizon?: Horizon };
-type ConversationEntry =
-  | { kind: "context"; id: string; label: string }
-  | { kind: "turn"; id: string; commitmentId: string; role: Role; turn: Turn };
+type ConversationEntry = { kind: "turn"; id: string; commitmentId: string; role: Role; turn: Turn };
 
 const CHAT_CACHE = "forge-v2:chat:local-user";
 
@@ -80,7 +78,8 @@ function initialThreads(): Record<string, Thread> {
 function initialConversation(): ConversationEntry[] {
   if (typeof window === "undefined") return [];
   try {
-    return JSON.parse(window.localStorage.getItem(CHAT_CACHE) ?? "[]") as ConversationEntry[];
+    const cached = JSON.parse(window.localStorage.getItem(CHAT_CACHE) ?? "[]") as Array<ConversationEntry | { kind: "context" }>;
+    return cached.filter((entry): entry is ConversationEntry => entry.kind === "turn");
   } catch {
     return [];
   }
@@ -161,21 +160,6 @@ export function App() {
       .then(setConnection)
       .catch(() => setConnection("limited"));
   }, []);
-
-  const contextSignature = `${role}|${activeId}|${selectedZone ?? "all"}|${filters.horizon}`;
-  const priorContext = useRef(contextSignature);
-  useEffect(() => {
-    if (priorContext.current === contextSignature) return;
-    priorContext.current = contextSignature;
-    setConversation((entries) => [
-      ...entries,
-      {
-        kind: "context",
-        id: `context-${Date.now()}`,
-        label: `${PEOPLE[role].roleLabel} · ${activeId}${selectedZone ? ` · ${selectedZone}` : ""} · ${filters.horizon} weeks`,
-      },
-    ]);
-  }, [activeId, contextSignature, filters.horizon, role, selectedZone]);
 
   // Persist the room context to the URL (V-09) so a reload restores it.
   useEffect(() => {
@@ -403,7 +387,6 @@ export function App() {
         <aside className="chat" aria-label="Conversation">
           <div className="log" ref={logRef}>
             {conversation.map((entry) => {
-              if (entry.kind === "context") return <p className="context-divider" key={entry.id}><span>{entry.label}</span></p>;
               const entryThread = threads[entry.commitmentId];
               const index = entryThread.turns.findIndex((item) => item.id === entry.turn.id);
               return (
