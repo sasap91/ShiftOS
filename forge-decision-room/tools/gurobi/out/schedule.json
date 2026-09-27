@@ -1,0 +1,195 @@
+{
+  "achievedGap": 0.0,
+  "horizonEnd": "2026-10-23",
+  "horizonStart": "2026-09-28",
+  "jobs": [
+    {
+      "completionDay": "2026-10-07",
+      "dueDay": "2026-10-10",
+      "dueDayNormalized": "2026-10-12",
+      "frozen": true,
+      "id": "COM-1104",
+      "operations": [
+        {
+          "durationDays": 2,
+          "endDay": "2026-09-30",
+          "ratePerDay": 20,
+          "resourceId": "RES-ASM-01",
+          "seq": 10,
+          "startDay": "2026-09-28",
+          "zone": "Z-ASM"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-01",
+          "ratePerDay": 24,
+          "resourceId": "RES-ELEC-01",
+          "seq": 20,
+          "startDay": "2026-09-30",
+          "zone": "Z-ELEC"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-05",
+          "ratePerDay": 32,
+          "resourceId": "RES-LT-01",
+          "seq": 30,
+          "startDay": "2026-10-02",
+          "zone": "Z-LT"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-07",
+          "ratePerDay": 64,
+          "resourceId": "RES-SHIP-01",
+          "seq": 40,
+          "startDay": "2026-10-06",
+          "zone": "Z-SHIP"
+        }
+      ],
+      "priority": 1,
+      "product": "CDU-2400",
+      "promiseOnNonWorkingDay": true,
+      "qty": 24,
+      "tardinessDays": 0
+    },
+    {
+      "completionDay": "2026-10-12",
+      "dueDay": "2026-10-15",
+      "dueDayNormalized": "2026-10-15",
+      "frozen": false,
+      "id": "COM-1018",
+      "operations": [
+        {
+          "durationDays": 4,
+          "endDay": "2026-10-06",
+          "ratePerDay": 20,
+          "resourceId": "RES-ASM-02",
+          "seq": 10,
+          "startDay": "2026-09-30",
+          "zone": "Z-ASM"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-10-08",
+          "ratePerDay": 40,
+          "resourceId": "RES-FT-02",
+          "seq": 20,
+          "startDay": "2026-10-06",
+          "zone": "Z-FT"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-10-12",
+          "ratePerDay": 64,
+          "resourceId": "RES-SHIP-01",
+          "seq": 30,
+          "startDay": "2026-10-08",
+          "zone": "Z-SHIP"
+        }
+      ],
+      "priority": 2,
+      "product": "RM-42",
+      "promiseOnNonWorkingDay": false,
+      "qty": 80,
+      "tardinessDays": 0
+    },
+    {
+      "completionDay": "2026-10-21",
+      "dueDay": "2026-10-15",
+      "dueDayNormalized": "2026-10-15",
+      "frozen": false,
+      "id": "COM-1042",
+      "operations": [
+        {
+          "durationDays": 6,
+          "endDay": "2026-10-08",
+          "ratePerDay": 20,
+          "resourceId": "RES-ASM-01",
+          "seq": 10,
+          "startDay": "2026-09-30",
+          "zone": "Z-ASM"
+        },
+        {
+          "durationDays": 6,
+          "endDay": "2026-10-19",
+          "ratePerDay": 32,
+          "resourceId": "RES-LT-01",
+          "seq": 20,
+          "startDay": "2026-10-09",
+          "zone": "Z-LT"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-10-21",
+          "ratePerDay": 64,
+          "resourceId": "RES-SHIP-01",
+          "seq": 30,
+          "startDay": "2026-10-19",
+          "zone": "Z-SHIP"
+        }
+      ],
+      "priority": 3,
+      "product": "CPL-480",
+      "promiseOnNonWorkingDay": false,
+      "qty": 120,
+      "tardinessDays": 4
+    },
+    {
+      "completionDay": "2026-10-09",
+      "dueDay": "2026-11-06",
+      "dueDayNormalized": "2026-11-06",
+      "frozen": false,
+      "id": "COM-0991",
+      "operations": [
+        {
+          "durationDays": 2,
+          "endDay": "2026-09-30",
+          "ratePerDay": 20,
+          "resourceId": "RES-ASM-02",
+          "seq": 10,
+          "startDay": "2026-09-28",
+          "zone": "Z-ASM"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-10-02",
+          "ratePerDay": 32,
+          "resourceId": "RES-LT-01",
+          "seq": 20,
+          "startDay": "2026-09-30",
+          "zone": "Z-LT"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-06",
+          "ratePerDay": 64,
+          "resourceId": "RES-SHIP-01",
+          "seq": 30,
+          "startDay": "2026-10-05",
+          "zone": "Z-SHIP"
+        }
+      ],
+      "priority": 5,
+      "product": "CPL-320",
+      "promiseOnNonWorkingDay": false,
+      "qty": 40,
+      "tardinessDays": 0
+    }
+  ],
+  "makespanDays": 17,
+  "objective": 12.017,
+  "policyGap": 0.0,
+  "resultHash": "5da00646bc70ddfe0a9c2669c520f73dcda29490e31d921c26a0326834d30a9d",
+  "solver": {
+    "method": 2,
+    "mipGap": 0.0,
+    "name": "gurobi",
+    "presolve": 2,
+    "seed": 0,
+    "threads": 1,
+    "version": "12.0.3",
+    "workLimit": 1000000
+  },
+  "status": "OPTIMAL"
+}

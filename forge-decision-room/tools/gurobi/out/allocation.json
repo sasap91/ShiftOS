@@ -1,0 +1,277 @@
+{
+  "baseline": {
+    "allocations": [
+      {
+        "allocated": 200,
+        "days": [
+          {
+            "day": "2026-09-28",
+            "tests": 24
+          },
+          {
+            "day": "2026-09-29",
+            "tests": 32
+          },
+          {
+            "day": "2026-09-30",
+            "tests": 32
+          },
+          {
+            "day": "2026-10-02",
+            "tests": 32
+          },
+          {
+            "day": "2026-10-06",
+            "tests": 16
+          },
+          {
+            "day": "2026-10-07",
+            "tests": 16
+          },
+          {
+            "day": "2026-10-09",
+            "tests": 16
+          },
+          {
+            "day": "2026-10-12",
+            "tests": 16
+          },
+          {
+            "day": "2026-10-14",
+            "tests": 16
+          }
+        ],
+        "frozen": true,
+        "id": "FROZEN-HORIZON",
+        "priority": 0,
+        "required": 200,
+        "shortfall": 0
+      },
+      {
+        "allocated": 48,
+        "days": [
+          {
+            "day": "2026-09-28",
+            "tests": 8
+          },
+          {
+            "day": "2026-10-01",
+            "tests": 8
+          },
+          {
+            "day": "2026-10-05",
+            "tests": 32
+          }
+        ],
+        "frozen": false,
+        "id": "COM-1104",
+        "priority": 1,
+        "required": 48,
+        "shortfall": 0
+      },
+      {
+        "allocated": 56,
+        "days": [
+          {
+            "day": "2026-10-01",
+            "tests": 24
+          },
+          {
+            "day": "2026-10-08",
+            "tests": 16
+          },
+          {
+            "day": "2026-10-13",
+            "tests": 16
+          }
+        ],
+        "frozen": false,
+        "id": "COM-1042",
+        "priority": 3,
+        "required": 120,
+        "shortfall": 64
+      }
+    ],
+    "allowOvertime": false,
+    "capacity": {
+      "degraded": 112,
+      "healthy": 192,
+      "total": 304
+    },
+    "capacityMarginalTestsPerUnit": 1,
+    "inputsHash": "21df45a634950af6032d57e481e28a447778a1c41680de370523e4c44a66662b",
+    "objective": 64.0,
+    "overtimeCostCad": 0.0,
+    "overtimeDays": [],
+    "overtimeShifts": 0,
+    "resultHash": "f2321feeec8cd8cf6d757a024c938e187f42ae44f98f60e387a8bf3390ee58d0",
+    "solver": {
+      "method": 2,
+      "mipGap": 0.0,
+      "name": "gurobi",
+      "presolve": 2,
+      "seed": 0,
+      "threads": 1,
+      "version": "12.0.3",
+      "workLimit": 1000000
+    },
+    "status": "OPTIMAL"
+  },
+  "fixture": {
+    "capacity": {
+      "degraded": 112,
+      "healthy": 192,
+      "total": 304
+    },
+    "degradedDays": [
+      "2026-10-06",
+      "2026-10-07",
+      "2026-10-08",
+      "2026-10-09",
+      "2026-10-12",
+      "2026-10-13",
+      "2026-10-14"
+    ],
+    "healthyDays": [
+      "2026-09-28",
+      "2026-09-29",
+      "2026-09-30",
+      "2026-10-01",
+      "2026-10-02",
+      "2026-10-05"
+    ],
+    "masterSetVersion": "MS-2026-09-26",
+    "modelVersion": "ctp-0.3.0",
+    "snapshotId": "SNAP-20260926-0815"
+  },
+  "generator": "tools/gurobi/allocate_leaktests.py",
+  "recovery": {
+    "allocations": [
+      {
+        "allocated": 200,
+        "days": [
+          {
+            "day": "2026-09-28",
+            "tests": 24
+          },
+          {
+            "day": "2026-09-29",
+            "tests": 32
+          },
+          {
+            "day": "2026-09-30",
+            "tests": 48
+          },
+          {
+            "day": "2026-10-05",
+            "tests": 48
+          },
+          {
+            "day": "2026-10-08",
+            "tests": 16
+          },
+          {
+            "day": "2026-10-09",
+            "tests": 16
+          },
+          {
+            "day": "2026-10-14",
+            "tests": 16
+          }
+        ],
+        "frozen": true,
+        "id": "FROZEN-HORIZON",
+        "priority": 0,
+        "required": 200,
+        "shortfall": 0
+      },
+      {
+        "allocated": 48,
+        "days": [
+          {
+            "day": "2026-10-02",
+            "tests": 48
+          }
+        ],
+        "frozen": false,
+        "id": "COM-1104",
+        "priority": 1,
+        "required": 48,
+        "shortfall": 0
+      },
+      {
+        "allocated": 120,
+        "days": [
+          {
+            "day": "2026-09-28",
+            "tests": 8
+          },
+          {
+            "day": "2026-10-01",
+            "tests": 48
+          },
+          {
+            "day": "2026-10-06",
+            "tests": 16
+          },
+          {
+            "day": "2026-10-07",
+            "tests": 16
+          },
+          {
+            "day": "2026-10-12",
+            "tests": 16
+          },
+          {
+            "day": "2026-10-13",
+            "tests": 16
+          }
+        ],
+        "frozen": false,
+        "id": "COM-1042",
+        "priority": 3,
+        "required": 120,
+        "shortfall": 0
+      }
+    ],
+    "allowOvertime": true,
+    "capacity": {
+      "degraded": 112,
+      "healthy": 192,
+      "total": 304
+    },
+    "capacityMarginalTestsPerUnit": 1,
+    "inputsHash": "587d2a1a179521cf56615eb906e15b4c58e3022f40a8b572a8abdd761d86509d",
+    "objective": 40000.0,
+    "overtimeCostCad": 4416.0,
+    "overtimeDays": [
+      "2026-09-30",
+      "2026-10-01",
+      "2026-10-02",
+      "2026-10-05"
+    ],
+    "overtimeShifts": 4,
+    "resultHash": "e5409493add4a9ef44b7c47701042dff44fb24ce8e9122e831ca037d3249e4cd",
+    "solver": {
+      "method": 2,
+      "mipGap": 0.0,
+      "name": "gurobi",
+      "presolve": 2,
+      "seed": 0,
+      "threads": 1,
+      "version": "12.0.3",
+      "workLimit": 1000000
+    },
+    "status": "OPTIMAL"
+  },
+  "solver": {
+    "method": 2,
+    "mipGap": 0.0,
+    "name": "gurobi",
+    "presolve": 2,
+    "seed": 0,
+    "threads": 1,
+    "version": "12.0.3",
+    "workLimit": 1000000
+  }
+}

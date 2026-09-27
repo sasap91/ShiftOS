@@ -1,0 +1,12 @@
+bundle_name: COOLIT_Algorithm_Input_Bundle_v1
+bundle_status: synthetic_fixture
+source_dataset: COOLIT_Synthetic_Enterprise_Data_v3.1
+is_system_of_record: false
+as_of_at: 2026-09-25T23:59:59-06:00
+content_hash: f2fc55f79012f843cfa66b1cf0553c9b778f3e00849ca78b608961b15e2dbde6
+allocation_rows: 60
+schedule_jobs: 40
+resources: 6
+routing_configurations: 12
+horizon_days: 130
+overall_review_status: PASS

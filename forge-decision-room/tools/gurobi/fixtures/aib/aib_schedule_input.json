@@ -1,0 +1,1112 @@
+{
+  "note": "Rates, routings, and ship days derive from COOLIT Synthetic Enterprise Data v3.1 masters (erp/routing_operation, erp/operation_schedule, reference/capability_interval, reference/ship_calendar, erp/work_order, erp/setup_matrix); no invented inputs.",
+  "source_dataset": "COOLIT_Synthetic_Enterprise_Data_v3.1",
+  "snapshot_id": "SNP-COOLIT-20260925-BL",
+  "as_of_at": "2026-09-25T23:59:59-06:00",
+  "horizonDays": [
+    "2026-09-28",
+    "2026-09-29",
+    "2026-09-30",
+    "2026-10-01",
+    "2026-10-02",
+    "2026-10-05",
+    "2026-10-06",
+    "2026-10-07",
+    "2026-10-08",
+    "2026-10-09",
+    "2026-10-12",
+    "2026-10-13",
+    "2026-10-14",
+    "2026-10-15",
+    "2026-10-16",
+    "2026-10-19",
+    "2026-10-20",
+    "2026-10-21",
+    "2026-10-22",
+    "2026-10-23",
+    "2026-10-26",
+    "2026-10-27",
+    "2026-10-28",
+    "2026-10-29",
+    "2026-10-30",
+    "2026-11-02",
+    "2026-11-03",
+    "2026-11-04",
+    "2026-11-05",
+    "2026-11-06",
+    "2026-11-09",
+    "2026-11-10",
+    "2026-11-11",
+    "2026-11-12",
+    "2026-11-13",
+    "2026-11-16",
+    "2026-11-17",
+    "2026-11-18",
+    "2026-11-19",
+    "2026-11-20",
+    "2026-11-23",
+    "2026-11-24",
+    "2026-11-25",
+    "2026-11-26",
+    "2026-11-27",
+    "2026-11-30",
+    "2026-12-01",
+    "2026-12-02",
+    "2026-12-03",
+    "2026-12-04",
+    "2026-12-07",
+    "2026-12-08",
+    "2026-12-09",
+    "2026-12-10",
+    "2026-12-11",
+    "2026-12-14",
+    "2026-12-15",
+    "2026-12-16",
+    "2026-12-17",
+    "2026-12-18",
+    "2026-12-21",
+    "2026-12-22",
+    "2026-12-23",
+    "2026-12-24",
+    "2026-12-25",
+    "2026-12-28",
+    "2026-12-29",
+    "2026-12-30",
+    "2026-12-31",
+    "2027-01-01",
+    "2027-01-04",
+    "2027-01-05",
+    "2027-01-06",
+    "2027-01-07",
+    "2027-01-08",
+    "2027-01-11",
+    "2027-01-12",
+    "2027-01-13",
+    "2027-01-14",
+    "2027-01-15",
+    "2027-01-18",
+    "2027-01-19",
+    "2027-01-20",
+    "2027-01-21",
+    "2027-01-22",
+    "2027-01-25",
+    "2027-01-26",
+    "2027-01-27",
+    "2027-01-28",
+    "2027-01-29",
+    "2027-02-01",
+    "2027-02-02",
+    "2027-02-03",
+    "2027-02-04",
+    "2027-02-05",
+    "2027-02-08",
+    "2027-02-09",
+    "2027-02-10",
+    "2027-02-11",
+    "2027-02-12",
+    "2027-02-15",
+    "2027-02-16",
+    "2027-02-17",
+    "2027-02-18",
+    "2027-02-19",
+    "2027-02-22",
+    "2027-02-23",
+    "2027-02-24",
+    "2027-02-25",
+    "2027-02-26",
+    "2027-03-01",
+    "2027-03-02",
+    "2027-03-03",
+    "2027-03-04",
+    "2027-03-05",
+    "2027-03-08",
+    "2027-03-09",
+    "2027-03-10",
+    "2027-03-11",
+    "2027-03-12",
+    "2027-03-15",
+    "2027-03-16",
+    "2027-03-17",
+    "2027-03-18",
+    "2027-03-19",
+    "2027-03-22",
+    "2027-03-23",
+    "2027-03-24",
+    "2027-03-25",
+    "2027-03-26"
+  ],
+  "resources": [
+    {
+      "id": "LINE-CPL-01",
+      "zone": "ZN-04A",
+      "ratePerDay": 24.6,
+      "nominal_concurrent_units": 1,
+      "derates": []
+    },
+    {
+      "id": "LINE-RM-01",
+      "zone": "ZN-04B",
+      "ratePerDay": 24.6,
+      "nominal_concurrent_units": 1,
+      "derates": []
+    },
+    {
+      "id": "LINE-CDU-01",
+      "zone": "ZN-04C",
+      "ratePerDay": 24.6,
+      "nominal_concurrent_units": 1,
+      "derates": []
+    },
+    {
+      "id": "CELL-ROBOT-01",
+      "zone": "ZN-03",
+      "ratePerDay": 64,
+      "nominal_concurrent_units": 1,
+      "derates": []
+    },
+    {
+      "id": "TEST-LEAK-01",
+      "zone": "ZN-05A",
+      "ratePerDay": 37.3,
+      "nominal_concurrent_units": 1,
+      "derates": [
+        {
+          "from": "2026-09-28",
+          "to": "2026-10-02",
+          "factor": 0.343
+        }
+      ]
+    },
+    {
+      "id": "TEST-FUNC-01",
+      "zone": "ZN-05B",
+      "ratePerDay": 24,
+      "nominal_concurrent_units": 1,
+      "derates": []
+    }
+  ],
+  "routings": {
+    "CFG-CPL-01": [
+      {
+        "seq": 10,
+        "resourceId": "CELL-ROBOT-01",
+        "stdRate": 4,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 15,
+        "testGate": ""
+      },
+      {
+        "seq": 20,
+        "resourceId": "LINE-CPL-01",
+        "stdRate": 1,
+        "setupMinutes": 20,
+        "runMinutesPerUnit": 60,
+        "testGate": ""
+      },
+      {
+        "seq": 30,
+        "resourceId": "TEST-LEAK-01",
+        "stdRate": 3,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 20,
+        "testGate": ""
+      },
+      {
+        "seq": 40,
+        "resourceId": "TEST-LEAK-01",
+        "stdRate": 2.4,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 25,
+        "testGate": "LEAK_PASS"
+      },
+      {
+        "seq": 50,
+        "resourceId": "TEST-FUNC-01",
+        "stdRate": 1.71,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 35,
+        "testGate": "FUNCTIONAL_PASS"
+      },
+      {
+        "seq": 60,
+        "resourceId": "LINE-CPL-01",
+        "stdRate": 3.33,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 18,
+        "testGate": ""
+      }
+    ],
+    "CFG-CPL-02": [
+      {
+        "seq": 10,
+        "resourceId": "CELL-ROBOT-01",
+        "stdRate": 4,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 15,
+        "testGate": ""
+      },
+      {
+        "seq": 20,
+        "resourceId": "LINE-CPL-01",
+        "stdRate": 1,
+        "setupMinutes": 20,
+        "runMinutesPerUnit": 60,
+        "testGate": ""
+      },
+      {
+        "seq": 30,
+        "resourceId": "TEST-LEAK-01",
+        "stdRate": 3,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 20,
+        "testGate": ""
+      },
+      {
+        "seq": 40,
+        "resourceId": "TEST-LEAK-01",
+        "stdRate": 2.4,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 25,
+        "testGate": "LEAK_PASS"
+      },
+      {
+        "seq": 50,
+        "resourceId": "TEST-FUNC-01",
+        "stdRate": 1.71,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 35,
+        "testGate": "FUNCTIONAL_PASS"
+      },
+      {
+        "seq": 60,
+        "resourceId": "LINE-CPL-01",
+        "stdRate": 3.33,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 18,
+        "testGate": ""
+      }
+    ],
+    "CFG-CPL-03": [
+      {
+        "seq": 10,
+        "resourceId": "CELL-ROBOT-01",
+        "stdRate": 4,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 15,
+        "testGate": ""
+      },
+      {
+        "seq": 20,
+        "resourceId": "LINE-CPL-01",
+        "stdRate": 1,
+        "setupMinutes": 20,
+        "runMinutesPerUnit": 60,
+        "testGate": ""
+      },
+      {
+        "seq": 30,
+        "resourceId": "TEST-LEAK-01",
+        "stdRate": 3,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 20,
+        "testGate": ""
+      },
+      {
+        "seq": 40,
+        "resourceId": "TEST-LEAK-01",
+        "stdRate": 2.4,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 25,
+        "testGate": "LEAK_PASS"
+      },
+      {
+        "seq": 50,
+        "resourceId": "TEST-FUNC-01",
+        "stdRate": 1.71,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 35,
+        "testGate": "FUNCTIONAL_PASS"
+      },
+      {
+        "seq": 60,
+        "resourceId": "LINE-CPL-01",
+        "stdRate": 3.33,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 18,
+        "testGate": ""
+      }
+    ],
+    "CFG-CPL-04": [
+      {
+        "seq": 10,
+        "resourceId": "CELL-ROBOT-01",
+        "stdRate": 4,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 15,
+        "testGate": ""
+      },
+      {
+        "seq": 20,
+        "resourceId": "LINE-CPL-01",
+        "stdRate": 1,
+        "setupMinutes": 20,
+        "runMinutesPerUnit": 60,
+        "testGate": ""
+      },
+      {
+        "seq": 30,
+        "resourceId": "TEST-LEAK-01",
+        "stdRate": 3,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 20,
+        "testGate": ""
+      },
+      {
+        "seq": 40,
+        "resourceId": "TEST-LEAK-01",
+        "stdRate": 2.4,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 25,
+        "testGate": "LEAK_PASS"
+      },
+      {
+        "seq": 50,
+        "resourceId": "TEST-FUNC-01",
+        "stdRate": 1.71,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 35,
+        "testGate": "FUNCTIONAL_PASS"
+      },
+      {
+        "seq": 60,
+        "resourceId": "LINE-CPL-01",
+        "stdRate": 3.33,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 18,
+        "testGate": ""
+      }
+    ],
+    "CFG-RM-01": [
+      {
+        "seq": 10,
+        "resourceId": "CELL-ROBOT-01",
+        "stdRate": 4,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 15,
+        "testGate": ""
+      },
+      {
+        "seq": 20,
+        "resourceId": "LINE-RM-01",
+        "stdRate": 1,
+        "setupMinutes": 20,
+        "runMinutesPerUnit": 60,
+        "testGate": ""
+      },
+      {
+        "seq": 30,
+        "resourceId": "TEST-LEAK-01",
+        "stdRate": 3,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 20,
+        "testGate": ""
+      },
+      {
+        "seq": 40,
+        "resourceId": "TEST-LEAK-01",
+        "stdRate": 2.4,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 25,
+        "testGate": "LEAK_PASS"
+      },
+      {
+        "seq": 50,
+        "resourceId": "TEST-FUNC-01",
+        "stdRate": 1.71,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 35,
+        "testGate": "FUNCTIONAL_PASS"
+      },
+      {
+        "seq": 60,
+        "resourceId": "LINE-RM-01",
+        "stdRate": 3.33,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 18,
+        "testGate": ""
+      }
+    ],
+    "CFG-RM-02": [
+      {
+        "seq": 10,
+        "resourceId": "CELL-ROBOT-01",
+        "stdRate": 4,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 15,
+        "testGate": ""
+      },
+      {
+        "seq": 20,
+        "resourceId": "LINE-RM-01",
+        "stdRate": 1,
+        "setupMinutes": 20,
+        "runMinutesPerUnit": 60,
+        "testGate": ""
+      },
+      {
+        "seq": 30,
+        "resourceId": "TEST-LEAK-01",
+        "stdRate": 3,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 20,
+        "testGate": ""
+      },
+      {
+        "seq": 40,
+        "resourceId": "TEST-LEAK-01",
+        "stdRate": 2.4,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 25,
+        "testGate": "LEAK_PASS"
+      },
+      {
+        "seq": 50,
+        "resourceId": "TEST-FUNC-01",
+        "stdRate": 1.71,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 35,
+        "testGate": "FUNCTIONAL_PASS"
+      },
+      {
+        "seq": 60,
+        "resourceId": "LINE-RM-01",
+        "stdRate": 3.33,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 18,
+        "testGate": ""
+      }
+    ],
+    "CFG-RM-03": [
+      {
+        "seq": 10,
+        "resourceId": "CELL-ROBOT-01",
+        "stdRate": 4,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 15,
+        "testGate": ""
+      },
+      {
+        "seq": 20,
+        "resourceId": "LINE-RM-01",
+        "stdRate": 1,
+        "setupMinutes": 20,
+        "runMinutesPerUnit": 60,
+        "testGate": ""
+      },
+      {
+        "seq": 30,
+        "resourceId": "TEST-LEAK-01",
+        "stdRate": 3,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 20,
+        "testGate": ""
+      },
+      {
+        "seq": 40,
+        "resourceId": "TEST-LEAK-01",
+        "stdRate": 2.4,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 25,
+        "testGate": "LEAK_PASS"
+      },
+      {
+        "seq": 50,
+        "resourceId": "TEST-FUNC-01",
+        "stdRate": 1.71,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 35,
+        "testGate": "FUNCTIONAL_PASS"
+      },
+      {
+        "seq": 60,
+        "resourceId": "LINE-RM-01",
+        "stdRate": 3.33,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 18,
+        "testGate": ""
+      }
+    ],
+    "CFG-RM-04": [
+      {
+        "seq": 10,
+        "resourceId": "CELL-ROBOT-01",
+        "stdRate": 4,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 15,
+        "testGate": ""
+      },
+      {
+        "seq": 20,
+        "resourceId": "LINE-RM-01",
+        "stdRate": 1,
+        "setupMinutes": 20,
+        "runMinutesPerUnit": 60,
+        "testGate": ""
+      },
+      {
+        "seq": 30,
+        "resourceId": "TEST-LEAK-01",
+        "stdRate": 3,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 20,
+        "testGate": ""
+      },
+      {
+        "seq": 40,
+        "resourceId": "TEST-LEAK-01",
+        "stdRate": 2.4,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 25,
+        "testGate": "LEAK_PASS"
+      },
+      {
+        "seq": 50,
+        "resourceId": "TEST-FUNC-01",
+        "stdRate": 1.71,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 35,
+        "testGate": "FUNCTIONAL_PASS"
+      },
+      {
+        "seq": 60,
+        "resourceId": "LINE-RM-01",
+        "stdRate": 3.33,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 18,
+        "testGate": ""
+      }
+    ],
+    "CFG-CDU-01": [
+      {
+        "seq": 10,
+        "resourceId": "CELL-ROBOT-01",
+        "stdRate": 4,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 15,
+        "testGate": ""
+      },
+      {
+        "seq": 20,
+        "resourceId": "LINE-CDU-01",
+        "stdRate": 1,
+        "setupMinutes": 20,
+        "runMinutesPerUnit": 60,
+        "testGate": ""
+      },
+      {
+        "seq": 30,
+        "resourceId": "TEST-LEAK-01",
+        "stdRate": 3,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 20,
+        "testGate": ""
+      },
+      {
+        "seq": 40,
+        "resourceId": "TEST-LEAK-01",
+        "stdRate": 2.4,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 25,
+        "testGate": "LEAK_PASS"
+      },
+      {
+        "seq": 50,
+        "resourceId": "TEST-FUNC-01",
+        "stdRate": 1.71,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 35,
+        "testGate": "FUNCTIONAL_PASS"
+      },
+      {
+        "seq": 60,
+        "resourceId": "LINE-CDU-01",
+        "stdRate": 3.33,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 18,
+        "testGate": ""
+      }
+    ],
+    "CFG-CDU-02": [
+      {
+        "seq": 10,
+        "resourceId": "CELL-ROBOT-01",
+        "stdRate": 4,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 15,
+        "testGate": ""
+      },
+      {
+        "seq": 20,
+        "resourceId": "LINE-CDU-01",
+        "stdRate": 1,
+        "setupMinutes": 20,
+        "runMinutesPerUnit": 60,
+        "testGate": ""
+      },
+      {
+        "seq": 30,
+        "resourceId": "TEST-LEAK-01",
+        "stdRate": 3,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 20,
+        "testGate": ""
+      },
+      {
+        "seq": 40,
+        "resourceId": "TEST-LEAK-01",
+        "stdRate": 2.4,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 25,
+        "testGate": "LEAK_PASS"
+      },
+      {
+        "seq": 50,
+        "resourceId": "TEST-FUNC-01",
+        "stdRate": 1.71,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 35,
+        "testGate": "FUNCTIONAL_PASS"
+      },
+      {
+        "seq": 60,
+        "resourceId": "LINE-CDU-01",
+        "stdRate": 3.33,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 18,
+        "testGate": ""
+      }
+    ],
+    "CFG-CDU-03": [
+      {
+        "seq": 10,
+        "resourceId": "CELL-ROBOT-01",
+        "stdRate": 4,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 15,
+        "testGate": ""
+      },
+      {
+        "seq": 20,
+        "resourceId": "LINE-CDU-01",
+        "stdRate": 1,
+        "setupMinutes": 20,
+        "runMinutesPerUnit": 60,
+        "testGate": ""
+      },
+      {
+        "seq": 30,
+        "resourceId": "TEST-LEAK-01",
+        "stdRate": 3,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 20,
+        "testGate": ""
+      },
+      {
+        "seq": 40,
+        "resourceId": "TEST-LEAK-01",
+        "stdRate": 2.4,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 25,
+        "testGate": "LEAK_PASS"
+      },
+      {
+        "seq": 50,
+        "resourceId": "TEST-FUNC-01",
+        "stdRate": 1.71,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 35,
+        "testGate": "FUNCTIONAL_PASS"
+      },
+      {
+        "seq": 60,
+        "resourceId": "LINE-CDU-01",
+        "stdRate": 3.33,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 18,
+        "testGate": ""
+      }
+    ],
+    "CFG-CDU-04": [
+      {
+        "seq": 10,
+        "resourceId": "CELL-ROBOT-01",
+        "stdRate": 4,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 15,
+        "testGate": ""
+      },
+      {
+        "seq": 20,
+        "resourceId": "LINE-CDU-01",
+        "stdRate": 1,
+        "setupMinutes": 20,
+        "runMinutesPerUnit": 60,
+        "testGate": ""
+      },
+      {
+        "seq": 30,
+        "resourceId": "TEST-LEAK-01",
+        "stdRate": 3,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 20,
+        "testGate": ""
+      },
+      {
+        "seq": 40,
+        "resourceId": "TEST-LEAK-01",
+        "stdRate": 2.4,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 25,
+        "testGate": "LEAK_PASS"
+      },
+      {
+        "seq": 50,
+        "resourceId": "TEST-FUNC-01",
+        "stdRate": 1.71,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 35,
+        "testGate": "FUNCTIONAL_PASS"
+      },
+      {
+        "seq": 60,
+        "resourceId": "LINE-CDU-01",
+        "stdRate": 3.33,
+        "setupMinutes": 5,
+        "runMinutesPerUnit": 18,
+        "testGate": ""
+      }
+    ]
+  },
+  "jobs": [
+    {
+      "id": "WO-0001",
+      "product": "CFG-CPL-02",
+      "qty": 12,
+      "due": "2026-10-02",
+      "priority": "P1",
+      "frozen": true
+    },
+    {
+      "id": "WO-0002",
+      "product": "CFG-CDU-01",
+      "qty": 18,
+      "due": "2026-10-08",
+      "priority": "P2",
+      "frozen": true
+    },
+    {
+      "id": "WO-0003",
+      "product": "CFG-CPL-04",
+      "qty": 24,
+      "due": "2026-10-10",
+      "priority": "P3",
+      "frozen": false
+    },
+    {
+      "id": "WO-0004",
+      "product": "CFG-CDU-03",
+      "qty": 30,
+      "due": "2026-10-14",
+      "priority": "P1",
+      "frozen": false
+    },
+    {
+      "id": "WO-0005",
+      "product": "CFG-RM-02",
+      "qty": 36,
+      "due": "2026-10-14",
+      "priority": "P2",
+      "frozen": false
+    },
+    {
+      "id": "WO-0006",
+      "product": "CFG-CPL-01",
+      "qty": 42,
+      "due": "2026-10-18",
+      "priority": "P3",
+      "frozen": false
+    },
+    {
+      "id": "WO-0007",
+      "product": "CFG-RM-04",
+      "qty": 48,
+      "due": "2026-10-24",
+      "priority": "P1",
+      "frozen": false
+    },
+    {
+      "id": "WO-0008",
+      "product": "CFG-CPL-03",
+      "qty": 54,
+      "due": "2026-10-26",
+      "priority": "P2",
+      "frozen": false
+    },
+    {
+      "id": "WO-0009",
+      "product": "CFG-CDU-02",
+      "qty": 12,
+      "due": "2026-10-26",
+      "priority": "P3",
+      "frozen": false
+    },
+    {
+      "id": "WO-0010",
+      "product": "CFG-RM-01",
+      "qty": 18,
+      "due": "2026-10-30",
+      "priority": "P1",
+      "frozen": false
+    },
+    {
+      "id": "WO-0011",
+      "product": "CFG-CDU-04",
+      "qty": 24,
+      "due": "2026-11-03",
+      "priority": "P2",
+      "frozen": false
+    },
+    {
+      "id": "WO-0012",
+      "product": "CFG-RM-03",
+      "qty": 30,
+      "due": "2026-11-09",
+      "priority": "P3",
+      "frozen": false
+    },
+    {
+      "id": "WO-0013",
+      "product": "CFG-CPL-02",
+      "qty": 36,
+      "due": "2026-11-07",
+      "priority": "P1",
+      "frozen": false
+    },
+    {
+      "id": "WO-0014",
+      "product": "CFG-CDU-01",
+      "qty": 42,
+      "due": "2026-11-11",
+      "priority": "P2",
+      "frozen": false
+    },
+    {
+      "id": "WO-0015",
+      "product": "CFG-CPL-04",
+      "qty": 48,
+      "due": "2026-11-15",
+      "priority": "P3",
+      "frozen": false
+    },
+    {
+      "id": "WO-0016",
+      "product": "CFG-CDU-03",
+      "qty": 54,
+      "due": "2026-11-19",
+      "priority": "P1",
+      "frozen": false
+    },
+    {
+      "id": "WO-0017",
+      "product": "CFG-RM-02",
+      "qty": 12,
+      "due": "2026-11-21",
+      "priority": "P2",
+      "frozen": false
+    },
+    {
+      "id": "WO-0018",
+      "product": "CFG-CPL-01",
+      "qty": 18,
+      "due": "2026-11-23",
+      "priority": "P3",
+      "frozen": false
+    },
+    {
+      "id": "WO-0019",
+      "product": "CFG-RM-04",
+      "qty": 24,
+      "due": "2026-11-27",
+      "priority": "P1",
+      "frozen": false
+    },
+    {
+      "id": "WO-0020",
+      "product": "CFG-CPL-03",
+      "qty": 30,
+      "due": "2026-12-01",
+      "priority": "P2",
+      "frozen": false
+    },
+    {
+      "id": "WO-0021",
+      "product": "CFG-CDU-02",
+      "qty": 36,
+      "due": "2026-12-01",
+      "priority": "P3",
+      "frozen": false
+    },
+    {
+      "id": "WO-0022",
+      "product": "CFG-RM-01",
+      "qty": 42,
+      "due": "2026-12-07",
+      "priority": "P1",
+      "frozen": false
+    },
+    {
+      "id": "WO-0023",
+      "product": "CFG-CDU-04",
+      "qty": 48,
+      "due": "2026-12-09",
+      "priority": "P2",
+      "frozen": false
+    },
+    {
+      "id": "WO-0024",
+      "product": "CFG-RM-03",
+      "qty": 54,
+      "due": "2026-12-13",
+      "priority": "P3",
+      "frozen": false
+    },
+    {
+      "id": "WO-0025",
+      "product": "CFG-CPL-02",
+      "qty": 12,
+      "due": "2026-12-13",
+      "priority": "P1",
+      "frozen": false
+    },
+    {
+      "id": "WO-0026",
+      "product": "CFG-CDU-01",
+      "qty": 18,
+      "due": "2026-12-17",
+      "priority": "P2",
+      "frozen": false
+    },
+    {
+      "id": "WO-0027",
+      "product": "CFG-CPL-04",
+      "qty": 24,
+      "due": "2026-12-23",
+      "priority": "P3",
+      "frozen": false
+    },
+    {
+      "id": "WO-0028",
+      "product": "CFG-CDU-03",
+      "qty": 30,
+      "due": "2026-12-25",
+      "priority": "P1",
+      "frozen": false
+    },
+    {
+      "id": "WO-0029",
+      "product": "CFG-RM-02",
+      "qty": 36,
+      "due": "2026-12-25",
+      "priority": "P2",
+      "frozen": false
+    },
+    {
+      "id": "WO-0030",
+      "product": "CFG-CPL-01",
+      "qty": 42,
+      "due": "2026-12-29",
+      "priority": "P3",
+      "frozen": false
+    },
+    {
+      "id": "WO-0031",
+      "product": "CFG-RM-04",
+      "qty": 48,
+      "due": "2027-01-02",
+      "priority": "P1_RECOVERY",
+      "frozen": false
+    },
+    {
+      "id": "WO-0032",
+      "product": "CFG-CPL-03",
+      "qty": 54,
+      "due": "2027-01-08",
+      "priority": "P1_RECOVERY",
+      "frozen": false
+    },
+    {
+      "id": "WO-0033",
+      "product": "CFG-CDU-02",
+      "qty": 12,
+      "due": "2027-01-06",
+      "priority": "P1_RECOVERY",
+      "frozen": false
+    },
+    {
+      "id": "WO-0034",
+      "product": "CFG-RM-01",
+      "qty": 18,
+      "due": "2027-01-10",
+      "priority": "P1_RECOVERY",
+      "frozen": false
+    },
+    {
+      "id": "WO-0035",
+      "product": "CFG-CDU-04",
+      "qty": 24,
+      "due": "2027-01-14",
+      "priority": "P1_RECOVERY",
+      "frozen": false
+    },
+    {
+      "id": "WO-0036",
+      "product": "CFG-RM-03",
+      "qty": 30,
+      "due": "2027-01-18",
+      "priority": "P3",
+      "frozen": false
+    },
+    {
+      "id": "WO-0037",
+      "product": "CFG-CPL-02",
+      "qty": 36,
+      "due": "2026-07-08",
+      "priority": "P1",
+      "frozen": true
+    },
+    {
+      "id": "WO-0038",
+      "product": "CFG-CDU-01",
+      "qty": 42,
+      "due": "2026-07-10",
+      "priority": "P2",
+      "frozen": true
+    },
+    {
+      "id": "WO-0039",
+      "product": "CFG-CPL-04",
+      "qty": 48,
+      "due": "2026-07-14",
+      "priority": "P3",
+      "frozen": true
+    },
+    {
+      "id": "WO-0040",
+      "product": "CFG-CDU-03",
+      "qty": 54,
+      "due": "2026-07-18",
+      "priority": "P1",
+      "frozen": true
+    }
+  ]
+}

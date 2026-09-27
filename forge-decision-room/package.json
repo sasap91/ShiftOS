@@ -1,0 +1,39 @@
+{
+  "name": "forge-decision-room",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "api": "tsx server/index.ts",
+    "build": "tsc --noEmit && tsc --noEmit -p tsconfig.server.json && vite build",
+    "verify": "tsx src/verify.ts",
+    "verify:server": "tsx server/verify-router.ts",
+    "verify:tools": "tsx server/verify-tools.ts",
+    "verify:ai": "tsx server/verify-ai.ts",
+    "lint": "tsx tools/fixture-lint.ts",
+    "test": "npm run verify && npm run verify:server && npm run verify:tools && npm run verify:ai && npm run verify:persona && npm run test:coolit && npm run test:invariants && npm run test:contract && npm run test:capacity && npm run lint",
+    "ci": "npm run build && npm run test",
+    "sample": "tsx tools/sample-run.ts",
+    "test:coolit": "tsx tools/coolit-test.ts",
+    "test:invariants": "tsx tools/invariant-tests.ts",
+    "verify:persona": "tsx server/persona-acceptance/run.ts",
+    "verify:persona:target": "tsx server/persona-acceptance/run.ts --phase=target",
+    "solver": "python3 tools/gurobi/allocate_leaktests.py && python3 tools/gurobi/schedule.py && python3 tools/gurobi/generate_ts.py",
+    "test:contract": "tsx tools/contract-tests.ts",
+    "test:capacity": "tsx tools/capacity-model.ts",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.0"
+  }
+}
