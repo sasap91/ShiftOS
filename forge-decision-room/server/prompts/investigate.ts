@@ -39,3 +39,28 @@ export function investigateUser(question: string, evidenceJson: string): string 
     evidenceJson,
   ].join("\n");
 }
+
+export const EXPLAIN_PROMPT_VERSION = "explain@0.1.0";
+
+/**
+ * Used for every non-investigate intent: the deterministic orchestrator has
+ * already computed the result; the model explains it and nothing else.
+ */
+export function explainSystem(): string {
+  return [
+    investigateSystem(),
+    "",
+    "You are ALSO given the DETERMINISTIC RESULT the room already computed for this request.",
+    "Explain that result faithfully. Do not contradict it, do not invent a different outcome,",
+    "do not select an option, do not approve, and do not claim an action was executed.",
+    "Governance (approval, writeback, receipts) is handled by the room, not by you.",
+  ].join("\n");
+}
+
+export function explainUser(question: string, evidenceJson: string): string {
+  return [
+    `Question: ${question}`,
+    "EVIDENCE + DETERMINISTIC RESULT JSON:",
+    evidenceJson,
+  ].join("\n");
+}

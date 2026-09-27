@@ -3,7 +3,9 @@
  * The live check only runs when FEATURE_AI_CHAT=1 and a key is configured.
  */
 import { assess, envelopeFor } from "../src/model";
+import type { Block, Turn } from "../src/shared/contracts";
 import { aiEnabled } from "./model/client";
+import { mergeProse } from "./orchestrators/explain";
 import { investigateTurn } from "./orchestrators/investigate";
 import { insufficiencyPlan, validateInvestigation, type InvestigationPlan } from "./validate/respond";
 import type { ToolContext } from "./tools/types";
@@ -52,6 +54,32 @@ assert.ok(fallback.answer.includes("cannot be established"), "fallback must be a
 assert.equal(fallback.gaps.length, 1);
 
 console.log("grounding validator verified");
+
+// --- explain merge: model prose replaces answer/why; governed blocks survive ---
+const deterministic = {
+  id: "t-merge",
+  speaker: "Manufacturing Manager",
+  prompt: "Compare options",
+  tools: ["compare_alternatives"],
+  progress: [],
+  blocks: [
+    { kind: "answer", text: "deterministic answer" },
+    { kind: "why", text: "deterministic why" },
+    { kind: "options", runId: "DR-COM-1042-R1" },
+    { kind: "next", actions: [{ label: "Request named approval", intent: { type: "request-approval", rationale: "" } }] },
+  ] as Block[],
+} as Turn;
+const prose: Block[] = [
+  { kind: "answer", text: "model answer" },
+  { kind: "why", text: "model why" },
+  { kind: "explanation", text: "model explanation" },
+];
+const merged = mergeProse(deterministic, prose);
+assert.equal(merged.blocks[0].kind === "answer" && merged.blocks[0].text, "model answer");
+assert.equal(merged.blocks.some((b) => b.kind === "options"), true);
+assert.equal(merged.blocks.some((b) => b.kind === "next"), true);
+assert.equal(merged.blocks.filter((b) => b.kind === "answer").length, 1);
+console.log("explain merge verified (prose replaced · governed blocks preserved)");
 
 if (aiEnabled()) {
   const role = "manufacturing-manager" as const;

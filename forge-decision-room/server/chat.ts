@@ -13,8 +13,10 @@ import type { ChatMode, ChatRequest, ChatResponse, ContextEnvelope, RouteDecisio
 import { audit } from "./audit/log";
 import { buildEnvelope } from "./context/envelope";
 import { aiEnabled } from "./model/client";
+import { explainTurn, mergeProse } from "./orchestrators/explain";
 import { investigateTurn } from "./orchestrators/investigate";
 import { classify, progressFor } from "./router/router";
+import type { ToolContext } from "./tools/types";
 
 function intentForRoute(route: RouteDecision, input: ChatRequest): Intent {
   switch (route.intentClass) {
@@ -94,41 +96,56 @@ export async function runTurn(input: ChatRequest): Promise<ChatResponse> {
 
   if (route.fallback || !route.policy.allowed) {
     turn = guidanceTurn(input.commitmentId, envelope.user.roleLabel, route);
-  } else if (aiEnabled() && (route.intentClass === "investigation" || route.intentClass === "lookup")) {
-    const question =
-      input.text && input.text.trim().length > 0
-        ? input.text.trim()
-        : "Explain the current risk and status of this commitment from the evidence packet.";
-    try {
-      const result = await investigateTurn(
-        {
-          traceId,
-          requestId: route.requestId,
-          envelope,
-          role: input.role,
-          commitmentId: input.commitmentId,
-          now: AS_OF,
-        },
-        question,
-      );
-      turn = result.turn;
-      mode = "ai";
-      audit({
-        kind: "ai_turn",
-        traceId,
-        intentClass: route.intentClass,
-        model: result.model,
-        promptVersion: result.promptVersion,
-        valid: result.validation.ok,
-        repaired: result.repaired,
-        violations: result.validation.violations,
-      });
-    } catch (error) {
-      audit({ kind: "ai_fallback", traceId, intentClass: route.intentClass, detail: String(error) });
-      turn = scriptedTurn(route, input, envelope);
-    }
   } else {
-    turn = scriptedTurn(route, input, envelope);
+    // The deterministic orchestrator always computes the turn; the model explains it.
+    const deterministic = scriptedTurn(route, input, envelope);
+    turn = deterministic;
+    if (aiEnabled()) {
+      const ctx: ToolContext = {
+        traceId,
+        requestId: route.requestId,
+        envelope,
+        role: input.role,
+        commitmentId: input.commitmentId,
+        now: AS_OF,
+      };
+      const question =
+        input.text && input.text.trim().length > 0 ? input.text.trim() : "Explain this result from the evidence.";
+      try {
+        if (route.intentClass === "investigation" || route.intentClass === "lookup") {
+          const result = await investigateTurn(ctx, question);
+          turn = result.turn;
+          mode = "ai";
+          audit({
+            kind: "ai_turn",
+            traceId,
+            intentClass: route.intentClass,
+            model: result.model,
+            promptVersion: result.promptVersion,
+            valid: result.validation.ok,
+            repaired: result.repaired,
+            violations: result.validation.violations,
+          });
+        } else {
+          const result = await explainTurn(ctx, question, deterministic);
+          turn = mergeProse(deterministic, result.blocks);
+          mode = "ai";
+          audit({
+            kind: "ai_turn",
+            traceId,
+            intentClass: route.intentClass,
+            model: result.model,
+            promptVersion: result.promptVersion,
+            valid: result.validation.ok,
+            repaired: result.repaired,
+            violations: result.validation.violations,
+          });
+        }
+      } catch (error) {
+        audit({ kind: "ai_fallback", traceId, intentClass: route.intentClass, detail: String(error) });
+        turn = deterministic;
+      }
+    }
   }
 
   audit({
