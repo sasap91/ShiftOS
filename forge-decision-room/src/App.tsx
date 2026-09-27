@@ -357,18 +357,25 @@ export function App() {
                 {thread.commitmentId} · {ROLE_POLICY[role].lens} · {ROLE_POLICY[role].leadQuestion}
               </p>
             </div>
+            <button
+              type="button"
+              className="ghost"
+              aria-expanded={evidenceOpen}
+              onClick={() => setEvidenceOpen((open) => !open)}
+            >
+              Evidence
+            </button>
           </header>
-          <div className="forge-chips" aria-label="Quick asks">
-            <button type="button" disabled={busy} onClick={() => runAction("why")}>
-              Why at risk?
-            </button>
-            <button type="button" disabled={busy} onClick={() => runAction("explain")}>
-              Show constraint
-            </button>
-            <button type="button" disabled={busy} onClick={() => runAction("compare")}>
-              Compare options
-            </button>
-          </div>
+          {evidenceOpen ? (
+            <section className="evidence open" aria-label="Evidence">
+              <Evidence
+                packetId={packet.id}
+                focusFact={focusFact}
+                runLabel={viewedRun?.id ?? null}
+                alternatives={viewedRun?.alternatives ?? []}
+              />
+            </section>
+          ) : null}
           <div className="log" ref={logRef}>
             {thread.notice ? <p className="notice">{thread.notice}</p> : null}
             {thread.turns.map((item, index) => (
@@ -386,58 +393,30 @@ export function App() {
               />
             ))}
           </div>
-          <section className={evidenceOpen ? "evidence open" : "evidence"} aria-label="Evidence drawer">
-            <header>
-              <h2>Evidence</h2>
-              <button
-                type="button"
-                aria-expanded={evidenceOpen}
-                onClick={() => setEvidenceOpen((open) => !open)}
-              >
-                {evidenceOpen ? "Hide" : "Show"} · {packet.sourceFacts.length} facts
-                {packet.conflicts.length ? ` · ${packet.conflicts.length} conflict` : ""}
-              </button>
-            </header>
-            {evidenceOpen ? (
-              <Evidence
-                packetId={packet.id}
-                focusFact={focusFact}
-                runLabel={viewedRun?.id ?? null}
-                alternatives={viewedRun?.alternatives ?? []}
+          <div className="forge-chips" aria-label="Suggested asks">
+            <button type="button" disabled={busy} onClick={() => runAction("why")}>
+              Why at risk?
+            </button>
+            <button type="button" disabled={busy} onClick={() => runAction("explain")}>
+              Show constraint
+            </button>
+            <button type="button" disabled={busy} onClick={() => runAction("compare")}>
+              Compare options
+            </button>
+          </div>
+          <form className="composer chat-composer" onSubmit={onSubmit}>
+            <label className="ask">
+              <span className="sr">Message FORGE</span>
+              <input
+                value={draft}
+                onChange={(event) => setDraft(event.target.value)}
+                placeholder="Message FORGE…"
+                disabled={busy}
               />
-            ) : null}
-          </section>
-          <form className="composer" onSubmit={onSubmit}>
-            <div className="composer-row">
-              <label className="ask">
-                <span className="sr">Ask about this commitment</span>
-                <input
-                  value={draft}
-                  onChange={(event) => setDraft(event.target.value)}
-                  placeholder="Ask about this commitment…"
-                  disabled={busy}
-                />
-              </label>
-              <button type="button" className="primary" disabled={busy} onClick={() => runAction("scenario")}>
-                Run scenario
-              </button>
-            </div>
-            <details className="more-actions">
-              <summary>More actions</summary>
-              <div className="action-strip" aria-label="Governed actions">
-                {(["explain", "why", "blast", "scenario", "compare", "draft", "approve", "simulate"] as ActionId[]).map((id) => (
-                  <button
-                    key={id}
-                    type="button"
-                    disabled={!actions[id].enabled || busy}
-                    title={actions[id].reason}
-                    onClick={() => runAction(id)}
-                  >
-                    {actions[id].label}
-                  </button>
-                ))}
-              </div>
-            </details>
+            </label>
+            <button type="submit" className="primary" disabled={busy}>
+              Send
+            </button>
           </form>
           <p className="forge-footnote">No Approval / Release / Publish controls exist in chat.</p>
         </aside>

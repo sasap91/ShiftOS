@@ -524,3 +524,13 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 /* table: quantity column */
 .cell-qty { font-variant-numeric: tabular-nums; }
 .cell-qty strong { display: block; font-weight: 500; }
+
+/* ---- Right pane = pure chatbot ---- */
+.chat { display: flex; flex-direction: column; min-height: 0; }
+.chat .log { flex: 1; min-height: 0; overflow: auto; }
+.chat-composer { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; border-top: 1px solid var(--line); }
+.chat-composer .ask { width: 100%; }
+.chat-composer .ask input { width: 100%; padding: 8px 10px; border: 1px solid var(--line); background: var(--log); }
+.ghost { background: transparent; border: 0; color: var(--muted); font-size: 12px; padding: 2px 4px; }
+.ghost:hover { color: var(--ink); }
+.chat .evidence { border-bottom: 1px solid var(--line); max-height: 45%; overflow: auto; }
