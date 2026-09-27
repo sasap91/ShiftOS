@@ -1,3 +1,63 @@
+# FORGE — Test Flight 2026
+
+FORGE helps a plant manager turn a shared test-resource disruption into a grounded recovery decision: affected customer commitments, bounded alternatives, a business conversation, human approval, and coordination tasks.
+
+**The hosted recovery workspace is in [forge-recovery/](forge-recovery/).** This is the light operations interface with the complete source order book and post-analysis Claude chat. The existing plant workspace and teammates' decision-room/demo applications remain available below and in their original directories.
+
+## The problem, and who has it
+
+When a qualified shared test resource loses capacity, plant managers and planners must work across order promises, maintenance, material eligibility, quality and staffing to decide which commitments are exposed and what to do. Separate CRM, ERP and MES records do not by themselves explain the recovery trade-off.
+
+## Who pays, and why
+
+The buyer is the VP of Operations, VP of Manufacturing or plant manager. They own delivery reliability, disruption response, overtime and expedite costs. The commercial hypothesis is that a faster, evidence-backed decision reduces coordination time and avoidable escalation. No customer ROI or time savings have been measured.
+
+The synthetic incident has six affected commitments with **USD 4.042M in full order-line value**. The source assesses strategy A at **CAD 18,400 / zero-day aggregate service impact**, versus B at **CAD 26,750 / one-day impact**. These are fixture values, not actual CoolIT economics, profit, avoided loss, or independently optimized shipment forecasts. USD exposure and CAD recovery costs are kept separate.
+
+## How it works, and where AI helps
+
+1. Join the pinned synthetic CRM/ERP/MES records and expose all 60 commitment lines across 20 sales orders.
+2. Present EVT-0003, the source leak-test capacity disruption affecting COM-0051 through COM-0056.
+3. Claude reasons over the bounded DR-0005 alternatives, explains evidence and trade-offs, and prioritizes commitments.
+4. Deterministic code validates source actions, affected-order coverage, qualification and the held-material gate. Source costs and impacts are authoritative.
+5. The manager can question Claude in a multi-turn business chat, inspect citations, and approve a strategy.
+6. Approval is revalidated on the server and creates session-only coordination tasks. A supervisor presenter view supports acknowledgment.
+
+AI supplies contextual explanation and natural-language discussion across heterogeneous evidence. It does not calculate official eligibility or invent a new finite-capacity schedule. This build compares governed source alternatives; it does not demonstrate unconstrained strategy generation.
+
+## What's real and what's mocked
+
+**Real:** runnable browser application, server-side Anthropic API calls, order ingestion and source links, deterministic strategy validation, chat history and selected-order context, approval checks, and tested UI interactions.
+
+**Synthetic / limited:** the entire factory dataset, event, cost estimates and historical alternatives. No live ERP/MES/CMMS integration or physical detector is connected. Approval, decision records and execution progress are session-only; no factory commands or external notifications are sent. Presenter roles are not authenticated employee identities. Configuration discrepancies remain visible and block a claim of dispatch readiness.
+
+## Run the recovery workspace
+
+Requires Node.js 22+; no package installation is needed.
+
+```sh
+cd forge-recovery
+cp .env.example .env
+# Fill ANTHROPIC_API_KEY locally in .env. Never commit the key.
+npm run dev
+```
+
+Open http://127.0.0.1:4173. Live analysis and chat require an Anthropic key with model access and credits. The labeled source-alternatives fallback makes no AI call. Run `npm test` for the 13 recovery/data/API checks and `npm run build` for Worker assets. Python 3 is only needed to regenerate the bundled normalized dataset.
+
+See [the five-minute demo runbook](forge-recovery/PRESENTATION.md) and [source details](forge-recovery/README.md). The hosted URL is https://forge-recovery-flight.gogicajev-david.chatgpt.site; access is controlled separately from this public code repository.
+
+## Anything built before this weekend
+
+The team's submitted disclosure states: “An earlier FORGE decision-room prototype, synthetic CRM/ERP/MES fixture, conceptual shop-floor layout and planning/design documents were brought in.” That disclosure remains unchanged. The `forge-recovery/` workspace added here was built during this Test Flight session, including its dataset integration and recovery chat.
+
+The imported data is pinned to repository revision `ef1ef68ff7d4d318067d8ec0be23d5e4f7826609`. Source provenance is in `forge-recovery/data/shiftos/provenance.json`. This addition does not backdate or relabel earlier commits as “prior work”; the team should confirm the required pre-weekend baseline with staff.
+
+---
+
+## Existing plant workspace documentation
+
+The original root application documentation follows unchanged.
+
 # FORGE plant workspace
 
 A working local website built from `UX:UI/`, `PRD.md`, and the supplied synthetic enterprise pack. The original inputs are unchanged.
@@ -76,3 +136,4 @@ Tests cover ingestion, exact counts, incompatible links, planned/actual separati
 - `src/reference-plants.mjs`: illustrative layouts preserved from the reference UI.
 - `test/forge.test.mjs`: integration and data-boundary tests.
 - `PRD.md`, `UX:UI/`, `COOLIT_Synthetic_Enterprise_Data_v2/`: unchanged supplied inputs.
+
