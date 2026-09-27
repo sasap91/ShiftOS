@@ -686,6 +686,39 @@ body { overflow: hidden; background: var(--paper); }
 .state::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 6px; border-radius: 50%; background: currentColor; vertical-align: 1px; }
 .cell-constraint.hot, .cell-commitmentId.hot { background: var(--hot); }
 
+.demand-table-scroll { min-height: 0; overflow: auto; background: var(--log); }
+.demand-table { width: 100%; min-width: 820px; border-collapse: separate; border-spacing: 0; table-layout: fixed; font-size: 12px; }
+.demand-table th {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  height: 34px;
+  padding: 0;
+  color: var(--muted);
+  background: var(--panel);
+  border-right: 1px solid #e9e4db;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+}
+.demand-table th button { all: unset; box-sizing: border-box; width: 100%; padding: 9px 10px; cursor: pointer; }
+.demand-table th button span { float: right; color: var(--blue); }
+.demand-table th:nth-child(1), .demand-table th:nth-child(2), .demand-table th:nth-child(6) { width: 104px; }
+.demand-table th:nth-child(3) { width: 102px; }
+.demand-table th:nth-child(4) { width: 130px; }
+.demand-table th:nth-child(5) { width: 66px; }
+.demand-table th:nth-child(7) { width: 86px; }
+.demand-table td { height: 38px; padding: 7px 10px; border-right: 1px solid #eee9e1; border-bottom: 1px solid var(--line); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.demand-table tbody tr:hover td { background: #f7f4ee; }
+.demand-table td small { display: block; color: var(--muted); font-size: 10px; }
+.demand-table td:nth-child(5) small { display: inline; }
+.demand-table td:last-child::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 6px; border-radius: 50%; background: currentColor; vertical-align: 1px; }
+.demand-at-risk td:last-child { color: var(--risk); }
+.demand-watch td:last-child { color: var(--wait); }
+.demand-on-track td:last-child { color: var(--ok); }
+.demand-empty { height: 90px !important; color: var(--muted); text-align: center; }
+
 .ledger-detail { padding: 8px 14px 18px; background: #f8f6f1; display: grid; gap: 14px; }
 .ledger-detail section { overflow: auto; }
 .ledger-detail h3 { margin: 4px 0 5px; color: var(--muted); font-size: 10px; font-weight: 600; letter-spacing: .05em; }

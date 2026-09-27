@@ -17,6 +17,15 @@ try {
   const orders = (await ordersResponse.json()) as { orders: { commitmentId: string }[] };
   assert.deepEqual(orders.orders.map((row) => row.commitmentId).sort(), ["COM-0991", "COM-1018", "COM-1042", "COM-1104"]);
 
+  const demandResponse = await fetch(`${base}/api/v2/demand`);
+  assert.equal(demandResponse.status, 200);
+  const demand = (await demandResponse.json()) as { demand: { commitmentId: string; product: string; qty: number; riskState: string }[] };
+  assert.equal(demand.demand.length, 60);
+  const demand52 = demand.demand.find((row) => row.commitmentId === "COM-0052");
+  assert.equal(demand52?.product, "CFG-RM-03");
+  assert.equal(demand52?.qty, 12);
+  assert.equal(demand52?.riskState, "AT_RISK");
+
   const detailResponse = await fetch(`${base}/api/v2/orders/COM-1042/details`);
   const detail = (await detailResponse.json()) as { order: { constraint: { label: string }; qty: number } };
   assert.equal(detail.order.qty, 120);

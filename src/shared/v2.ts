@@ -60,6 +60,24 @@ export type TablePreference = {
   sort: { key: string; direction: "asc" | "desc" }[];
 };
 
+export type DemandProjectionRow = {
+  commitmentId: string;
+  product: string;
+  qty: number;
+  requestedDate: string;
+  promisedDate: string;
+  capableDate: string | null;
+  requestToPromiseDays: number;
+  promiseToCapableDays: number | null;
+  priority: string;
+  status: string;
+  riskState: "AT_RISK" | "WATCH" | "ON_TRACK";
+  riskReason: string | null;
+  active: boolean;
+  pegged: number;
+  workOrders: string[];
+};
+
 export type V2ChatRequest = {
   userId: string;
   text: string;

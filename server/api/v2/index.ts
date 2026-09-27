@@ -7,6 +7,7 @@ import { connectorStatus } from "../../connectors";
 import { answerGeneralQuestion } from "../../chat/general";
 import { runTurn } from "../../chat";
 import { appendChatMessage, clearChatThread, getChatThread } from "../../repositories/chat-threads";
+import { getDemandProjection } from "../../repositories/demand";
 import { getTablePreference, putTablePreference } from "../../repositories/preferences";
 
 const ORDER_IDS = ["COM-1042", "COM-1018", "COM-1104", "COM-0991"];
@@ -90,6 +91,11 @@ export async function handleV2Api(req: IncomingMessage, res: ServerResponse, url
 
   if (req.method === "GET" && url.pathname === "/api/v2/orders") {
     send(res, 200, { orders: buildLedger(seededThreads()) });
+    return true;
+  }
+
+  if (req.method === "GET" && url.pathname === "/api/v2/demand") {
+    send(res, 200, { demand: getDemandProjection() });
     return true;
   }
 

@@ -5,6 +5,7 @@ import {
   type Role,
   PEOPLE,
   ROLE_POLICY,
+  AS_OF,
   assess,
   blastRadius,
   formatDay,
@@ -21,12 +22,13 @@ import {
   reduce,
 } from "./orchestrator";
 import { LedgerView } from "./features/orders/LedgerView";
+import { DemandLedgerView } from "./features/orders/DemandLedgerView";
 import { buildLedger } from "./ledger";
 import { MASTER_SET_VERSION } from "./master";
 import { FilterRail, DEFAULT_FILTERS, type Filters } from "./features/scope/FilterRail";
 import { ShopFloor } from "./features/floor/ShopFloor";
 import { HORIZONS, flowStagesForRow, lensSort, ownerOf, rowsInZone, zoneById, type Horizon } from "./zones";
-import type { ActiveContext } from "./shared/v2";
+import type { ActiveContext, DemandProjectionRow } from "./shared/v2";
 import { assistantHealth, sendChatMessage } from "./features/chat/client";
 
 const ROLES = [
@@ -98,6 +100,8 @@ export function App() {
   const [shownSteps, setShownSteps] = useState(0);
   const [generalBusy, setGeneralBusy] = useState(false);
   const [connection, setConnection] = useState<"checking" | "connected" | "limited">("checking");
+  const [demandRows, setDemandRows] = useState<DemandProjectionRow[]>([]);
+  const [demandLoading, setDemandLoading] = useState(true);
   const [pane, setPane] = useState<"queue" | "ledger" | "chat">("ledger");
   const [focusCell, setFocusCell] = useState<string | null>(null);
   const logRef = useRef<HTMLDivElement>(null);
@@ -126,6 +130,31 @@ export function App() {
   const activeFilterCount =
     filters.risk.length + filters.product.length + filters.flow.length + filters.owner.length + (filters.query.trim() ? 1 : 0) + (selectedZone ? 1 : 0);
   const queueRows = useMemo(() => lensSort(filteredRows, ROLE_POLICY[role].lens), [filteredRows, role]);
+  const demandFilteredRows = useMemo(() => {
+    const from = Date.parse(`${AS_OF.slice(0, 10)}T00:00:00Z`);
+    const through = from + filters.horizon * 7 * 86_400_000;
+    return demandRows.filter((row) => {
+      const promised = Date.parse(`${row.promisedDate}T00:00:00Z`);
+      if (!row.active || promised < from || promised > through) return false;
+      if (filters.risk.length) {
+        const matchesRisk = filters.risk.some((risk) =>
+          (risk === "at-risk" && row.riskState === "AT_RISK")
+          || (risk === "monitoring" && row.riskState === "WATCH")
+          || (risk === "approved" && row.riskState === "ON_TRACK")
+          || (risk === "awaiting" && row.capableDate === null));
+        if (!matchesRisk) return false;
+      }
+      if (filters.product.length) {
+        const family = row.product.includes("CPL") ? "Cold-plate loop" : row.product.includes("RM") ? "Rack manifold" : row.product.includes("CDU") ? "CDU" : row.product;
+        if (!filters.product.includes(family)) return false;
+      }
+      if (filters.query.trim()) {
+        const haystack = `${row.commitmentId} ${row.product} ${row.priority} ${row.status} ${row.riskState}`.toLowerCase();
+        if (!haystack.includes(filters.query.trim().toLowerCase())) return false;
+      }
+      return true;
+    });
+  }, [demandRows, filters]);
 
   useEffect(() => {
     if (!pendingId) return;
@@ -159,6 +188,20 @@ export function App() {
     assistantHealth()
       .then(setConnection)
       .catch(() => setConnection("limited"));
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+    fetch("/api/v2/demand")
+      .then((response) => response.ok ? response.json() : Promise.reject(new Error("demand_unavailable")))
+      .then((payload: { demand: DemandProjectionRow[] }) => {
+        if (active) setDemandRows(payload.demand);
+      })
+      .catch(() => undefined)
+      .finally(() => {
+        if (active) setDemandLoading(false);
+      });
+    return () => { active = false; };
   }, []);
 
   // Persist the room context to the URL (V-09) so a reload restores it.
@@ -343,7 +386,7 @@ export function App() {
         <aside className="queue" aria-label="Scope and decision queue">
           <FilterRail
             filters={filters}
-            count={filteredRows.length}
+            count={role === "demand-planner" ? demandFilteredRows.length : filteredRows.length}
             selectedZone={selectedZone}
             zoneLabel={selectedZone ? zoneById(selectedZone)?.label : undefined}
             activeCount={activeFilterCount}
@@ -394,23 +437,27 @@ export function App() {
               <ShopFloor rows={ledgerRows} selectedZone={selectedZone} onSelectZone={setSelectedZone} />
             </section>
             <section className="middle-bottom" aria-label="Order information table">
-              <LedgerView
-                rows={filteredRows}
-                threads={threads}
-                activeId={activeId}
-                role={role}
-                lens={ROLE_POLICY[role].lens}
-                focusTarget={focusCell}
-                onFocus={(key: string) => {
-                  setFocusCell(key);
-                  const [commitmentId, ...rest] = key.split(":");
-                  window.location.hash = `#/commitment/${commitmentId}${rest.length ? "/" + rest.join("/") : ""}`;
-                }}
-                onSelect={(id: string) => {
-                  setActiveId(id);
-                  setPendingId(null);
-                }}
-              />
+              {role === "demand-planner" ? (
+                <DemandLedgerView rows={demandFilteredRows} loading={demandLoading} />
+              ) : (
+                <LedgerView
+                  rows={filteredRows}
+                  threads={threads}
+                  activeId={activeId}
+                  role={role}
+                  lens={ROLE_POLICY[role].lens}
+                  focusTarget={focusCell}
+                  onFocus={(key: string) => {
+                    setFocusCell(key);
+                    const [commitmentId, ...rest] = key.split(":");
+                    window.location.hash = `#/commitment/${commitmentId}${rest.length ? "/" + rest.join("/") : ""}`;
+                  }}
+                  onSelect={(id: string) => {
+                    setActiveId(id);
+                    setPendingId(null);
+                  }}
+                />
+              )}
             </section>
           </div>
         </section>
