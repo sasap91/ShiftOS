@@ -1,0 +1,1053 @@
+{
+  "activeCommitments": 36,
+  "activeUnlinked": 0,
+  "commitments": 60,
+  "historicalUnlinked": 20,
+  "linkedToWorkOrder": 40,
+  "mostAtRisk": [
+    {
+      "active": true,
+      "capableDate": "2026-10-20",
+      "capableToRequestedDays": -63,
+      "commitmentId": "COM-0052",
+      "priority": "P3",
+      "promiseToCapableDays": -66,
+      "promisedDate": "2026-12-25",
+      "requestToPromiseDays": 3,
+      "requestedDate": "2026-12-22",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0028"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-10-28",
+      "capableToRequestedDays": -46,
+      "commitmentId": "COM-0049",
+      "priority": "P1",
+      "promiseToCapableDays": -46,
+      "promisedDate": "2026-12-13",
+      "requestToPromiseDays": 0,
+      "requestedDate": "2026-12-13",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0025"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-10-19",
+      "capableToRequestedDays": -46,
+      "commitmentId": "COM-0046",
+      "priority": "P2",
+      "promiseToCapableDays": -49,
+      "promisedDate": "2026-12-07",
+      "requestToPromiseDays": 3,
+      "requestedDate": "2026-12-04",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0022"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-10-20",
+      "capableToRequestedDays": -36,
+      "commitmentId": "COM-0043",
+      "priority": "P2",
+      "promiseToCapableDays": -38,
+      "promisedDate": "2026-11-27",
+      "requestToPromiseDays": 2,
+      "requestedDate": "2026-11-25",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0019"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-12-15",
+      "capableToRequestedDays": -31,
+      "commitmentId": "COM-0060",
+      "priority": "P3",
+      "promiseToCapableDays": -34,
+      "promisedDate": "2027-01-18",
+      "requestToPromiseDays": 3,
+      "requestedDate": "2027-01-15",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0036"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-11-26",
+      "capableToRequestedDays": -29,
+      "commitmentId": "COM-0053",
+      "priority": "P1",
+      "promiseToCapableDays": -29,
+      "promisedDate": "2026-12-25",
+      "requestToPromiseDays": 0,
+      "requestedDate": "2026-12-25",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0029"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-10-20",
+      "capableToRequestedDays": -27,
+      "commitmentId": "COM-0040",
+      "priority": "P3",
+      "promiseToCapableDays": -30,
+      "promisedDate": "2026-11-19",
+      "requestToPromiseDays": 3,
+      "requestedDate": "2026-11-16",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0016"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-11-23",
+      "capableToRequestedDays": -23,
+      "commitmentId": "COM-0050",
+      "priority": "P2",
+      "promiseToCapableDays": -24,
+      "promisedDate": "2026-12-17",
+      "requestToPromiseDays": 1,
+      "requestedDate": "2026-12-16",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0026"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-10-13",
+      "capableToRequestedDays": -16,
+      "commitmentId": "COM-0034",
+      "priority": "P2",
+      "promiseToCapableDays": -17,
+      "promisedDate": "2026-10-30",
+      "requestToPromiseDays": 1,
+      "requestedDate": "2026-10-29",
+      "status": "APPROVED_COMMITMENT",
+      "workOrders": [
+        "WO-0010"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-11-23",
+      "capableToRequestedDays": -14,
+      "commitmentId": "COM-0047",
+      "priority": "P2",
+      "promiseToCapableDays": -16,
+      "promisedDate": "2026-12-09",
+      "requestToPromiseDays": 2,
+      "requestedDate": "2026-12-07",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0023"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-12-14",
+      "capableToRequestedDays": -14,
+      "commitmentId": "COM-0054",
+      "priority": "P2",
+      "promiseToCapableDays": -15,
+      "promisedDate": "2026-12-29",
+      "requestToPromiseDays": 1,
+      "requestedDate": "2026-12-28",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0030"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-12-09",
+      "capableToRequestedDays": -10,
+      "commitmentId": "COM-0051",
+      "priority": "P2",
+      "promiseToCapableDays": -14,
+      "promisedDate": "2026-12-23",
+      "requestToPromiseDays": 4,
+      "requestedDate": "2026-12-19",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0027"
+      ]
+    }
+  ],
+  "projection": [
+    {
+      "active": false,
+      "capableDate": "2026-10-30",
+      "capableToRequestedDays": 116,
+      "commitmentId": "COM-0001",
+      "priority": "P1",
+      "promiseToCapableDays": 114,
+      "promisedDate": "2026-07-08",
+      "requestToPromiseDays": 2,
+      "requestedDate": "2026-07-06",
+      "status": "DELIVERED",
+      "workOrders": [
+        "WO-0037"
+      ]
+    },
+    {
+      "active": false,
+      "capableDate": "2026-12-01",
+      "capableToRequestedDays": 145,
+      "commitmentId": "COM-0002",
+      "priority": "P2",
+      "promiseToCapableDays": 144,
+      "promisedDate": "2026-07-10",
+      "requestToPromiseDays": 1,
+      "requestedDate": "2026-07-09",
+      "status": "DELIVERED",
+      "workOrders": [
+        "WO-0038"
+      ]
+    },
+    {
+      "active": false,
+      "capableDate": "2026-12-31",
+      "capableToRequestedDays": 172,
+      "commitmentId": "COM-0003",
+      "priority": "P2",
+      "promiseToCapableDays": 170,
+      "promisedDate": "2026-07-14",
+      "requestToPromiseDays": 2,
+      "requestedDate": "2026-07-12",
+      "status": "DELIVERED",
+      "workOrders": [
+        "WO-0039"
+      ]
+    },
+    {
+      "active": false,
+      "capableDate": "2026-11-03",
+      "capableToRequestedDays": 111,
+      "commitmentId": "COM-0004",
+      "priority": "P3",
+      "promiseToCapableDays": 108,
+      "promisedDate": "2026-07-18",
+      "requestToPromiseDays": 3,
+      "requestedDate": "2026-07-15",
+      "status": "DELIVERED",
+      "workOrders": [
+        "WO-0040"
+      ]
+    },
+    {
+      "active": false,
+      "capableDate": null,
+      "capableToRequestedDays": null,
+      "commitmentId": "COM-0005",
+      "priority": "P1",
+      "promiseToCapableDays": null,
+      "promisedDate": "2026-07-18",
+      "requestToPromiseDays": 0,
+      "requestedDate": "2026-07-18",
+      "status": "DELIVERED",
+      "workOrders": []
+    },
+    {
+      "active": false,
+      "capableDate": null,
+      "capableToRequestedDays": null,
+      "commitmentId": "COM-0006",
+      "priority": "P2",
+      "promiseToCapableDays": null,
+      "promisedDate": "2026-07-24",
+      "requestToPromiseDays": 3,
+      "requestedDate": "2026-07-21",
+      "status": "DELIVERED",
+      "workOrders": []
+    },
+    {
+      "active": false,
+      "capableDate": null,
+      "capableToRequestedDays": null,
+      "commitmentId": "COM-0007",
+      "priority": "P2",
+      "promiseToCapableDays": null,
+      "promisedDate": "2026-07-26",
+      "requestToPromiseDays": 2,
+      "requestedDate": "2026-07-24",
+      "status": "DELIVERED",
+      "workOrders": []
+    },
+    {
+      "active": false,
+      "capableDate": null,
+      "capableToRequestedDays": null,
+      "commitmentId": "COM-0008",
+      "priority": "P3",
+      "promiseToCapableDays": null,
+      "promisedDate": "2026-07-30",
+      "requestToPromiseDays": 3,
+      "requestedDate": "2026-07-27",
+      "status": "DELIVERED",
+      "workOrders": []
+    },
+    {
+      "active": false,
+      "capableDate": null,
+      "capableToRequestedDays": null,
+      "commitmentId": "COM-0009",
+      "priority": "P1",
+      "promiseToCapableDays": null,
+      "promisedDate": "2026-07-30",
+      "requestToPromiseDays": 0,
+      "requestedDate": "2026-07-30",
+      "status": "DELIVERED",
+      "workOrders": []
+    },
+    {
+      "active": false,
+      "capableDate": null,
+      "capableToRequestedDays": null,
+      "commitmentId": "COM-0010",
+      "priority": "P2",
+      "promiseToCapableDays": null,
+      "promisedDate": "2026-08-03",
+      "requestToPromiseDays": 1,
+      "requestedDate": "2026-08-02",
+      "status": "DELIVERED",
+      "workOrders": []
+    },
+    {
+      "active": false,
+      "capableDate": null,
+      "capableToRequestedDays": null,
+      "commitmentId": "COM-0011",
+      "priority": "P2",
+      "promiseToCapableDays": null,
+      "promisedDate": "2026-08-09",
+      "requestToPromiseDays": 4,
+      "requestedDate": "2026-08-05",
+      "status": "DELIVERED",
+      "workOrders": []
+    },
+    {
+      "active": false,
+      "capableDate": null,
+      "capableToRequestedDays": null,
+      "commitmentId": "COM-0012",
+      "priority": "P3",
+      "promiseToCapableDays": null,
+      "promisedDate": "2026-08-11",
+      "requestToPromiseDays": 3,
+      "requestedDate": "2026-08-08",
+      "status": "DELIVERED",
+      "workOrders": []
+    },
+    {
+      "active": false,
+      "capableDate": null,
+      "capableToRequestedDays": null,
+      "commitmentId": "COM-0013",
+      "priority": "P1",
+      "promiseToCapableDays": null,
+      "promisedDate": "2026-08-11",
+      "requestToPromiseDays": 0,
+      "requestedDate": "2026-08-11",
+      "status": "DELIVERED",
+      "workOrders": []
+    },
+    {
+      "active": false,
+      "capableDate": null,
+      "capableToRequestedDays": null,
+      "commitmentId": "COM-0014",
+      "priority": "P2",
+      "promiseToCapableDays": null,
+      "promisedDate": "2026-08-15",
+      "requestToPromiseDays": 1,
+      "requestedDate": "2026-08-14",
+      "status": "DELIVERED",
+      "workOrders": []
+    },
+    {
+      "active": false,
+      "capableDate": null,
+      "capableToRequestedDays": null,
+      "commitmentId": "COM-0015",
+      "priority": "P2",
+      "promiseToCapableDays": null,
+      "promisedDate": "2026-08-19",
+      "requestToPromiseDays": 2,
+      "requestedDate": "2026-08-17",
+      "status": "DELIVERED",
+      "workOrders": []
+    },
+    {
+      "active": false,
+      "capableDate": null,
+      "capableToRequestedDays": null,
+      "commitmentId": "COM-0016",
+      "priority": "P3",
+      "promiseToCapableDays": null,
+      "promisedDate": "2026-08-25",
+      "requestToPromiseDays": 5,
+      "requestedDate": "2026-08-20",
+      "status": "DELIVERED",
+      "workOrders": []
+    },
+    {
+      "active": false,
+      "capableDate": null,
+      "capableToRequestedDays": null,
+      "commitmentId": "COM-0017",
+      "priority": "P1",
+      "promiseToCapableDays": null,
+      "promisedDate": "2026-08-23",
+      "requestToPromiseDays": 0,
+      "requestedDate": "2026-08-23",
+      "status": "DELIVERED",
+      "workOrders": []
+    },
+    {
+      "active": false,
+      "capableDate": null,
+      "capableToRequestedDays": null,
+      "commitmentId": "COM-0018",
+      "priority": "P2",
+      "promiseToCapableDays": null,
+      "promisedDate": "2026-08-27",
+      "requestToPromiseDays": 1,
+      "requestedDate": "2026-08-26",
+      "status": "DELIVERED",
+      "workOrders": []
+    },
+    {
+      "active": false,
+      "capableDate": null,
+      "capableToRequestedDays": null,
+      "commitmentId": "COM-0019",
+      "priority": "P2",
+      "promiseToCapableDays": null,
+      "promisedDate": "2026-08-31",
+      "requestToPromiseDays": 2,
+      "requestedDate": "2026-08-29",
+      "status": "SHIPPED",
+      "workOrders": []
+    },
+    {
+      "active": false,
+      "capableDate": null,
+      "capableToRequestedDays": null,
+      "commitmentId": "COM-0020",
+      "priority": "P3",
+      "promiseToCapableDays": null,
+      "promisedDate": "2026-09-04",
+      "requestToPromiseDays": 3,
+      "requestedDate": "2026-09-01",
+      "status": "SHIPPED",
+      "workOrders": []
+    },
+    {
+      "active": false,
+      "capableDate": null,
+      "capableToRequestedDays": null,
+      "commitmentId": "COM-0021",
+      "priority": "P1",
+      "promiseToCapableDays": null,
+      "promisedDate": "2026-09-06",
+      "requestToPromiseDays": 2,
+      "requestedDate": "2026-09-04",
+      "status": "SHIPPED",
+      "workOrders": []
+    },
+    {
+      "active": false,
+      "capableDate": null,
+      "capableToRequestedDays": null,
+      "commitmentId": "COM-0022",
+      "priority": "P2",
+      "promiseToCapableDays": null,
+      "promisedDate": "2026-09-08",
+      "requestToPromiseDays": 1,
+      "requestedDate": "2026-09-07",
+      "status": "SHIPPED",
+      "workOrders": []
+    },
+    {
+      "active": false,
+      "capableDate": null,
+      "capableToRequestedDays": null,
+      "commitmentId": "COM-0023",
+      "priority": "P2",
+      "promiseToCapableDays": null,
+      "promisedDate": "2026-09-12",
+      "requestToPromiseDays": 2,
+      "requestedDate": "2026-09-10",
+      "status": "SHIPPED",
+      "workOrders": []
+    },
+    {
+      "active": false,
+      "capableDate": null,
+      "capableToRequestedDays": null,
+      "commitmentId": "COM-0024",
+      "priority": "P3",
+      "promiseToCapableDays": null,
+      "promisedDate": "2026-09-16",
+      "requestToPromiseDays": 3,
+      "requestedDate": "2026-09-13",
+      "status": "SHIPPED",
+      "workOrders": []
+    },
+    {
+      "active": true,
+      "capableDate": "2026-10-07",
+      "capableToRequestedDays": 5,
+      "commitmentId": "COM-0025",
+      "priority": "P1",
+      "promiseToCapableDays": 5,
+      "promisedDate": "2026-10-02",
+      "requestToPromiseDays": 0,
+      "requestedDate": "2026-10-02",
+      "status": "APPROVED_COMMITMENT",
+      "workOrders": [
+        "WO-0001"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-11-06",
+      "capableToRequestedDays": 32,
+      "commitmentId": "COM-0026",
+      "priority": "P2",
+      "promiseToCapableDays": 29,
+      "promisedDate": "2026-10-08",
+      "requestToPromiseDays": 3,
+      "requestedDate": "2026-10-05",
+      "status": "APPROVED_COMMITMENT",
+      "workOrders": [
+        "WO-0002"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-12-21",
+      "capableToRequestedDays": 74,
+      "commitmentId": "COM-0027",
+      "priority": "P2",
+      "promiseToCapableDays": 72,
+      "promisedDate": "2026-10-10",
+      "requestToPromiseDays": 2,
+      "requestedDate": "2026-10-08",
+      "status": "APPROVED_COMMITMENT",
+      "workOrders": [
+        "WO-0003"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-10-12",
+      "capableToRequestedDays": 1,
+      "commitmentId": "COM-0028",
+      "priority": "P3",
+      "promiseToCapableDays": -2,
+      "promisedDate": "2026-10-14",
+      "requestToPromiseDays": 3,
+      "requestedDate": "2026-10-11",
+      "status": "APPROVED_COMMITMENT",
+      "workOrders": [
+        "WO-0004"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-11-12",
+      "capableToRequestedDays": 29,
+      "commitmentId": "COM-0029",
+      "priority": "P1",
+      "promiseToCapableDays": 29,
+      "promisedDate": "2026-10-14",
+      "requestToPromiseDays": 0,
+      "requestedDate": "2026-10-14",
+      "status": "APPROVED_COMMITMENT",
+      "workOrders": [
+        "WO-0005"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-12-24",
+      "capableToRequestedDays": 68,
+      "commitmentId": "COM-0030",
+      "priority": "P2",
+      "promiseToCapableDays": 67,
+      "promisedDate": "2026-10-18",
+      "requestToPromiseDays": 1,
+      "requestedDate": "2026-10-17",
+      "status": "APPROVED_COMMITMENT",
+      "workOrders": [
+        "WO-0006"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-10-29",
+      "capableToRequestedDays": 9,
+      "commitmentId": "COM-0031",
+      "priority": "P2",
+      "promiseToCapableDays": 5,
+      "promisedDate": "2026-10-24",
+      "requestToPromiseDays": 4,
+      "requestedDate": "2026-10-20",
+      "status": "APPROVED_COMMITMENT",
+      "workOrders": [
+        "WO-0007"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-11-18",
+      "capableToRequestedDays": 26,
+      "commitmentId": "COM-0032",
+      "priority": "P3",
+      "promiseToCapableDays": 23,
+      "promisedDate": "2026-10-26",
+      "requestToPromiseDays": 3,
+      "requestedDate": "2026-10-23",
+      "status": "APPROVED_COMMITMENT",
+      "workOrders": [
+        "WO-0008"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-12-03",
+      "capableToRequestedDays": 38,
+      "commitmentId": "COM-0033",
+      "priority": "P1",
+      "promiseToCapableDays": 38,
+      "promisedDate": "2026-10-26",
+      "requestToPromiseDays": 0,
+      "requestedDate": "2026-10-26",
+      "status": "APPROVED_COMMITMENT",
+      "workOrders": [
+        "WO-0009"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-10-13",
+      "capableToRequestedDays": -16,
+      "commitmentId": "COM-0034",
+      "priority": "P2",
+      "promiseToCapableDays": -17,
+      "promisedDate": "2026-10-30",
+      "requestToPromiseDays": 1,
+      "requestedDate": "2026-10-29",
+      "status": "APPROVED_COMMITMENT",
+      "workOrders": [
+        "WO-0010"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-11-18",
+      "capableToRequestedDays": 17,
+      "commitmentId": "COM-0035",
+      "priority": "P2",
+      "promiseToCapableDays": 15,
+      "promisedDate": "2026-11-03",
+      "requestToPromiseDays": 2,
+      "requestedDate": "2026-11-01",
+      "status": "APPROVED_COMMITMENT",
+      "workOrders": [
+        "WO-0011"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-12-08",
+      "capableToRequestedDays": 34,
+      "commitmentId": "COM-0036",
+      "priority": "P3",
+      "promiseToCapableDays": 29,
+      "promisedDate": "2026-11-09",
+      "requestToPromiseDays": 5,
+      "requestedDate": "2026-11-04",
+      "status": "APPROVED_COMMITMENT",
+      "workOrders": [
+        "WO-0012"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-10-30",
+      "capableToRequestedDays": -8,
+      "commitmentId": "COM-0037",
+      "priority": "P1",
+      "promiseToCapableDays": -8,
+      "promisedDate": "2026-11-07",
+      "requestToPromiseDays": 0,
+      "requestedDate": "2026-11-07",
+      "status": "APPROVED_COMMITMENT",
+      "workOrders": [
+        "WO-0013"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-11-20",
+      "capableToRequestedDays": 10,
+      "commitmentId": "COM-0038",
+      "priority": "P2",
+      "promiseToCapableDays": 9,
+      "promisedDate": "2026-11-11",
+      "requestToPromiseDays": 1,
+      "requestedDate": "2026-11-10",
+      "status": "APPROVED_COMMITMENT",
+      "workOrders": [
+        "WO-0014"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-12-29",
+      "capableToRequestedDays": 46,
+      "commitmentId": "COM-0039",
+      "priority": "P2",
+      "promiseToCapableDays": 44,
+      "promisedDate": "2026-11-15",
+      "requestToPromiseDays": 2,
+      "requestedDate": "2026-11-13",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0015"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-10-20",
+      "capableToRequestedDays": -27,
+      "commitmentId": "COM-0040",
+      "priority": "P3",
+      "promiseToCapableDays": -30,
+      "promisedDate": "2026-11-19",
+      "requestToPromiseDays": 3,
+      "requestedDate": "2026-11-16",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0016"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-12-01",
+      "capableToRequestedDays": 12,
+      "commitmentId": "COM-0041",
+      "priority": "P1",
+      "promiseToCapableDays": 10,
+      "promisedDate": "2026-11-21",
+      "requestToPromiseDays": 2,
+      "requestedDate": "2026-11-19",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0017"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-12-09",
+      "capableToRequestedDays": 17,
+      "commitmentId": "COM-0042",
+      "priority": "P2",
+      "promiseToCapableDays": 16,
+      "promisedDate": "2026-11-23",
+      "requestToPromiseDays": 1,
+      "requestedDate": "2026-11-22",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0018"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-10-20",
+      "capableToRequestedDays": -36,
+      "commitmentId": "COM-0043",
+      "priority": "P2",
+      "promiseToCapableDays": -38,
+      "promisedDate": "2026-11-27",
+      "requestToPromiseDays": 2,
+      "requestedDate": "2026-11-25",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0019"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-11-24",
+      "capableToRequestedDays": -4,
+      "commitmentId": "COM-0044",
+      "priority": "P3",
+      "promiseToCapableDays": -7,
+      "promisedDate": "2026-12-01",
+      "requestToPromiseDays": 3,
+      "requestedDate": "2026-11-28",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0020"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-12-08",
+      "capableToRequestedDays": 7,
+      "commitmentId": "COM-0045",
+      "priority": "P1",
+      "promiseToCapableDays": 7,
+      "promisedDate": "2026-12-01",
+      "requestToPromiseDays": 0,
+      "requestedDate": "2026-12-01",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0021"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-10-19",
+      "capableToRequestedDays": -46,
+      "commitmentId": "COM-0046",
+      "priority": "P2",
+      "promiseToCapableDays": -49,
+      "promisedDate": "2026-12-07",
+      "requestToPromiseDays": 3,
+      "requestedDate": "2026-12-04",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0022"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-11-23",
+      "capableToRequestedDays": -14,
+      "commitmentId": "COM-0047",
+      "priority": "P2",
+      "promiseToCapableDays": -16,
+      "promisedDate": "2026-12-09",
+      "requestToPromiseDays": 2,
+      "requestedDate": "2026-12-07",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0023"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-12-28",
+      "capableToRequestedDays": 18,
+      "commitmentId": "COM-0048",
+      "priority": "P3",
+      "promiseToCapableDays": 15,
+      "promisedDate": "2026-12-13",
+      "requestToPromiseDays": 3,
+      "requestedDate": "2026-12-10",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0024"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-10-28",
+      "capableToRequestedDays": -46,
+      "commitmentId": "COM-0049",
+      "priority": "P1",
+      "promiseToCapableDays": -46,
+      "promisedDate": "2026-12-13",
+      "requestToPromiseDays": 0,
+      "requestedDate": "2026-12-13",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0025"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-11-23",
+      "capableToRequestedDays": -23,
+      "commitmentId": "COM-0050",
+      "priority": "P2",
+      "promiseToCapableDays": -24,
+      "promisedDate": "2026-12-17",
+      "requestToPromiseDays": 1,
+      "requestedDate": "2026-12-16",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0026"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-12-09",
+      "capableToRequestedDays": -10,
+      "commitmentId": "COM-0051",
+      "priority": "P2",
+      "promiseToCapableDays": -14,
+      "promisedDate": "2026-12-23",
+      "requestToPromiseDays": 4,
+      "requestedDate": "2026-12-19",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0027"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-10-20",
+      "capableToRequestedDays": -63,
+      "commitmentId": "COM-0052",
+      "priority": "P3",
+      "promiseToCapableDays": -66,
+      "promisedDate": "2026-12-25",
+      "requestToPromiseDays": 3,
+      "requestedDate": "2026-12-22",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0028"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-11-26",
+      "capableToRequestedDays": -29,
+      "commitmentId": "COM-0053",
+      "priority": "P1",
+      "promiseToCapableDays": -29,
+      "promisedDate": "2026-12-25",
+      "requestToPromiseDays": 0,
+      "requestedDate": "2026-12-25",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0029"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-12-14",
+      "capableToRequestedDays": -14,
+      "commitmentId": "COM-0054",
+      "priority": "P2",
+      "promiseToCapableDays": -15,
+      "promisedDate": "2026-12-29",
+      "requestToPromiseDays": 1,
+      "requestedDate": "2026-12-28",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0030"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2027-01-11",
+      "capableToRequestedDays": 11,
+      "commitmentId": "COM-0055",
+      "priority": "P2",
+      "promiseToCapableDays": 9,
+      "promisedDate": "2027-01-02",
+      "requestToPromiseDays": 2,
+      "requestedDate": "2026-12-31",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0031"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2027-01-05",
+      "capableToRequestedDays": 2,
+      "commitmentId": "COM-0056",
+      "priority": "P3",
+      "promiseToCapableDays": -3,
+      "promisedDate": "2027-01-08",
+      "requestToPromiseDays": 5,
+      "requestedDate": "2027-01-03",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0032"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-12-31",
+      "capableToRequestedDays": -6,
+      "commitmentId": "COM-0057",
+      "priority": "P1",
+      "promiseToCapableDays": -6,
+      "promisedDate": "2027-01-06",
+      "requestToPromiseDays": 0,
+      "requestedDate": "2027-01-06",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0033"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2027-01-12",
+      "capableToRequestedDays": 3,
+      "commitmentId": "COM-0058",
+      "priority": "P2",
+      "promiseToCapableDays": 2,
+      "promisedDate": "2027-01-10",
+      "requestToPromiseDays": 1,
+      "requestedDate": "2027-01-09",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0034"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2027-01-06",
+      "capableToRequestedDays": -6,
+      "commitmentId": "COM-0059",
+      "priority": "P2",
+      "promiseToCapableDays": -8,
+      "promisedDate": "2027-01-14",
+      "requestToPromiseDays": 2,
+      "requestedDate": "2027-01-12",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0035"
+      ]
+    },
+    {
+      "active": true,
+      "capableDate": "2026-12-15",
+      "capableToRequestedDays": -31,
+      "commitmentId": "COM-0060",
+      "priority": "P3",
+      "promiseToCapableDays": -34,
+      "promisedDate": "2027-01-18",
+      "requestToPromiseDays": 3,
+      "requestedDate": "2027-01-15",
+      "status": "FIRM_ORDER",
+      "workOrders": [
+        "WO-0036"
+      ]
+    }
+  ],
+  "source": "COOLIT_Synthetic_Enterprise_Data_v3.2",
+  "unlinked": 20
+}

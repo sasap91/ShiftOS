@@ -1,0 +1,580 @@
+{
+  "note": "Derived from COOLIT Synthetic Enterprise Data v3.1 (governed/canonical_commitment, erp/pegging_snapshot, reference/capability_interval).",
+  "source_dataset": "COOLIT_Synthetic_Enterprise_Data_v3.1",
+  "snapshot_id": "SNP-COOLIT-20260925-BL",
+  "as_of_at": "2026-09-25T23:59:59-06:00",
+  "demands": [
+    {
+      "id": "COM-0001",
+      "product": "CFG-CPL-04",
+      "qty": 8,
+      "need": "2026-07-08",
+      "priorityKey": "P1|2026-07-08|COM-0001",
+      "frozen": true,
+      "pegged": 8
+    },
+    {
+      "id": "COM-0002",
+      "product": "CFG-CDU-01",
+      "qty": 12,
+      "need": "2026-07-10",
+      "priorityKey": "P2|2026-07-10|COM-0002",
+      "frozen": true,
+      "pegged": 12
+    },
+    {
+      "id": "COM-0003",
+      "product": "CFG-CPL-02",
+      "qty": 16,
+      "need": "2026-07-14",
+      "priorityKey": "P2|2026-07-14|COM-0003",
+      "frozen": true,
+      "pegged": 16
+    },
+    {
+      "id": "COM-0004",
+      "product": "CFG-RM-03",
+      "qty": 20,
+      "need": "2026-07-18",
+      "priorityKey": "P3|2026-07-18|COM-0004",
+      "frozen": true,
+      "pegged": 20
+    },
+    {
+      "id": "COM-0005",
+      "product": "CFG-CDU-04",
+      "qty": 24,
+      "need": "2026-07-18",
+      "priorityKey": "P1|2026-07-18|COM-0005",
+      "frozen": true,
+      "pegged": 24
+    },
+    {
+      "id": "COM-0006",
+      "product": "CFG-RM-01",
+      "qty": 28,
+      "need": "2026-07-24",
+      "priorityKey": "P2|2026-07-24|COM-0006",
+      "frozen": true,
+      "pegged": 28
+    },
+    {
+      "id": "COM-0007",
+      "product": "CFG-CDU-02",
+      "qty": 32,
+      "need": "2026-07-26",
+      "priorityKey": "P2|2026-07-26|COM-0007",
+      "frozen": true,
+      "pegged": 32
+    },
+    {
+      "id": "COM-0008",
+      "product": "CFG-CPL-03",
+      "qty": 36,
+      "need": "2026-07-30",
+      "priorityKey": "P3|2026-07-30|COM-0008",
+      "frozen": true,
+      "pegged": 36
+    },
+    {
+      "id": "COM-0009",
+      "product": "CFG-RM-04",
+      "qty": 40,
+      "need": "2026-07-30",
+      "priorityKey": "P1|2026-07-30|COM-0009",
+      "frozen": true,
+      "pegged": 40
+    },
+    {
+      "id": "COM-0010",
+      "product": "CFG-CPL-01",
+      "qty": 44,
+      "need": "2026-08-03",
+      "priorityKey": "P2|2026-08-03|COM-0010",
+      "frozen": true,
+      "pegged": 44
+    },
+    {
+      "id": "COM-0011",
+      "product": "CFG-RM-02",
+      "qty": 8,
+      "need": "2026-08-09",
+      "priorityKey": "P2|2026-08-09|COM-0011",
+      "frozen": true,
+      "pegged": 8
+    },
+    {
+      "id": "COM-0012",
+      "product": "CFG-CDU-03",
+      "qty": 12,
+      "need": "2026-08-11",
+      "priorityKey": "P3|2026-08-11|COM-0012",
+      "frozen": true,
+      "pegged": 12
+    },
+    {
+      "id": "COM-0013",
+      "product": "CFG-CPL-04",
+      "qty": 16,
+      "need": "2026-08-11",
+      "priorityKey": "P1|2026-08-11|COM-0013",
+      "frozen": true,
+      "pegged": 16
+    },
+    {
+      "id": "COM-0014",
+      "product": "CFG-CDU-01",
+      "qty": 20,
+      "need": "2026-08-15",
+      "priorityKey": "P2|2026-08-15|COM-0014",
+      "frozen": true,
+      "pegged": 20
+    },
+    {
+      "id": "COM-0015",
+      "product": "CFG-CPL-02",
+      "qty": 24,
+      "need": "2026-08-19",
+      "priorityKey": "P2|2026-08-19|COM-0015",
+      "frozen": true,
+      "pegged": 24
+    },
+    {
+      "id": "COM-0016",
+      "product": "CFG-RM-03",
+      "qty": 28,
+      "need": "2026-08-25",
+      "priorityKey": "P3|2026-08-25|COM-0016",
+      "frozen": true,
+      "pegged": 28
+    },
+    {
+      "id": "COM-0017",
+      "product": "CFG-CDU-04",
+      "qty": 32,
+      "need": "2026-08-23",
+      "priorityKey": "P1|2026-08-23|COM-0017",
+      "frozen": true,
+      "pegged": 32
+    },
+    {
+      "id": "COM-0018",
+      "product": "CFG-RM-01",
+      "qty": 36,
+      "need": "2026-08-27",
+      "priorityKey": "P2|2026-08-27|COM-0018",
+      "frozen": true,
+      "pegged": 36
+    },
+    {
+      "id": "COM-0019",
+      "product": "CFG-CDU-02",
+      "qty": 40,
+      "need": "2026-08-31",
+      "priorityKey": "P2|2026-08-31|COM-0019",
+      "frozen": true,
+      "pegged": 40
+    },
+    {
+      "id": "COM-0020",
+      "product": "CFG-CPL-03",
+      "qty": 44,
+      "need": "2026-09-04",
+      "priorityKey": "P3|2026-09-04|COM-0020",
+      "frozen": true,
+      "pegged": 44
+    },
+    {
+      "id": "COM-0021",
+      "product": "CFG-RM-04",
+      "qty": 8,
+      "need": "2026-09-06",
+      "priorityKey": "P1|2026-09-06|COM-0021",
+      "frozen": true,
+      "pegged": 8
+    },
+    {
+      "id": "COM-0022",
+      "product": "CFG-CPL-01",
+      "qty": 12,
+      "need": "2026-09-08",
+      "priorityKey": "P2|2026-09-08|COM-0022",
+      "frozen": true,
+      "pegged": 12
+    },
+    {
+      "id": "COM-0023",
+      "product": "CFG-RM-02",
+      "qty": 16,
+      "need": "2026-09-12",
+      "priorityKey": "P2|2026-09-12|COM-0023",
+      "frozen": true,
+      "pegged": 16
+    },
+    {
+      "id": "COM-0024",
+      "product": "CFG-CDU-03",
+      "qty": 20,
+      "need": "2026-09-16",
+      "priorityKey": "P3|2026-09-16|COM-0024",
+      "frozen": true,
+      "pegged": 20
+    },
+    {
+      "id": "COM-0025",
+      "product": "CFG-CPL-04",
+      "qty": 24,
+      "need": "2026-10-02",
+      "priorityKey": "P1|2026-10-02|COM-0025",
+      "frozen": true,
+      "pegged": 24
+    },
+    {
+      "id": "COM-0026",
+      "product": "CFG-CDU-01",
+      "qty": 28,
+      "need": "2026-10-08",
+      "priorityKey": "P2|2026-10-08|COM-0026",
+      "frozen": true,
+      "pegged": 28
+    },
+    {
+      "id": "COM-0027",
+      "product": "CFG-CPL-02",
+      "qty": 32,
+      "need": "2026-10-10",
+      "priorityKey": "P2|2026-10-10|COM-0027",
+      "frozen": true,
+      "pegged": 32
+    },
+    {
+      "id": "COM-0028",
+      "product": "CFG-RM-03",
+      "qty": 36,
+      "need": "2026-10-14",
+      "priorityKey": "P3|2026-10-14|COM-0028",
+      "frozen": false,
+      "pegged": 36
+    },
+    {
+      "id": "COM-0029",
+      "product": "CFG-CDU-04",
+      "qty": 40,
+      "need": "2026-10-14",
+      "priorityKey": "P1|2026-10-14|COM-0029",
+      "frozen": false,
+      "pegged": 40
+    },
+    {
+      "id": "COM-0030",
+      "product": "CFG-RM-01",
+      "qty": 44,
+      "need": "2026-10-18",
+      "priorityKey": "P2|2026-10-18|COM-0030",
+      "frozen": false,
+      "pegged": 44
+    },
+    {
+      "id": "COM-0031",
+      "product": "CFG-CDU-02",
+      "qty": 8,
+      "need": "2026-10-24",
+      "priorityKey": "P2|2026-10-24|COM-0031",
+      "frozen": false,
+      "pegged": 8
+    },
+    {
+      "id": "COM-0032",
+      "product": "CFG-CPL-03",
+      "qty": 12,
+      "need": "2026-10-26",
+      "priorityKey": "P3|2026-10-26|COM-0032",
+      "frozen": false,
+      "pegged": 12
+    },
+    {
+      "id": "COM-0033",
+      "product": "CFG-RM-04",
+      "qty": 16,
+      "need": "2026-10-26",
+      "priorityKey": "P1|2026-10-26|COM-0033",
+      "frozen": false,
+      "pegged": 16
+    },
+    {
+      "id": "COM-0034",
+      "product": "CFG-CPL-01",
+      "qty": 20,
+      "need": "2026-10-30",
+      "priorityKey": "P2|2026-10-30|COM-0034",
+      "frozen": false,
+      "pegged": 20
+    },
+    {
+      "id": "COM-0035",
+      "product": "CFG-RM-02",
+      "qty": 24,
+      "need": "2026-11-03",
+      "priorityKey": "P2|2026-11-03|COM-0035",
+      "frozen": false,
+      "pegged": 24
+    },
+    {
+      "id": "COM-0036",
+      "product": "CFG-CDU-03",
+      "qty": 28,
+      "need": "2026-11-09",
+      "priorityKey": "P3|2026-11-09|COM-0036",
+      "frozen": false,
+      "pegged": 28
+    },
+    {
+      "id": "COM-0037",
+      "product": "CFG-CPL-04",
+      "qty": 32,
+      "need": "2026-11-07",
+      "priorityKey": "P1|2026-11-07|COM-0037",
+      "frozen": false,
+      "pegged": 32
+    },
+    {
+      "id": "COM-0038",
+      "product": "CFG-CDU-01",
+      "qty": 36,
+      "need": "2026-11-11",
+      "priorityKey": "P2|2026-11-11|COM-0038",
+      "frozen": false,
+      "pegged": 36
+    },
+    {
+      "id": "COM-0039",
+      "product": "CFG-CPL-02",
+      "qty": 40,
+      "need": "2026-11-15",
+      "priorityKey": "P2|2026-11-15|COM-0039",
+      "frozen": false,
+      "pegged": 40
+    },
+    {
+      "id": "COM-0040",
+      "product": "CFG-RM-03",
+      "qty": 44,
+      "need": "2026-11-19",
+      "priorityKey": "P3|2026-11-19|COM-0040",
+      "frozen": false,
+      "pegged": 44
+    },
+    {
+      "id": "COM-0041",
+      "product": "CFG-CDU-04",
+      "qty": 8,
+      "need": "2026-11-21",
+      "priorityKey": "P1|2026-11-21|COM-0041",
+      "frozen": false,
+      "pegged": 8
+    },
+    {
+      "id": "COM-0042",
+      "product": "CFG-RM-01",
+      "qty": 12,
+      "need": "2026-11-23",
+      "priorityKey": "P2|2026-11-23|COM-0042",
+      "frozen": false,
+      "pegged": 12
+    },
+    {
+      "id": "COM-0043",
+      "product": "CFG-CDU-02",
+      "qty": 16,
+      "need": "2026-11-27",
+      "priorityKey": "P2|2026-11-27|COM-0043",
+      "frozen": false,
+      "pegged": 16
+    },
+    {
+      "id": "COM-0044",
+      "product": "CFG-CPL-03",
+      "qty": 20,
+      "need": "2026-12-01",
+      "priorityKey": "P3|2026-12-01|COM-0044",
+      "frozen": false,
+      "pegged": 20
+    },
+    {
+      "id": "COM-0045",
+      "product": "CFG-RM-04",
+      "qty": 24,
+      "need": "2026-12-01",
+      "priorityKey": "P1|2026-12-01|COM-0045",
+      "frozen": false,
+      "pegged": 24
+    },
+    {
+      "id": "COM-0046",
+      "product": "CFG-CPL-01",
+      "qty": 28,
+      "need": "2026-12-07",
+      "priorityKey": "P2|2026-12-07|COM-0046",
+      "frozen": false,
+      "pegged": 28
+    },
+    {
+      "id": "COM-0047",
+      "product": "CFG-RM-02",
+      "qty": 32,
+      "need": "2026-12-09",
+      "priorityKey": "P2|2026-12-09|COM-0047",
+      "frozen": false,
+      "pegged": 32
+    },
+    {
+      "id": "COM-0048",
+      "product": "CFG-CDU-03",
+      "qty": 36,
+      "need": "2026-12-13",
+      "priorityKey": "P3|2026-12-13|COM-0048",
+      "frozen": false,
+      "pegged": 36
+    },
+    {
+      "id": "COM-0049",
+      "product": "CFG-CPL-04",
+      "qty": 40,
+      "need": "2026-12-13",
+      "priorityKey": "P1|2026-12-13|COM-0049",
+      "frozen": false,
+      "pegged": 40
+    },
+    {
+      "id": "COM-0050",
+      "product": "CFG-CDU-01",
+      "qty": 44,
+      "need": "2026-12-17",
+      "priorityKey": "P2|2026-12-17|COM-0050",
+      "frozen": false,
+      "pegged": 44
+    },
+    {
+      "id": "COM-0051",
+      "product": "CFG-CPL-02",
+      "qty": 8,
+      "need": "2026-12-23",
+      "priorityKey": "P2|2026-12-23|COM-0051",
+      "frozen": false,
+      "pegged": 8
+    },
+    {
+      "id": "COM-0052",
+      "product": "CFG-RM-03",
+      "qty": 12,
+      "need": "2026-12-25",
+      "priorityKey": "P3|2026-12-25|COM-0052",
+      "frozen": false,
+      "pegged": 12
+    },
+    {
+      "id": "COM-0053",
+      "product": "CFG-CDU-04",
+      "qty": 16,
+      "need": "2026-12-25",
+      "priorityKey": "P1|2026-12-25|COM-0053",
+      "frozen": false,
+      "pegged": 16
+    },
+    {
+      "id": "COM-0054",
+      "product": "CFG-RM-01",
+      "qty": 20,
+      "need": "2026-12-29",
+      "priorityKey": "P2|2026-12-29|COM-0054",
+      "frozen": false,
+      "pegged": 20
+    },
+    {
+      "id": "COM-0055",
+      "product": "CFG-CDU-02",
+      "qty": 24,
+      "need": "2027-01-02",
+      "priorityKey": "P2|2027-01-02|COM-0055",
+      "frozen": false,
+      "pegged": 24
+    },
+    {
+      "id": "COM-0056",
+      "product": "CFG-CPL-03",
+      "qty": 28,
+      "need": "2027-01-08",
+      "priorityKey": "P3|2027-01-08|COM-0056",
+      "frozen": false,
+      "pegged": 28
+    },
+    {
+      "id": "COM-0057",
+      "product": "CFG-RM-04",
+      "qty": 32,
+      "need": "2027-01-06",
+      "priorityKey": "P1|2027-01-06|COM-0057",
+      "frozen": false,
+      "pegged": 32
+    },
+    {
+      "id": "COM-0058",
+      "product": "CFG-CPL-01",
+      "qty": 36,
+      "need": "2027-01-10",
+      "priorityKey": "P2|2027-01-10|COM-0058",
+      "frozen": false,
+      "pegged": 36
+    },
+    {
+      "id": "COM-0059",
+      "product": "CFG-RM-02",
+      "qty": 40,
+      "need": "2027-01-14",
+      "priorityKey": "P2|2027-01-14|COM-0059",
+      "frozen": false,
+      "pegged": 40
+    },
+    {
+      "id": "COM-0060",
+      "product": "CFG-CDU-03",
+      "qty": 44,
+      "need": "2027-01-18",
+      "priorityKey": "P3|2027-01-18|COM-0060",
+      "frozen": false,
+      "pegged": 44
+    }
+  ],
+  "resources": [
+    {
+      "id": "LINE-CPL-01",
+      "zone": "ZN-04A",
+      "ratePerDay": 24.6
+    },
+    {
+      "id": "LINE-RM-01",
+      "zone": "ZN-04B",
+      "ratePerDay": 24.6
+    },
+    {
+      "id": "LINE-CDU-01",
+      "zone": "ZN-04C",
+      "ratePerDay": 24.6
+    },
+    {
+      "id": "CELL-ROBOT-01",
+      "zone": "ZN-03",
+      "ratePerDay": 64
+    },
+    {
+      "id": "TEST-LEAK-01",
+      "zone": "ZN-05A",
+      "ratePerDay": 37.3
+    },
+    {
+      "id": "TEST-FUNC-01",
+      "zone": "ZN-05B",
+      "ratePerDay": 24
+    }
+  ]
+}

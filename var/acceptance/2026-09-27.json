@@ -1,0 +1,370 @@
+{
+  "generatedAt": "2026-09-27T15:27:04.190Z",
+  "phase": "target",
+  "commitmentId": "COM-1042",
+  "total": 48,
+  "counted": 48,
+  "passed": 48,
+  "failed": 0,
+  "skipped": 0,
+  "byRole": {
+    "manufacturing-manager": {
+      "passed": 12,
+      "counted": 12,
+      "skipped": 0
+    },
+    "shift-planner": {
+      "passed": 12,
+      "counted": 12,
+      "skipped": 0
+    },
+    "maintenance-manager": {
+      "passed": 12,
+      "counted": 12,
+      "skipped": 0
+    },
+    "demand-planner": {
+      "passed": 12,
+      "counted": 12,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "id": "MM-01",
+      "role": "manufacturing-manager",
+      "criterion": 1,
+      "status": "pass",
+      "detail": "route lookup"
+    },
+    {
+      "id": "MM-02",
+      "role": "manufacturing-manager",
+      "criterion": 1,
+      "status": "pass",
+      "detail": "route investigation"
+    },
+    {
+      "id": "MM-03",
+      "role": "manufacturing-manager",
+      "criterion": 1,
+      "status": "pass",
+      "detail": "route investigation"
+    },
+    {
+      "id": "MM-04",
+      "role": "manufacturing-manager",
+      "criterion": 2,
+      "status": "pass",
+      "detail": "block blast present=true"
+    },
+    {
+      "id": "MM-05",
+      "role": "manufacturing-manager",
+      "criterion": 2,
+      "status": "pass",
+      "detail": "route scenario"
+    },
+    {
+      "id": "MM-06",
+      "role": "manufacturing-manager",
+      "criterion": 6,
+      "status": "pass",
+      "detail": "route comparison"
+    },
+    {
+      "id": "MM-07",
+      "role": "manufacturing-manager",
+      "criterion": 4,
+      "status": "pass",
+      "detail": "answer matched /draft is ready|not an approved customer commitment/i"
+    },
+    {
+      "id": "MM-08",
+      "role": "manufacturing-manager",
+      "criterion": 3,
+      "status": "pass",
+      "detail": "route approval"
+    },
+    {
+      "id": "MM-09",
+      "role": "manufacturing-manager",
+      "criterion": 3,
+      "status": "pass",
+      "detail": "policy allowed=true"
+    },
+    {
+      "id": "MM-10",
+      "role": "manufacturing-manager",
+      "criterion": 2,
+      "status": "pass",
+      "detail": "answer matched /outside what this room can establish/i"
+    },
+    {
+      "id": "MM-11",
+      "role": "manufacturing-manager",
+      "criterion": 7,
+      "status": "pass",
+      "detail": "answer matched /nothing to simulate|not available for this role/i"
+    },
+    {
+      "id": "MM-12",
+      "role": "manufacturing-manager",
+      "criterion": 8,
+      "status": "pass",
+      "detail": "party visible=true level=summary reason=—"
+    },
+    {
+      "id": "SP-01",
+      "role": "shift-planner",
+      "criterion": 1,
+      "status": "pass",
+      "detail": "route lookup"
+    },
+    {
+      "id": "SP-02",
+      "role": "shift-planner",
+      "criterion": 1,
+      "status": "pass",
+      "detail": "route investigation"
+    },
+    {
+      "id": "SP-03",
+      "role": "shift-planner",
+      "criterion": 1,
+      "status": "pass",
+      "detail": "route investigation"
+    },
+    {
+      "id": "SP-04",
+      "role": "shift-planner",
+      "criterion": 2,
+      "status": "pass",
+      "detail": "block blast present=true"
+    },
+    {
+      "id": "SP-05",
+      "role": "shift-planner",
+      "criterion": 2,
+      "status": "pass",
+      "detail": "route scenario"
+    },
+    {
+      "id": "SP-06",
+      "role": "shift-planner",
+      "criterion": 6,
+      "status": "pass",
+      "detail": "route comparison"
+    },
+    {
+      "id": "SP-07",
+      "role": "shift-planner",
+      "criterion": 4,
+      "status": "pass",
+      "detail": "answer matched /draft is ready|not an approved customer commitment/i"
+    },
+    {
+      "id": "SP-08",
+      "role": "shift-planner",
+      "criterion": 3,
+      "status": "pass",
+      "detail": "route approval"
+    },
+    {
+      "id": "SP-09",
+      "role": "shift-planner",
+      "criterion": 3,
+      "status": "pass",
+      "detail": "policy allowed=true"
+    },
+    {
+      "id": "SP-10",
+      "role": "shift-planner",
+      "criterion": 2,
+      "status": "pass",
+      "detail": "answer matched /outside what this room can establish/i"
+    },
+    {
+      "id": "SP-11",
+      "role": "shift-planner",
+      "criterion": 7,
+      "status": "pass",
+      "detail": "answer matched /nothing to simulate|not available for this role/i"
+    },
+    {
+      "id": "SP-12",
+      "role": "shift-planner",
+      "criterion": 8,
+      "status": "pass",
+      "detail": "party visible=false level=hidden reason=NOT_AUTHORIZED"
+    },
+    {
+      "id": "MT-01",
+      "role": "maintenance-manager",
+      "criterion": 1,
+      "status": "pass",
+      "detail": "route lookup"
+    },
+    {
+      "id": "MT-02",
+      "role": "maintenance-manager",
+      "criterion": 1,
+      "status": "pass",
+      "detail": "route investigation"
+    },
+    {
+      "id": "MT-03",
+      "role": "maintenance-manager",
+      "criterion": 1,
+      "status": "pass",
+      "detail": "route investigation"
+    },
+    {
+      "id": "MT-04",
+      "role": "maintenance-manager",
+      "criterion": 2,
+      "status": "pass",
+      "detail": "block blast present=true"
+    },
+    {
+      "id": "MT-05",
+      "role": "maintenance-manager",
+      "criterion": 2,
+      "status": "pass",
+      "detail": "route scenario"
+    },
+    {
+      "id": "MT-06",
+      "role": "maintenance-manager",
+      "criterion": 6,
+      "status": "pass",
+      "detail": "route comparison"
+    },
+    {
+      "id": "MT-07",
+      "role": "maintenance-manager",
+      "criterion": 4,
+      "status": "pass",
+      "detail": "answer matched /draft is ready|not an approved customer commitment/i"
+    },
+    {
+      "id": "MT-08",
+      "role": "maintenance-manager",
+      "criterion": 3,
+      "status": "pass",
+      "detail": "route approval"
+    },
+    {
+      "id": "MT-09",
+      "role": "maintenance-manager",
+      "criterion": 3,
+      "status": "pass",
+      "detail": "policy allowed=true"
+    },
+    {
+      "id": "MT-10",
+      "role": "maintenance-manager",
+      "criterion": 2,
+      "status": "pass",
+      "detail": "answer matched /outside what this room can establish/i"
+    },
+    {
+      "id": "MT-11",
+      "role": "maintenance-manager",
+      "criterion": 7,
+      "status": "pass",
+      "detail": "answer matched /nothing to simulate|not available for this role/i"
+    },
+    {
+      "id": "MT-12",
+      "role": "maintenance-manager",
+      "criterion": 8,
+      "status": "pass",
+      "detail": "party visible=false level=hidden reason=NOT_AUTHORIZED"
+    },
+    {
+      "id": "DP-01",
+      "role": "demand-planner",
+      "criterion": 1,
+      "status": "pass",
+      "detail": "route lookup"
+    },
+    {
+      "id": "DP-02",
+      "role": "demand-planner",
+      "criterion": 1,
+      "status": "pass",
+      "detail": "route investigation"
+    },
+    {
+      "id": "DP-03",
+      "role": "demand-planner",
+      "criterion": 1,
+      "status": "pass",
+      "detail": "route investigation"
+    },
+    {
+      "id": "DP-04",
+      "role": "demand-planner",
+      "criterion": 2,
+      "status": "pass",
+      "detail": "block blast present=true"
+    },
+    {
+      "id": "DP-05",
+      "role": "demand-planner",
+      "criterion": 2,
+      "status": "pass",
+      "detail": "route scenario"
+    },
+    {
+      "id": "DP-06",
+      "role": "demand-planner",
+      "criterion": 6,
+      "status": "pass",
+      "detail": "route comparison"
+    },
+    {
+      "id": "DP-07",
+      "role": "demand-planner",
+      "criterion": 4,
+      "status": "pass",
+      "detail": "answer matched /draft is ready|not an approved customer commitment/i"
+    },
+    {
+      "id": "DP-08",
+      "role": "demand-planner",
+      "criterion": 3,
+      "status": "pass",
+      "detail": "route approval"
+    },
+    {
+      "id": "DP-09",
+      "role": "demand-planner",
+      "criterion": 3,
+      "status": "pass",
+      "detail": "policy allowed=true"
+    },
+    {
+      "id": "DP-10",
+      "role": "demand-planner",
+      "criterion": 2,
+      "status": "pass",
+      "detail": "answer matched /outside what this room can establish/i"
+    },
+    {
+      "id": "DP-11",
+      "role": "demand-planner",
+      "criterion": 7,
+      "status": "pass",
+      "detail": "answer matched /nothing to simulate|not available for this role/i"
+    },
+    {
+      "id": "DP-12",
+      "role": "demand-planner",
+      "criterion": 8,
+      "status": "pass",
+      "detail": "party visible=true level=full reason=—"
+    }
+  ]
+}

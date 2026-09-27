@@ -1,0 +1,2743 @@
+{
+  "achievedGap": 0.0,
+  "horizonEnd": "2027-03-26",
+  "horizonStart": "2026-09-28",
+  "jobs": [
+    {
+      "completionDay": "2026-10-06",
+      "dueDay": "2026-10-02",
+      "dueDayNormalized": "2026-10-02",
+      "frozen": true,
+      "id": "WO-0001",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-09-29",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-09-28",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-09-30",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CPL-01",
+          "seq": 20,
+          "startDay": "2026-09-29",
+          "zone": "ZN-04A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-01",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2026-09-30",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-02",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2026-10-01",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-05",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2026-10-02",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-06",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CPL-01",
+          "seq": 60,
+          "startDay": "2026-10-05",
+          "zone": "ZN-04A"
+        }
+      ],
+      "priority": 1,
+      "product": "CFG-CPL-02",
+      "promiseOnNonWorkingDay": false,
+      "qty": 12,
+      "tardinessDays": 2
+    },
+    {
+      "completionDay": "2026-10-09",
+      "dueDay": "2026-10-08",
+      "dueDayNormalized": "2026-10-08",
+      "frozen": true,
+      "id": "WO-0002",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-09-30",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-09-29",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-01",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CDU-01",
+          "seq": 20,
+          "startDay": "2026-09-30",
+          "zone": "ZN-04C"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-10-06",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2026-10-02",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-07",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2026-10-06",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-08",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2026-10-07",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-09",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CDU-01",
+          "seq": 60,
+          "startDay": "2026-10-08",
+          "zone": "ZN-04C"
+        }
+      ],
+      "priority": 2,
+      "product": "CFG-CDU-01",
+      "promiseOnNonWorkingDay": false,
+      "qty": 18,
+      "tardinessDays": 1
+    },
+    {
+      "completionDay": "2026-11-24",
+      "dueDay": "2026-10-10",
+      "dueDayNormalized": "2026-10-12",
+      "frozen": false,
+      "id": "WO-0003",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-07",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-10-06",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-11-18",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CPL-01",
+          "seq": 20,
+          "startDay": "2026-11-17",
+          "zone": "ZN-04A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-11-19",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2026-11-18",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-11-20",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2026-11-19",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-11-23",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2026-11-20",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-11-24",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CPL-01",
+          "seq": 60,
+          "startDay": "2026-11-23",
+          "zone": "ZN-04A"
+        }
+      ],
+      "priority": 3,
+      "product": "CFG-CPL-04",
+      "promiseOnNonWorkingDay": true,
+      "qty": 24,
+      "tardinessDays": 31
+    },
+    {
+      "completionDay": "2026-11-30",
+      "dueDay": "2026-10-14",
+      "dueDayNormalized": "2026-10-14",
+      "frozen": false,
+      "id": "WO-0004",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-08",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-10-07",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-11-13",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CDU-01",
+          "seq": 20,
+          "startDay": "2026-11-11",
+          "zone": "ZN-04C"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-11-23",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2026-11-20",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-11-24",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2026-11-23",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-11-26",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2026-11-24",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-11-30",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CDU-01",
+          "seq": 60,
+          "startDay": "2026-11-26",
+          "zone": "ZN-04C"
+        }
+      ],
+      "priority": 1,
+      "product": "CFG-CDU-03",
+      "promiseOnNonWorkingDay": false,
+      "qty": 30,
+      "tardinessDays": 33
+    },
+    {
+      "completionDay": "2026-12-02",
+      "dueDay": "2026-10-14",
+      "dueDayNormalized": "2026-10-14",
+      "frozen": false,
+      "id": "WO-0005",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-09",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-10-08",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-10-13",
+          "ratePerDay": 1,
+          "resourceId": "LINE-RM-01",
+          "seq": 20,
+          "startDay": "2026-10-09",
+          "zone": "ZN-04B"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-11-25",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2026-11-24",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-11-26",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2026-11-25",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-11-30",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2026-11-26",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-12-02",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-RM-01",
+          "seq": 60,
+          "startDay": "2026-11-30",
+          "zone": "ZN-04B"
+        }
+      ],
+      "priority": 2,
+      "product": "CFG-RM-02",
+      "promiseOnNonWorkingDay": false,
+      "qty": 36,
+      "tardinessDays": 35
+    },
+    {
+      "completionDay": "2026-12-08",
+      "dueDay": "2026-10-18",
+      "dueDayNormalized": "2026-10-19",
+      "frozen": false,
+      "id": "WO-0006",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-12",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-10-09",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-11-26",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CPL-01",
+          "seq": 20,
+          "startDay": "2026-11-24",
+          "zone": "ZN-04A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-11-30",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2026-11-26",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-12-02",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2026-11-30",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-12-04",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2026-12-02",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-12-08",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CPL-01",
+          "seq": 60,
+          "startDay": "2026-12-04",
+          "zone": "ZN-04A"
+        }
+      ],
+      "priority": 3,
+      "product": "CFG-CPL-01",
+      "promiseOnNonWorkingDay": true,
+      "qty": 42,
+      "tardinessDays": 36
+    },
+    {
+      "completionDay": "2026-12-16",
+      "dueDay": "2026-10-24",
+      "dueDayNormalized": "2026-10-26",
+      "frozen": false,
+      "id": "WO-0007",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-13",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-10-12",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-12-04",
+          "ratePerDay": 1,
+          "resourceId": "LINE-RM-01",
+          "seq": 20,
+          "startDay": "2026-12-02",
+          "zone": "ZN-04B"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-12-08",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2026-12-04",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-12-10",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2026-12-08",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-12-14",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2026-12-10",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-12-16",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-RM-01",
+          "seq": 60,
+          "startDay": "2026-12-14",
+          "zone": "ZN-04B"
+        }
+      ],
+      "priority": 1,
+      "product": "CFG-RM-04",
+      "promiseOnNonWorkingDay": true,
+      "qty": 48,
+      "tardinessDays": 37
+    },
+    {
+      "completionDay": "2026-12-25",
+      "dueDay": "2026-10-26",
+      "dueDayNormalized": "2026-10-26",
+      "frozen": false,
+      "id": "WO-0008",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-14",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-10-13",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 3,
+          "endDay": "2026-12-11",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CPL-01",
+          "seq": 20,
+          "startDay": "2026-12-08",
+          "zone": "ZN-04A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-12-15",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2026-12-11",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-12-17",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2026-12-15",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 3,
+          "endDay": "2026-12-22",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2026-12-17",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 3,
+          "endDay": "2026-12-25",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CPL-01",
+          "seq": 60,
+          "startDay": "2026-12-22",
+          "zone": "ZN-04A"
+        }
+      ],
+      "priority": 2,
+      "product": "CFG-CPL-03",
+      "promiseOnNonWorkingDay": false,
+      "qty": 54,
+      "tardinessDays": 44
+    },
+    {
+      "completionDay": "2026-12-24",
+      "dueDay": "2026-10-26",
+      "dueDayNormalized": "2026-10-26",
+      "frozen": false,
+      "id": "WO-0009",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-15",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-10-14",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-12-01",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CDU-01",
+          "seq": 20,
+          "startDay": "2026-11-30",
+          "zone": "ZN-04C"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-12-18",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2026-12-17",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-12-21",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2026-12-18",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-12-23",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2026-12-22",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-12-24",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CDU-01",
+          "seq": 60,
+          "startDay": "2026-12-23",
+          "zone": "ZN-04C"
+        }
+      ],
+      "priority": 3,
+      "product": "CFG-CDU-02",
+      "promiseOnNonWorkingDay": false,
+      "qty": 12,
+      "tardinessDays": 43
+    },
+    {
+      "completionDay": "2026-12-25",
+      "dueDay": "2026-10-30",
+      "dueDayNormalized": "2026-10-30",
+      "frozen": false,
+      "id": "WO-0010",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-16",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-10-15",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-12-17",
+          "ratePerDay": 1,
+          "resourceId": "LINE-RM-01",
+          "seq": 20,
+          "startDay": "2026-12-16",
+          "zone": "ZN-04B"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-12-22",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2026-12-21",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-12-23",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2026-12-22",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-12-24",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2026-12-23",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-12-25",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-RM-01",
+          "seq": 60,
+          "startDay": "2026-12-24",
+          "zone": "ZN-04B"
+        }
+      ],
+      "priority": 1,
+      "product": "CFG-RM-01",
+      "promiseOnNonWorkingDay": false,
+      "qty": 18,
+      "tardinessDays": 40
+    },
+    {
+      "completionDay": "2026-12-31",
+      "dueDay": "2026-11-03",
+      "dueDayNormalized": "2026-11-03",
+      "frozen": false,
+      "id": "WO-0011",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-19",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-10-16",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-12-25",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CDU-01",
+          "seq": 20,
+          "startDay": "2026-12-24",
+          "zone": "ZN-04C"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-12-28",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2026-12-25",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-12-29",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2026-12-28",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-12-30",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2026-12-29",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-12-31",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CDU-01",
+          "seq": 60,
+          "startDay": "2026-12-30",
+          "zone": "ZN-04C"
+        }
+      ],
+      "priority": 2,
+      "product": "CFG-CDU-04",
+      "promiseOnNonWorkingDay": false,
+      "qty": 24,
+      "tardinessDays": 42
+    },
+    {
+      "completionDay": "2027-01-08",
+      "dueDay": "2026-11-09",
+      "dueDayNormalized": "2026-11-09",
+      "frozen": false,
+      "id": "WO-0012",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-21",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-10-20",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-12-29",
+          "ratePerDay": 1,
+          "resourceId": "LINE-RM-01",
+          "seq": 20,
+          "startDay": "2026-12-25",
+          "zone": "ZN-04B"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-01-01",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2026-12-31",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-01-04",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2027-01-01",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-01-06",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2027-01-04",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-01-08",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-RM-01",
+          "seq": 60,
+          "startDay": "2027-01-06",
+          "zone": "ZN-04B"
+        }
+      ],
+      "priority": 3,
+      "product": "CFG-RM-03",
+      "promiseOnNonWorkingDay": false,
+      "qty": 30,
+      "tardinessDays": 44
+    },
+    {
+      "completionDay": "2027-01-06",
+      "dueDay": "2026-11-07",
+      "dueDayNormalized": "2026-11-09",
+      "frozen": false,
+      "id": "WO-0013",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-20",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-10-19",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-12-29",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CPL-01",
+          "seq": 20,
+          "startDay": "2026-12-25",
+          "zone": "ZN-04A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-12-30",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2026-12-29",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-12-31",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2026-12-30",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-01-04",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2026-12-31",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-01-06",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CPL-01",
+          "seq": 60,
+          "startDay": "2027-01-04",
+          "zone": "ZN-04A"
+        }
+      ],
+      "priority": 1,
+      "product": "CFG-CPL-02",
+      "promiseOnNonWorkingDay": true,
+      "qty": 36,
+      "tardinessDays": 42
+    },
+    {
+      "completionDay": "2027-01-14",
+      "dueDay": "2026-11-11",
+      "dueDayNormalized": "2026-11-11",
+      "frozen": false,
+      "id": "WO-0014",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-22",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-10-21",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-01-04",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CDU-01",
+          "seq": 20,
+          "startDay": "2026-12-31",
+          "zone": "ZN-04C"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-01-06",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2027-01-04",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-01-08",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2027-01-06",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-01-12",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2027-01-08",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-01-14",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CDU-01",
+          "seq": 60,
+          "startDay": "2027-01-12",
+          "zone": "ZN-04C"
+        }
+      ],
+      "priority": 2,
+      "product": "CFG-CDU-01",
+      "promiseOnNonWorkingDay": false,
+      "qty": 42,
+      "tardinessDays": 46
+    },
+    {
+      "completionDay": "2027-01-20",
+      "dueDay": "2026-11-15",
+      "dueDayNormalized": "2026-11-16",
+      "frozen": false,
+      "id": "WO-0015",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-23",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-10-22",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-01-08",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CPL-01",
+          "seq": 20,
+          "startDay": "2027-01-06",
+          "zone": "ZN-04A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-01-12",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2027-01-08",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-01-14",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2027-01-12",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-01-18",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2027-01-14",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-01-20",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CPL-01",
+          "seq": 60,
+          "startDay": "2027-01-18",
+          "zone": "ZN-04A"
+        }
+      ],
+      "priority": 3,
+      "product": "CFG-CPL-04",
+      "promiseOnNonWorkingDay": true,
+      "qty": 48,
+      "tardinessDays": 47
+    },
+    {
+      "completionDay": "2027-02-02",
+      "dueDay": "2026-11-19",
+      "dueDayNormalized": "2026-11-19",
+      "frozen": false,
+      "id": "WO-0016",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-26",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-10-23",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 3,
+          "endDay": "2027-01-19",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CDU-01",
+          "seq": 20,
+          "startDay": "2027-01-14",
+          "zone": "ZN-04C"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-01-21",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2027-01-19",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-01-25",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2027-01-21",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 3,
+          "endDay": "2027-01-28",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2027-01-25",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 3,
+          "endDay": "2027-02-02",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CDU-01",
+          "seq": 60,
+          "startDay": "2027-01-28",
+          "zone": "ZN-04C"
+        }
+      ],
+      "priority": 1,
+      "product": "CFG-CDU-03",
+      "promiseOnNonWorkingDay": false,
+      "qty": 54,
+      "tardinessDays": 53
+    },
+    {
+      "completionDay": "2027-02-01",
+      "dueDay": "2026-11-21",
+      "dueDayNormalized": "2026-11-23",
+      "frozen": false,
+      "id": "WO-0017",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-27",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-10-26",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-01-11",
+          "ratePerDay": 1,
+          "resourceId": "LINE-RM-01",
+          "seq": 20,
+          "startDay": "2027-01-08",
+          "zone": "ZN-04B"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-01-26",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2027-01-25",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-01-27",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2027-01-26",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-01-29",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2027-01-28",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-02-01",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-RM-01",
+          "seq": 60,
+          "startDay": "2027-01-29",
+          "zone": "ZN-04B"
+        }
+      ],
+      "priority": 2,
+      "product": "CFG-RM-02",
+      "promiseOnNonWorkingDay": true,
+      "qty": 12,
+      "tardinessDays": 50
+    },
+    {
+      "completionDay": "2027-02-02",
+      "dueDay": "2026-11-23",
+      "dueDayNormalized": "2026-11-23",
+      "frozen": false,
+      "id": "WO-0018",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-28",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-10-27",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-01-21",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CPL-01",
+          "seq": 20,
+          "startDay": "2027-01-20",
+          "zone": "ZN-04A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-01-28",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2027-01-27",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-01-29",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2027-01-28",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-02-01",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2027-01-29",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-02-02",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CPL-01",
+          "seq": 60,
+          "startDay": "2027-02-01",
+          "zone": "ZN-04A"
+        }
+      ],
+      "priority": 3,
+      "product": "CFG-CPL-01",
+      "promiseOnNonWorkingDay": false,
+      "qty": 18,
+      "tardinessDays": 51
+    },
+    {
+      "completionDay": "2027-02-08",
+      "dueDay": "2026-11-27",
+      "dueDayNormalized": "2026-11-27",
+      "frozen": false,
+      "id": "WO-0019",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-29",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-10-28",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-02-02",
+          "ratePerDay": 1,
+          "resourceId": "LINE-RM-01",
+          "seq": 20,
+          "startDay": "2027-02-01",
+          "zone": "ZN-04B"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-02-03",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2027-02-02",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-02-04",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2027-02-03",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-02-05",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2027-02-04",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-02-08",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-RM-01",
+          "seq": 60,
+          "startDay": "2027-02-05",
+          "zone": "ZN-04B"
+        }
+      ],
+      "priority": 1,
+      "product": "CFG-RM-04",
+      "promiseOnNonWorkingDay": false,
+      "qty": 24,
+      "tardinessDays": 51
+    },
+    {
+      "completionDay": "2027-02-12",
+      "dueDay": "2026-12-01",
+      "dueDayNormalized": "2026-12-01",
+      "frozen": false,
+      "id": "WO-0020",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-30",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-10-29",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-02-04",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CPL-01",
+          "seq": 20,
+          "startDay": "2027-02-02",
+          "zone": "ZN-04A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-02-05",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2027-02-04",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-02-08",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2027-02-05",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-02-10",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2027-02-08",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-02-12",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CPL-01",
+          "seq": 60,
+          "startDay": "2027-02-10",
+          "zone": "ZN-04A"
+        }
+      ],
+      "priority": 2,
+      "product": "CFG-CPL-03",
+      "promiseOnNonWorkingDay": false,
+      "qty": 30,
+      "tardinessDays": 53
+    },
+    {
+      "completionDay": "2027-02-16",
+      "dueDay": "2026-12-01",
+      "dueDayNormalized": "2026-12-01",
+      "frozen": false,
+      "id": "WO-0021",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-11-02",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-10-30",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-02-04",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CDU-01",
+          "seq": 20,
+          "startDay": "2027-02-02",
+          "zone": "ZN-04C"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-02-09",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2027-02-08",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-02-10",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2027-02-09",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-02-12",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2027-02-10",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-02-16",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CDU-01",
+          "seq": 60,
+          "startDay": "2027-02-12",
+          "zone": "ZN-04C"
+        }
+      ],
+      "priority": 3,
+      "product": "CFG-CDU-02",
+      "promiseOnNonWorkingDay": false,
+      "qty": 36,
+      "tardinessDays": 55
+    },
+    {
+      "completionDay": "2027-02-22",
+      "dueDay": "2026-12-07",
+      "dueDayNormalized": "2026-12-07",
+      "frozen": false,
+      "id": "WO-0022",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-11-03",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-11-02",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-02-10",
+          "ratePerDay": 1,
+          "resourceId": "LINE-RM-01",
+          "seq": 20,
+          "startDay": "2027-02-08",
+          "zone": "ZN-04B"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-02-12",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2027-02-10",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-02-16",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2027-02-12",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-02-18",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2027-02-16",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-02-22",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-RM-01",
+          "seq": 60,
+          "startDay": "2027-02-18",
+          "zone": "ZN-04B"
+        }
+      ],
+      "priority": 1,
+      "product": "CFG-RM-01",
+      "promiseOnNonWorkingDay": false,
+      "qty": 42,
+      "tardinessDays": 55
+    },
+    {
+      "completionDay": "2027-03-02",
+      "dueDay": "2026-12-09",
+      "dueDayNormalized": "2026-12-09",
+      "frozen": false,
+      "id": "WO-0023",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-11-04",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-11-03",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-02-18",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CDU-01",
+          "seq": 20,
+          "startDay": "2027-02-16",
+          "zone": "ZN-04C"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-02-22",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2027-02-18",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-02-24",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2027-02-22",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-02-26",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2027-02-24",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-03-02",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CDU-01",
+          "seq": 60,
+          "startDay": "2027-02-26",
+          "zone": "ZN-04C"
+        }
+      ],
+      "priority": 2,
+      "product": "CFG-CDU-04",
+      "promiseOnNonWorkingDay": false,
+      "qty": 48,
+      "tardinessDays": 59
+    },
+    {
+      "completionDay": "2027-03-12",
+      "dueDay": "2026-12-13",
+      "dueDayNormalized": "2026-12-14",
+      "frozen": false,
+      "id": "WO-0024",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-11-06",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-11-05",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 3,
+          "endDay": "2027-02-25",
+          "ratePerDay": 1,
+          "resourceId": "LINE-RM-01",
+          "seq": 20,
+          "startDay": "2027-02-22",
+          "zone": "ZN-04B"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-03-02",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2027-02-26",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-03-04",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2027-03-02",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 3,
+          "endDay": "2027-03-09",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2027-03-04",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 3,
+          "endDay": "2027-03-12",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-RM-01",
+          "seq": 60,
+          "startDay": "2027-03-09",
+          "zone": "ZN-04B"
+        }
+      ],
+      "priority": 3,
+      "product": "CFG-RM-03",
+      "promiseOnNonWorkingDay": true,
+      "qty": 54,
+      "tardinessDays": 64
+    },
+    {
+      "completionDay": "2027-03-02",
+      "dueDay": "2026-12-13",
+      "dueDayNormalized": "2026-12-14",
+      "frozen": false,
+      "id": "WO-0025",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-11-05",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-11-04",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-02-15",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CPL-01",
+          "seq": 20,
+          "startDay": "2027-02-12",
+          "zone": "ZN-04A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-02-25",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2027-02-24",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-02-26",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2027-02-25",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-01",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2027-02-26",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-02",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CPL-01",
+          "seq": 60,
+          "startDay": "2027-03-01",
+          "zone": "ZN-04A"
+        }
+      ],
+      "priority": 1,
+      "product": "CFG-CPL-02",
+      "promiseOnNonWorkingDay": true,
+      "qty": 12,
+      "tardinessDays": 56
+    },
+    {
+      "completionDay": "2027-03-11",
+      "dueDay": "2026-12-17",
+      "dueDayNormalized": "2026-12-17",
+      "frozen": false,
+      "id": "WO-0026",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-11-09",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-11-06",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-03",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CDU-01",
+          "seq": 20,
+          "startDay": "2027-03-02",
+          "zone": "ZN-04C"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-05",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2027-03-04",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-08",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2027-03-05",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-10",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2027-03-09",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-11",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CDU-01",
+          "seq": 60,
+          "startDay": "2027-03-10",
+          "zone": "ZN-04C"
+        }
+      ],
+      "priority": 2,
+      "product": "CFG-CDU-01",
+      "promiseOnNonWorkingDay": false,
+      "qty": 18,
+      "tardinessDays": 60
+    },
+    {
+      "completionDay": "2027-03-12",
+      "dueDay": "2026-12-23",
+      "dueDayNormalized": "2026-12-23",
+      "frozen": false,
+      "id": "WO-0027",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-11-10",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-11-09",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-03",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CPL-01",
+          "seq": 20,
+          "startDay": "2027-03-02",
+          "zone": "ZN-04A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-09",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2027-03-08",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-10",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2027-03-09",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-11",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2027-03-10",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-12",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CPL-01",
+          "seq": 60,
+          "startDay": "2027-03-11",
+          "zone": "ZN-04A"
+        }
+      ],
+      "priority": 3,
+      "product": "CFG-CPL-04",
+      "promiseOnNonWorkingDay": false,
+      "qty": 24,
+      "tardinessDays": 57
+    },
+    {
+      "completionDay": "2027-03-23",
+      "dueDay": "2026-12-25",
+      "dueDayNormalized": "2026-12-25",
+      "frozen": false,
+      "id": "WO-0028",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-11-11",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-11-10",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-03-15",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CDU-01",
+          "seq": 20,
+          "startDay": "2027-03-11",
+          "zone": "ZN-04C"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-16",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2027-03-15",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-17",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2027-03-16",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-03-19",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2027-03-17",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-03-23",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CDU-01",
+          "seq": 60,
+          "startDay": "2027-03-19",
+          "zone": "ZN-04C"
+        }
+      ],
+      "priority": 1,
+      "product": "CFG-CDU-03",
+      "promiseOnNonWorkingDay": false,
+      "qty": 30,
+      "tardinessDays": 62
+    },
+    {
+      "completionDay": "2027-03-25",
+      "dueDay": "2026-12-25",
+      "dueDayNormalized": "2026-12-25",
+      "frozen": false,
+      "id": "WO-0029",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-11-12",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-11-11",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-03-16",
+          "ratePerDay": 1,
+          "resourceId": "LINE-RM-01",
+          "seq": 20,
+          "startDay": "2027-03-12",
+          "zone": "ZN-04B"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-18",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2027-03-17",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-19",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2027-03-18",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-03-23",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2027-03-19",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-03-25",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-RM-01",
+          "seq": 60,
+          "startDay": "2027-03-23",
+          "zone": "ZN-04B"
+        }
+      ],
+      "priority": 2,
+      "product": "CFG-RM-02",
+      "promiseOnNonWorkingDay": false,
+      "qty": 36,
+      "tardinessDays": 64
+    },
+    {
+      "completionDay": "2027-03-26",
+      "dueDay": "2026-12-29",
+      "dueDayNormalized": "2026-12-29",
+      "frozen": false,
+      "id": "WO-0030",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-11-13",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-11-12",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-03-16",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CPL-01",
+          "seq": 20,
+          "startDay": "2027-03-12",
+          "zone": "ZN-04A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-03-23",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2027-03-19",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-03-25",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2027-03-23",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-03-26",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2027-03-25",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-03-26",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CPL-01",
+          "seq": 60,
+          "startDay": "2027-03-26",
+          "zone": "ZN-04A"
+        }
+      ],
+      "priority": 3,
+      "product": "CFG-CPL-01",
+      "promiseOnNonWorkingDay": false,
+      "qty": 42,
+      "tardinessDays": 66
+    },
+    {
+      "completionDay": "2027-03-26",
+      "dueDay": "2027-01-02",
+      "dueDayNormalized": "2027-01-04",
+      "frozen": false,
+      "id": "WO-0031",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-11-16",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-11-13",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-03-26",
+          "ratePerDay": 1,
+          "resourceId": "LINE-RM-01",
+          "seq": 20,
+          "startDay": "2027-03-25",
+          "zone": "ZN-04B"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-03-26",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2027-03-26",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-03-26",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2027-03-26",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-03-26",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2027-03-26",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-03-26",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-RM-01",
+          "seq": 60,
+          "startDay": "2027-03-26",
+          "zone": "ZN-04B"
+        }
+      ],
+      "priority": 1,
+      "product": "CFG-RM-04",
+      "promiseOnNonWorkingDay": true,
+      "qty": 48,
+      "tardinessDays": 68
+    },
+    {
+      "completionDay": "2027-03-26",
+      "dueDay": "2027-01-08",
+      "dueDayNormalized": "2027-01-08",
+      "frozen": false,
+      "id": "WO-0032",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-11-18",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-11-17",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 3,
+          "endDay": "2027-03-26",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CPL-01",
+          "seq": 20,
+          "startDay": "2027-03-26",
+          "zone": "ZN-04A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-03-26",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2027-03-26",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-03-26",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2027-03-26",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 3,
+          "endDay": "2027-03-26",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2027-03-26",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 3,
+          "endDay": "2027-03-26",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CPL-01",
+          "seq": 60,
+          "startDay": "2027-03-26",
+          "zone": "ZN-04A"
+        }
+      ],
+      "priority": 1,
+      "product": "CFG-CPL-03",
+      "promiseOnNonWorkingDay": false,
+      "qty": 54,
+      "tardinessDays": 72
+    },
+    {
+      "completionDay": "2027-03-26",
+      "dueDay": "2027-01-06",
+      "dueDayNormalized": "2027-01-06",
+      "frozen": false,
+      "id": "WO-0033",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-11-17",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-11-16",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-24",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CDU-01",
+          "seq": 20,
+          "startDay": "2027-03-23",
+          "zone": "ZN-04C"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-26",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2027-03-26",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-26",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2027-03-26",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-26",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2027-03-26",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-26",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CDU-01",
+          "seq": 60,
+          "startDay": "2027-03-26",
+          "zone": "ZN-04C"
+        }
+      ],
+      "priority": 1,
+      "product": "CFG-CDU-02",
+      "promiseOnNonWorkingDay": false,
+      "qty": 12,
+      "tardinessDays": 66
+    },
+    {
+      "completionDay": "2027-03-26",
+      "dueDay": "2027-01-10",
+      "dueDayNormalized": "2027-01-11",
+      "frozen": false,
+      "id": "WO-0034",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-11-19",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-11-18",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-26",
+          "ratePerDay": 1,
+          "resourceId": "LINE-RM-01",
+          "seq": 20,
+          "startDay": "2027-03-26",
+          "zone": "ZN-04B"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-26",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2027-03-26",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-26",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2027-03-26",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-26",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2027-03-26",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-26",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-RM-01",
+          "seq": 60,
+          "startDay": "2027-03-26",
+          "zone": "ZN-04B"
+        }
+      ],
+      "priority": 1,
+      "product": "CFG-RM-01",
+      "promiseOnNonWorkingDay": true,
+      "qty": 18,
+      "tardinessDays": 70
+    },
+    {
+      "completionDay": "2027-03-26",
+      "dueDay": "2027-01-14",
+      "dueDayNormalized": "2027-01-14",
+      "frozen": false,
+      "id": "WO-0035",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-11-20",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-11-19",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-26",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CDU-01",
+          "seq": 20,
+          "startDay": "2027-03-26",
+          "zone": "ZN-04C"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-26",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2027-03-26",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-26",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2027-03-26",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-26",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2027-03-26",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-26",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CDU-01",
+          "seq": 60,
+          "startDay": "2027-03-26",
+          "zone": "ZN-04C"
+        }
+      ],
+      "priority": 1,
+      "product": "CFG-CDU-04",
+      "promiseOnNonWorkingDay": false,
+      "qty": 24,
+      "tardinessDays": 68
+    },
+    {
+      "completionDay": "2027-03-26",
+      "dueDay": "2027-01-18",
+      "dueDayNormalized": "2027-01-18",
+      "frozen": false,
+      "id": "WO-0036",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-11-23",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-11-20",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-03-26",
+          "ratePerDay": 1,
+          "resourceId": "LINE-RM-01",
+          "seq": 20,
+          "startDay": "2027-03-26",
+          "zone": "ZN-04B"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-26",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2027-03-26",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2027-03-26",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2027-03-26",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-03-26",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2027-03-26",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2027-03-26",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-RM-01",
+          "seq": 60,
+          "startDay": "2027-03-26",
+          "zone": "ZN-04B"
+        }
+      ],
+      "priority": 3,
+      "product": "CFG-RM-03",
+      "promiseOnNonWorkingDay": false,
+      "qty": 30,
+      "tardinessDays": 73
+    },
+    {
+      "completionDay": "2026-10-16",
+      "dueDay": "2026-07-08",
+      "dueDayNormalized": "2026-07-08",
+      "frozen": true,
+      "id": "WO-0037",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-01",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-09-30",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-10-08",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CPL-01",
+          "seq": 20,
+          "startDay": "2026-10-06",
+          "zone": "ZN-04A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-09",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2026-10-08",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-12",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2026-10-09",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-10-14",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2026-10-12",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-10-16",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CPL-01",
+          "seq": 60,
+          "startDay": "2026-10-14",
+          "zone": "ZN-04A"
+        }
+      ],
+      "priority": 1,
+      "product": "CFG-CPL-02",
+      "promiseOnNonWorkingDay": false,
+      "qty": 36,
+      "tardinessDays": 0
+    },
+    {
+      "completionDay": "2026-11-11",
+      "dueDay": "2026-07-10",
+      "dueDayNormalized": "2026-07-10",
+      "frozen": true,
+      "id": "WO-0038",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-05",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-10-02",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-10-30",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CDU-01",
+          "seq": 20,
+          "startDay": "2026-10-28",
+          "zone": "ZN-04C"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-11-03",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2026-10-30",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-11-05",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2026-11-03",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-11-09",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2026-11-05",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-11-11",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CDU-01",
+          "seq": 60,
+          "startDay": "2026-11-09",
+          "zone": "ZN-04C"
+        }
+      ],
+      "priority": 2,
+      "product": "CFG-CDU-01",
+      "promiseOnNonWorkingDay": false,
+      "qty": 42,
+      "tardinessDays": 0
+    },
+    {
+      "completionDay": "2026-11-17",
+      "dueDay": "2026-07-14",
+      "dueDayNormalized": "2026-07-14",
+      "frozen": true,
+      "id": "WO-0039",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-06",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-10-05",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-10-20",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CPL-01",
+          "seq": 20,
+          "startDay": "2026-10-16",
+          "zone": "ZN-04A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-11-09",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2026-11-05",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-11-11",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2026-11-09",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-11-13",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2026-11-11",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-11-17",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CPL-01",
+          "seq": 60,
+          "startDay": "2026-11-13",
+          "zone": "ZN-04A"
+        }
+      ],
+      "priority": 3,
+      "product": "CFG-CPL-04",
+      "promiseOnNonWorkingDay": false,
+      "qty": 48,
+      "tardinessDays": 0
+    },
+    {
+      "completionDay": "2026-10-28",
+      "dueDay": "2026-07-18",
+      "dueDayNormalized": "2026-07-20",
+      "frozen": true,
+      "id": "WO-0040",
+      "operations": [
+        {
+          "durationDays": 1,
+          "endDay": "2026-10-02",
+          "ratePerDay": 4,
+          "resourceId": "CELL-ROBOT-01",
+          "seq": 10,
+          "startDay": "2026-10-01",
+          "zone": "ZN-03"
+        },
+        {
+          "durationDays": 3,
+          "endDay": "2026-10-14",
+          "ratePerDay": 1,
+          "resourceId": "LINE-CDU-01",
+          "seq": 20,
+          "startDay": "2026-10-09",
+          "zone": "ZN-04C"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-10-16",
+          "ratePerDay": 3,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 30,
+          "startDay": "2026-10-14",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 2,
+          "endDay": "2026-10-20",
+          "ratePerDay": 2.4,
+          "resourceId": "TEST-LEAK-01",
+          "seq": 40,
+          "startDay": "2026-10-16",
+          "zone": "ZN-05A"
+        },
+        {
+          "durationDays": 3,
+          "endDay": "2026-10-23",
+          "ratePerDay": 1.71,
+          "resourceId": "TEST-FUNC-01",
+          "seq": 50,
+          "startDay": "2026-10-20",
+          "zone": "ZN-05B"
+        },
+        {
+          "durationDays": 3,
+          "endDay": "2026-10-28",
+          "ratePerDay": 3.33,
+          "resourceId": "LINE-CDU-01",
+          "seq": 60,
+          "startDay": "2026-10-23",
+          "zone": "ZN-04C"
+        }
+      ],
+      "priority": 1,
+      "product": "CFG-CDU-03",
+      "promiseOnNonWorkingDay": true,
+      "qty": 54,
+      "tardinessDays": 0
+    }
+  ],
+  "makespanDays": 153,
+  "method": "dispatch",
+  "objective": 3872,
+  "policyGap": 0.0,
+  "resultHash": "4dae92ca3adc5acead9ec28edb7be76643fe41f57c407417db2ca5eeaecf0d47",
+  "solver": {
+    "method": 2,
+    "mipGap": 0.0,
+    "name": "gurobi",
+    "presolve": 2,
+    "seed": 0,
+    "threads": 1,
+    "version": "12.0.3",
+    "workLimit": 1000000
+  },
+  "status": "HEURISTIC_FEASIBLE"
+}
