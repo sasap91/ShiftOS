@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from "react";
 import {
-  type Alternative,
   type ApprovalRequest,
   type QueueState,
   type Role,
@@ -12,12 +11,10 @@ import {
   formatMoney,
 } from "./model";
 import {
-  type ActionId,
   type Block,
   type Intent,
   type Thread,
   type Turn,
-  actionAvailability,
   activeEnvelope,
   interpret,
   openThread,
@@ -83,14 +80,10 @@ export function App() {
   const [pendingId, setPendingId] = useState<string | null>(null);
   const [shownSteps, setShownSteps] = useState(0);
   const [pane, setPane] = useState<"queue" | "ledger" | "chat">("ledger");
-  const [evidenceOpen, setEvidenceOpen] = useState(false);
-  const [focusFact, setFocusFact] = useState<string | null>(null);
   const [focusCell, setFocusCell] = useState<string | null>(null);
   const logRef = useRef<HTMLDivElement>(null);
   const thread = threads[activeId];
   const envelope = activeEnvelope(role, thread);
-  const packet = assess(activeId).packet;
-  const actions = actionAvailability(thread, role);
   const busy = pendingId !== null;
   const ledgerRows = useMemo(() => buildLedger(threads), [threads]);
   const filteredRows = useMemo(
@@ -172,30 +165,7 @@ export function App() {
     commit(thread, interpret(text));
   }
 
-  function runAction(id: ActionId) {
-    const action = actions[id];
-    if (!action.enabled || busy) return;
-    const intent: Intent =
-      id === "explain"
-        ? { type: "explain" }
-        : id === "why"
-          ? { type: "why" }
-          : id === "blast"
-            ? { type: "blast" }
-            : id === "scenario"
-              ? { type: "scenario" }
-              : id === "compare"
-                ? { type: "compare" }
-                : id === "draft"
-                  ? { type: "draft" }
-                  : id === "approve"
-                    ? { type: "request-approval", rationale: "" }
-                    : { type: "simulate" };
-    commit(thread, intent);
-  }
-
   const scenario = [...thread.runs].reverse().find((row) => row.kind === "scenario");
-  const viewedRun = thread.focusedRunId ? thread.runs.find((row) => row.id === thread.focusedRunId) : undefined;
 
   return (
     <div className="app">
@@ -352,57 +322,25 @@ export function App() {
           <header className="log-head">
             <div>
               <p className="kicker">FORGE</p>
-              <h2>Ask about this order</h2>
-              <p className="lens">
-                {thread.commitmentId} · {ROLE_POLICY[role].lens} · {ROLE_POLICY[role].leadQuestion}
-              </p>
+              <h2>How can I help?</h2>
             </div>
-            <button
-              type="button"
-              className="ghost"
-              aria-expanded={evidenceOpen}
-              onClick={() => setEvidenceOpen((open) => !open)}
-            >
-              Evidence
-            </button>
           </header>
-          {evidenceOpen ? (
-            <section className="evidence open" aria-label="Evidence">
-              <Evidence
-                packetId={packet.id}
-                focusFact={focusFact}
-                runLabel={viewedRun?.id ?? null}
-                alternatives={viewedRun?.alternatives ?? []}
-              />
-            </section>
-          ) : null}
           <div className="log" ref={logRef}>
             {thread.notice ? <p className="notice">{thread.notice}</p> : null}
-            {thread.turns.map((item, index) => (
+            {thread.turns.slice(1).map((item, index) => (
               <LogTurn
                 key={item.id}
                 turn={item}
                 thread={thread}
                 hidden={item.id === pendingId && shownSteps < item.progress.length}
                 shownSteps={item.id === pendingId ? shownSteps : item.progress.length}
-                latestRecord={(kind, id) => isLatestRecord(thread.turns, index, kind, id)}
+                latestRecord={(kind, id) => isLatestRecord(thread.turns, index + 1, kind, id)}
                 onIntent={(intent) => commit(thread, intent)}
-                onFact={setFocusFact}
+                onFact={() => {}}
                 role={role}
                 busy={busy}
               />
             ))}
-          </div>
-          <div className="forge-chips" aria-label="Suggested asks">
-            <button type="button" disabled={busy} onClick={() => runAction("why")}>
-              Why at risk?
-            </button>
-            <button type="button" disabled={busy} onClick={() => runAction("explain")}>
-              Show constraint
-            </button>
-            <button type="button" disabled={busy} onClick={() => runAction("compare")}>
-              Compare options
-            </button>
           </div>
           <form className="composer chat-composer" onSubmit={onSubmit}>
             <label className="ask">
@@ -856,106 +794,6 @@ function ApproverRow({
         <span className="footnote">Switch the authorization role to {PEOPLE[person.role].roleLabel} to record this decision.</span>
       ) : null}
     </li>
-  );
-}
-
-function Evidence({
-  packetId,
-  focusFact,
-  runLabel,
-  alternatives,
-}: {
-  packetId: string;
-  focusFact: string | null;
-  runLabel: string | null;
-  alternatives: Alternative[];
-}) {
-  const packet = useMemo(() => {
-    const found = ["COM-1042", "COM-1018", "COM-1104", "COM-0991"]
-      .map((id) => assess(id).packet)
-      .find((item) => item.id === packetId);
-    if (!found) throw new Error("Missing packet");
-    return found;
-  }, [packetId]);
-  return (
-    <div className="evidence-body">
-      <section>
-        <h3>Source records</h3>
-        {packet.sourceFacts.map((fact) => (
-          <article key={fact.id} id={fact.id} className={focusFact === fact.id ? "record hot" : "record"}>
-            <header>
-              <span>{fact.sourceSystem}</span>
-              <span>{fact.sourceRecordId}</span>
-            </header>
-            <p>{fact.statement}</p>
-          </article>
-        ))}
-      </section>
-      <section>
-        <h3>Freshness</h3>
-        <p>
-          {packet.freshness.fresh} fresh · {packet.freshness.stale} stale
-          {packet.freshness.staleRecords.length ? ` · ${packet.freshness.staleRecords.join(", ")}` : ""}
-        </p>
-      </section>
-      <section>
-        <h3>Conflicts</h3>
-        {packet.conflicts.length ? (
-          packet.conflicts.map((conflict) => (
-            <article key={conflict.id} className="record">
-              <p>{conflict.statement}</p>
-              <p className="footnote">Disposition: {conflict.disposition}</p>
-            </article>
-          ))
-        ) : (
-          <p>No unresolved conflicts on this commitment.</p>
-        )}
-      </section>
-      <section>
-        <h3>Calculations</h3>
-        {packet.derivedFacts.map((fact) => (
-          <article key={fact.id} id={fact.id} className={focusFact === fact.id ? "record hot" : "record"}>
-            <header>
-              <span>{fact.result}</span>
-              <span>{fact.service}</span>
-            </header>
-            <p>{fact.formula}</p>
-            <p className="footnote">{fact.traceId}</p>
-          </article>
-        ))}
-        {runLabel && alternatives.length ? (
-          <>
-            <h3>Scenario {runLabel}</h3>
-            {alternatives.map((option) => (
-              <article key={option.id} className="record">
-                <header>
-                  <span>{option.feasibility}</span>
-                  <span>{option.id}</span>
-                </header>
-                <p>
-                  {option.label}. Residual shortfall {option.residualShortfall}. Ship {formatDay(option.shipDate, true)}.
-                </p>
-              </article>
-            ))}
-          </>
-        ) : null}
-      </section>
-      <section>
-        <h3>Lineage</h3>
-        <ul>
-          {packet.lineage.map((link) => (
-            <li key={`${link.from}-${link.to}`}>
-              {link.from} → {link.to} · {link.via}
-            </li>
-          ))}
-        </ul>
-        <ul className="assumptions">
-          {packet.assumptions.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </section>
-    </div>
   );
 }
 
