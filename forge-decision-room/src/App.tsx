@@ -459,11 +459,24 @@ function LogTurn({
   busy: boolean;
 }) {
   const packet = assess(thread.commitmentId).packet;
+  // A chatbot reply is the answer and its "why" — evidence, calculations, gaps
+  // and governed actions live behind the Evidence toggle, not in the thread.
+  const CHAT_KINDS = new Set<Block["kind"]>([
+    "answer",
+    "why",
+    "recommendation",
+    "action",
+    "options",
+    "approval-draft",
+    "approval",
+    "receipt",
+    "outcome",
+  ]);
+  const visible = turn.blocks.filter((block) => CHAT_KINDS.has(block.kind));
   return (
     <article className="turn">
       {turn.prompt ? (
         <p className="prompt">
-          <span>{turn.speaker}</span>
           {turn.prompt}
         </p>
       ) : null}
@@ -474,11 +487,8 @@ function LogTurn({
           ))}
         </ul>
       ) : null}
-      {turn.tools.length && !hidden ? (
-        <p className="tools">Authorized tools · {turn.tools.join(" · ")}</p>
-      ) : null}
       {!hidden
-        ? turn.blocks.map((block, index) => (
+        ? visible.map((block, index) => (
             <BlockView
               key={`${turn.id}-${index}`}
               block={block}
@@ -515,8 +525,10 @@ function BlockView({
   role: Role;
   busy: boolean;
 }) {
-  if (block.kind === "answer") return <BlockShell kind="Answer" tone="answer"><p className="answer">{block.text}</p></BlockShell>;
-  if (block.kind === "why") return <BlockShell kind="Why" tone="why"><p>{block.text}</p></BlockShell>;
+  if (block.kind === "answer") return <p className="answer">{block.text}</p>;
+  if (block.kind === "why") return <p className="why">{block.text}</p>;
+  if (block.kind === "recommendation") return <p className="recommendation">{block.text}</p>;
+  if (block.kind === "action") return <p className="action-line">{block.text}</p>;
   if (block.kind === "explanation") {
     return (
       <BlockShell kind="AI explanation" tone="explanation">
@@ -525,14 +537,6 @@ function BlockView({
       </BlockShell>
     );
   }
-  if (block.kind === "recommendation") {
-    return (
-      <BlockShell kind="Recommendation" tone="recommendation">
-        <p>{block.text}</p>
-      </BlockShell>
-    );
-  }
-  if (block.kind === "action") return <BlockShell kind="Executed action" tone="action"><p>{block.text}</p></BlockShell>;
   if (block.kind === "note") return <p className="note">{block.text}</p>;
   if (block.kind === "gaps" && block.texts.length) {
     return (

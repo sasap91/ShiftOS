@@ -288,3 +288,4 @@ Harness: Playwright (recommended) driving the built app; `npm run test:e2e`; scr
 | v0.10 | 2026-09-27 | **Floor illustration installed**: `public/floor-plan.png` (PRD p14) rendered with 13 aligned hotspots + badges; 3 rounds green; URL + asset HTTP 200 |
 | v0.11 | 2026-09-27 | **Minimalism U1–U8 verified** in Round 1 (visual/density): top tokens 5 · rail groups 2 at rest (+“More”) · 6 columns · 6 cells/row · phase stepper removed · floor ≈57% of centre; roles keep identical numbers; 3 rounds green; URL 200 |
 | v0.12 | 2026-09-27 | **Chatbot-only right pane verified**: conversation + `Message FORGE…`/Send; evidence behind a toggle; no action toolbar; floor image cropped to 1648×786 with re-aligned hotspots; 3 rounds green; URL + asset 200 |
+| v0.13 | 2026-09-27 | **Chat de-noised**: a reply renders only Answer + Why (97 chars); source facts / calculations / gaps / tools / next-action removed from the thread (behind Evidence). 3 rounds green; URL 200 |

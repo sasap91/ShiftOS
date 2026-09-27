@@ -534,3 +534,13 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 .ghost { background: transparent; border: 0; color: var(--muted); font-size: 12px; padding: 2px 4px; }
 .ghost:hover { color: var(--ink); }
 .chat .evidence { border-bottom: 1px solid var(--line); max-height: 45%; overflow: auto; }
+
+/* ---- Chatbot conversation: message-like turns ---- */
+.chat .turn { padding: 12px 16px; }
+.chat .turn + .turn { border-top: 1px solid var(--line); }
+.chat .prompt { margin: 0 0 8px; padding: 6px 10px; background: var(--hot); border-radius: 10px; font-size: 13px; color: var(--ink); }
+.chat .answer { margin: 0 0 4px; font-family: "Source Serif 4", "Iowan Old Style", Georgia, serif; font-size: 19px; line-height: 1.3; }
+.chat .why { margin: 0; color: var(--muted); font-size: 14px; }
+.chat .recommendation { margin: 6px 0 0; font-size: 14px; }
+.chat .action-line { margin: 6px 0 0; color: var(--muted); font-size: 13px; }
+.chat .progress { margin: 0 0 6px; padding-left: 18px; color: var(--muted); font-size: 12px; }
