@@ -3,7 +3,10 @@
  * The live check only runs when FEATURE_AI_CHAT=1 and a key is configured.
  */
 import { assess, envelopeFor } from "../src/model";
+import type { Block, Turn } from "../src/shared/contracts";
 import { aiEnabled } from "./model/client";
+import { mergeProse } from "./orchestrators/explain";
+import { generalTurn } from "./orchestrators/general";
 import { investigateTurn } from "./orchestrators/investigate";
 import { insufficiencyPlan, validateInvestigation, type InvestigationPlan } from "./validate/respond";
 import type { ToolContext } from "./tools/types";
@@ -52,6 +55,55 @@ assert.ok(fallback.answer.includes("cannot be established"), "fallback must be a
 assert.equal(fallback.gaps.length, 1);
 
 console.log("grounding validator verified");
+
+// --- explain merge: model prose replaces answer/why; governed blocks survive ---
+const deterministic = {
+  id: "t-merge",
+  speaker: "Manufacturing Manager",
+  prompt: "Compare options",
+  tools: ["compare_alternatives"],
+  progress: [],
+  blocks: [
+    { kind: "answer", text: "deterministic answer" },
+    { kind: "why", text: "deterministic why" },
+    { kind: "options", runId: "DR-COM-1042-R1" },
+    { kind: "next", actions: [{ label: "Request named approval", intent: { type: "request-approval", rationale: "" } }] },
+  ] as Block[],
+} as Turn;
+const prose: Block[] = [
+  { kind: "answer", text: "model answer" },
+  { kind: "why", text: "model why" },
+  { kind: "explanation", text: "model explanation" },
+];
+const merged = mergeProse(deterministic, prose);
+assert.equal(merged.blocks[0].kind === "answer" && merged.blocks[0].text, "model answer");
+assert.equal(merged.blocks.some((b) => b.kind === "options"), true);
+assert.equal(merged.blocks.some((b) => b.kind === "next"), true);
+assert.equal(merged.blocks.filter((b) => b.kind === "answer").length, 1);
+console.log("explain merge verified (prose replaced · governed blocks preserved)");
+
+// --- general route: broad answer, no operational tools ---
+const generalContext: ToolContext = {
+  traceId: "tr-general-verify",
+  requestId: "req-general-verify",
+  envelope: envelopeFor("manufacturing-manager", "COM-1042", { kind: "baseline" }),
+  role: "manufacturing-manager",
+  commitmentId: "COM-1042",
+  now: "2026-09-26T08:15:00-06:00",
+};
+const general = await generalTurn(generalContext, "Why is the sky blue?", async () => ({
+  value: {
+    answer: "Blue light is scattered more strongly by Earth's atmosphere than longer wavelengths.",
+    basis: "This is established general scientific knowledge.",
+  },
+  raw: "",
+  model: "test-model",
+  finishReason: "stop",
+}));
+assert.equal(general.turn.tools.length, 0);
+assert.equal(general.turn.blocks[0].kind, "answer");
+assert.equal(general.model, "test-model");
+console.log("general assistant verified (broad answer · zero operational tools)");
 
 if (aiEnabled()) {
   const role = "manufacturing-manager" as const;

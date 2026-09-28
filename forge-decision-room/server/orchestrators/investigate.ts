@@ -77,7 +77,17 @@ export async function investigateTurn(ctx: ToolContext, question: string): Promi
   const view = assess(ctx.commitmentId);
   const row = commitment(ctx.commitmentId);
 
-  const evidence = {
+  const evidence: {
+    commitment: Record<string, unknown>;
+    baseline: Record<string, unknown>;
+    sourceFacts: unknown;
+    derivedFacts: unknown;
+    assumptions: unknown;
+    conflicts: unknown;
+    missing: unknown;
+    freshness: unknown;
+    datasets: Record<string, unknown>;
+  } = {
     commitment: {
       id: row.id,
       customer: row.customer,
@@ -98,7 +108,26 @@ export async function investigateTurn(ctx: ToolContext, question: string): Promi
     conflicts: packet.conflicts,
     missing: packet.missing,
     freshness: packet.freshness,
+    datasets: {},
   };
+  // Give the model access to every governed dataset / algorithm output.
+  for (const dataset of [
+    "demand_projection",
+    "capacity_reconciliation",
+    "contract_schedule",
+    "allocation",
+    "schedule",
+    "zones",
+    "production_plan",
+    "commitments",
+  ]) {
+    try {
+      const result = await invoke("get_dataset", { dataset }, ctx);
+      evidence.datasets[dataset] = result.data;
+    } catch {
+      // a dataset may be absent in a trimmed checkout; skip it
+    }
+  }
   const evidenceJson = JSON.stringify(evidence);
   const extraEvidence = JSON.stringify(evidence);
   const messages = [
@@ -133,7 +162,7 @@ export async function investigateTurn(ctx: ToolContext, question: string): Promi
     id: `${ctx.commitmentId}-ai`,
     speaker: ctx.envelope.user.roleLabel,
     prompt: question,
-    tools: ["get_evidence_packet", "explain_risk_chain"],
+    tools: ["get_evidence_packet", "explain_risk_chain", "get_dataset"],
     progress: ["Reading the evidence packet", "Explaining the causal chain"],
     blocks: toBlocks(plan, view.baseline.feasibility),
   };

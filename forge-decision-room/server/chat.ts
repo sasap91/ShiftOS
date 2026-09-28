@@ -1,10 +1,9 @@
 /**
  * Chat turn handler.
  *
- * Route (deterministic) -> Investigate orchestrator (AI, grounded) for read
- * intents when the model is enabled -> scripted deterministic fallback for
- * everything else and on any AI failure. The scripted path is also the guard
- * rail: the room never invents an answer.
+ * Route (deterministic) -> governed orchestrators for operational intents or a
+ * tool-free general assistant for ordinary questions. Scripted decision-room
+ * answers remain the fallback for governed intents.
  */
 import { randomUUID } from "node:crypto";
 import { AS_OF } from "../src/model";
@@ -13,8 +12,11 @@ import type { ChatMode, ChatRequest, ChatResponse, ContextEnvelope, RouteDecisio
 import { audit } from "./audit/log";
 import { buildEnvelope } from "./context/envelope";
 import { aiEnabled } from "./model/client";
+import { explainTurn, mergeProse } from "./orchestrators/explain";
+import { generalTurn } from "./orchestrators/general";
 import { investigateTurn } from "./orchestrators/investigate";
 import { classify, progressFor } from "./router/router";
+import type { ToolContext } from "./tools/types";
 
 function intentForRoute(route: RouteDecision, input: ChatRequest): Intent {
   switch (route.intentClass) {
@@ -34,6 +36,7 @@ function intentForRoute(route: RouteDecision, input: ChatRequest): Intent {
       return { type: "observe", receiptId: "" };
     case "selection":
       return input.optionId ? { type: "select-option", optionId: input.optionId } : { type: "explain" };
+    case "general":
     case "unsupported":
       return { type: "ask", text: input.text ?? "" };
     case "investigation":
@@ -41,6 +44,24 @@ function intentForRoute(route: RouteDecision, input: ChatRequest): Intent {
     default:
       return { type: "explain" };
   }
+}
+
+function generalUnavailableTurn(commitmentId: string, speaker: string, question: string): Turn {
+  return {
+    id: `${commitmentId}-general-unavailable`,
+    speaker,
+    prompt: question,
+    tools: [],
+    progress: [],
+    blocks: [
+      { kind: "answer", text: "The general AI assistant is temporarily unavailable." },
+      {
+        kind: "why",
+        text: "The decision-room services are still available, but broad questions need the configured language model.",
+      },
+      { kind: "next", actions: [] },
+    ],
+  };
 }
 
 function guidanceTurn(commitmentId: string, speaker: string, route: RouteDecision): Turn {
@@ -55,14 +76,12 @@ function guidanceTurn(commitmentId: string, speaker: string, route: RouteDecisio
       {
         kind: "answer",
         text: clarify
-          ? "That request is outside what this room can establish."
+          ? "I need a little more information to continue."
           : "That action is not available for this role.",
       },
       {
         kind: "why",
-        text: clarify
-          ? "Ask about this commitment's risk, evidence, blast radius, alternatives, approval, action or outcome."
-          : route.policy.reason,
+        text: route.policy.reason,
       },
       { kind: "next", actions: [] },
     ],
@@ -94,41 +113,86 @@ export async function runTurn(input: ChatRequest): Promise<ChatResponse> {
 
   if (route.fallback || !route.policy.allowed) {
     turn = guidanceTurn(input.commitmentId, envelope.user.roleLabel, route);
-  } else if (aiEnabled() && (route.intentClass === "investigation" || route.intentClass === "lookup")) {
-    const question =
-      input.text && input.text.trim().length > 0
-        ? input.text.trim()
-        : "Explain the current risk and status of this commitment from the evidence packet.";
-    try {
-      const result = await investigateTurn(
-        {
-          traceId,
-          requestId: route.requestId,
-          envelope,
-          role: input.role,
-          commitmentId: input.commitmentId,
-          now: AS_OF,
-        },
-        question,
-      );
-      turn = result.turn;
-      mode = "ai";
-      audit({
-        kind: "ai_turn",
+  } else if (route.intentClass === "general") {
+    const question = input.text?.trim() ?? "";
+    turn = generalUnavailableTurn(input.commitmentId, envelope.user.roleLabel, question);
+    if (aiEnabled()) {
+      const ctx: ToolContext = {
         traceId,
-        intentClass: route.intentClass,
-        model: result.model,
-        promptVersion: result.promptVersion,
-        valid: result.validation.ok,
-        repaired: result.repaired,
-        violations: result.validation.violations,
-      });
-    } catch (error) {
-      audit({ kind: "ai_fallback", traceId, intentClass: route.intentClass, detail: String(error) });
-      turn = scriptedTurn(route, input, envelope);
+        requestId: route.requestId,
+        envelope,
+        role: input.role,
+        commitmentId: input.commitmentId,
+        now: AS_OF,
+      };
+      try {
+        const result = await generalTurn(ctx, question);
+        turn = result.turn;
+        mode = "ai";
+        audit({
+          kind: "ai_turn",
+          traceId,
+          intentClass: route.intentClass,
+          model: result.model,
+          promptVersion: result.promptVersion,
+          valid: true,
+          repaired: false,
+          violations: [],
+        });
+      } catch (error) {
+        audit({ kind: "ai_fallback", traceId, intentClass: route.intentClass, detail: String(error) });
+      }
     }
   } else {
-    turn = scriptedTurn(route, input, envelope);
+    // The deterministic orchestrator always computes the turn; the model explains it.
+    const deterministic = scriptedTurn(route, input, envelope);
+    turn = deterministic;
+    if (aiEnabled()) {
+      const ctx: ToolContext = {
+        traceId,
+        requestId: route.requestId,
+        envelope,
+        role: input.role,
+        commitmentId: input.commitmentId,
+        now: AS_OF,
+      };
+      const question =
+        input.text && input.text.trim().length > 0 ? input.text.trim() : "Explain this result from the evidence.";
+      try {
+        if (route.intentClass === "investigation" || route.intentClass === "lookup") {
+          const result = await investigateTurn(ctx, question);
+          turn = result.turn;
+          mode = "ai";
+          audit({
+            kind: "ai_turn",
+            traceId,
+            intentClass: route.intentClass,
+            model: result.model,
+            promptVersion: result.promptVersion,
+            valid: result.validation.ok,
+            repaired: result.repaired,
+            violations: result.validation.violations,
+          });
+        } else {
+          const result = await explainTurn(ctx, question, deterministic);
+          turn = mergeProse(deterministic, result.blocks);
+          mode = "ai";
+          audit({
+            kind: "ai_turn",
+            traceId,
+            intentClass: route.intentClass,
+            model: result.model,
+            promptVersion: result.promptVersion,
+            valid: result.validation.ok,
+            repaired: result.repaired,
+            violations: result.validation.violations,
+          });
+        }
+      } catch (error) {
+        audit({ kind: "ai_fallback", traceId, intentClass: route.intentClass, detail: String(error) });
+        turn = deterministic;
+      }
+    }
   }
 
   audit({

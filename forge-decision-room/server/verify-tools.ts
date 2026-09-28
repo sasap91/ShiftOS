@@ -92,4 +92,15 @@ await assert.rejects(
   "unauthorized",
 );
 
+// --- the model can read every governed dataset / algorithm output ---
+const demandDs = await invoke("get_dataset", { dataset: "demand_projection" }, manager);
+assert.equal((demandDs.data as { commitments: number }).commitments, 60);
+const zonesDs = await invoke("get_dataset", { dataset: "zones" }, manager);
+assert.ok((zonesDs.data as unknown[]).length === 13, "the zone master has 13 zones");
+const capDs = await invoke("get_dataset", { dataset: "capacity_reconciliation" }, manager);
+assert.equal((capDs.data as { forwardOverloadsUnresolved: number }).forwardOverloadsUnresolved, 0);
+const planDs = await invoke("get_dataset", { dataset: "production_plan" }, manager);
+assert.ok((planDs.data as { commitments: number }).commitments === 4, "the production plan has 4 commitments");
+await assert.rejects(() => invoke("get_dataset", { dataset: "nope" }, manager), "invalid_args");
+
 console.log("typed-tool gateway verified");

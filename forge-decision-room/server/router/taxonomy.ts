@@ -77,7 +77,7 @@ export const ROUTE_RULES: RouteRule[] = [
   {
     intentClass: "investigation",
     subOrchestrator: "investigate",
-    tools: ["explain_risk_chain", "get_evidence_packet"],
+    tools: ["explain_risk_chain", "get_evidence_packet", "get_dataset"],
     pattern: /^why\b|causal|evidence chain|root cause|at risk|explain/,
     actions: ["why", "explain"],
   },
@@ -86,6 +86,15 @@ export const ROUTE_RULES: RouteRule[] = [
     subOrchestrator: "investigate",
     tools: ["get_decision_context", "get_commitment_snapshot", "get_evidence_packet"],
     pattern: /status|snapshot|inventory|eligible|capacity|promise|commitment|feasible|infeasible/,
+    actions: [],
+  },
+  {
+    // Keep this last: it deliberately catches ordinary questions that do not
+    // belong to a governed decision-room workflow.
+    intentClass: "general",
+    subOrchestrator: "none",
+    tools: [],
+    pattern: /[\s\S]+/,
     actions: [],
   },
 ];

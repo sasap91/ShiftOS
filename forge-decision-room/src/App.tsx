@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from "react";
 import {
-  type Alternative,
   type ApprovalRequest,
   type QueueState,
   type Role,
@@ -12,12 +11,10 @@ import {
   formatMoney,
 } from "./model";
 import {
-  type ActionId,
   type Block,
   type Intent,
   type Thread,
   type Turn,
-  actionAvailability,
   activeEnvelope,
   interpret,
   openThread,
@@ -28,7 +25,7 @@ import { buildLedger } from "./ledger";
 import { MASTER_SET_VERSION } from "./master";
 import { FilterRail, DEFAULT_FILTERS, type Filters } from "./FilterRail";
 import { ShopFloor } from "./ShopFloor";
-import { HORIZONS, flowStagesForRow, lensSort, ownerOf, rowsInZone, zoneById, type Horizon } from "./zones";
+import { HORIZONS, ZONES, flowStagesForRow, lensSort, ownerOf, rowsInZone, zoneById, type Horizon } from "./zones";
 
 const ROLES = [
   PEOPLE["manufacturing-manager"],
@@ -42,15 +39,6 @@ const QUEUE_LABEL: Record<QueueState, string> = {
   approved: "Approved",
   monitoring: "Monitoring",
 };
-const PHASES = [
-  ["orient", "Orient"],
-  ["investigate", "Investigate"],
-  ["compare", "Compare"],
-  ["approve", "Approve"],
-  ["act", "Act"],
-  ["observe", "Observe"],
-] as const;
-
 const COMMITMENT_IDS = ["COM-1042", "COM-1018", "COM-1104", "COM-0991"];
 const RISK_GROUPS: QueueState[] = ["at-risk", "awaiting", "approved", "monitoring"];
 
@@ -90,17 +78,14 @@ export function App() {
   const [selectedZone, setSelectedZone] = useState<string | null>(url.zone ?? null);
   const [draft, setDraft] = useState("");
   const [pendingId, setPendingId] = useState<string | null>(null);
+  const [thinking, setThinking] = useState(false);
   const [shownSteps, setShownSteps] = useState(0);
   const [pane, setPane] = useState<"queue" | "ledger" | "chat">("ledger");
-  const [evidenceOpen, setEvidenceOpen] = useState(false);
-  const [focusFact, setFocusFact] = useState<string | null>(null);
   const [focusCell, setFocusCell] = useState<string | null>(null);
   const logRef = useRef<HTMLDivElement>(null);
   const thread = threads[activeId];
   const envelope = activeEnvelope(role, thread);
-  const packet = assess(activeId).packet;
-  const actions = actionAvailability(thread, role);
-  const busy = pendingId !== null;
+  const busy = pendingId !== null || thinking;
   const ledgerRows = useMemo(() => buildLedger(threads), [threads]);
   const filteredRows = useMemo(
     () =>
@@ -178,86 +163,110 @@ export function App() {
     const text = draft.trim();
     if (!text) return;
     setDraft("");
-    commit(thread, interpret(text));
+    void ask(text);
   }
 
-  function runAction(id: ActionId) {
-    const action = actions[id];
-    if (!action.enabled || busy) return;
-    const intent: Intent =
-      id === "explain"
-        ? { type: "explain" }
-        : id === "why"
-          ? { type: "why" }
-          : id === "blast"
-            ? { type: "blast" }
-            : id === "scenario"
-              ? { type: "scenario" }
-              : id === "compare"
-                ? { type: "compare" }
-                : id === "draft"
-                  ? { type: "draft" }
-                  : id === "approve"
-                    ? { type: "request-approval", rationale: "" }
-                    : { type: "simulate" };
-    commit(thread, intent);
+  /**
+   * Every typed question goes to the server AI control plane (the router selects
+   * tools; the model is DeepSeek-V4.1-Flash). The server falls back to the
+   * deterministic scripted turn itself, and we fall back locally on any error.
+   */
+  async function ask(text: string) {
+    if (busy) return;
+    setThinking(true);
+    try {
+      const response = await fetch("/api/chat/turn", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ role, commitmentId: activeId, text }),
+      });
+      if (!response.ok) throw new Error(`turn ${response.status}`);
+      const data = (await response.json()) as { turn: Turn };
+      setThreads((prev) => {
+        const current = prev[activeId];
+        return { ...prev, [activeId]: { ...current, turns: [...current.turns, data.turn] } };
+      });
+    } catch {
+      commit(thread, interpret(text));
+    } finally {
+      setThinking(false);
+    }
   }
 
   const scenario = [...thread.runs].reverse().find((row) => row.kind === "scenario");
-  const viewedRun = thread.focusedRunId ? thread.runs.find((row) => row.id === thread.focusedRunId) : undefined;
+
+  /** ← / → browse the floor layer zone by zone (the sketch's floor navigation). */
+  function stepZone(direction: number) {
+    const ids = ZONES.map((zone) => zone.id);
+    const current = selectedZone ? ids.indexOf(selectedZone) : -1;
+    const next = (current + direction + ids.length) % ids.length;
+    setSelectedZone(ids[next]);
+  }
 
   return (
     <div className="app">
-      <header className="mast">
-        <div>
-          <p className="brand">FORGE</p>
-          <h1>Decision room</h1>
-        </div>
-        <p className="mast-note">Synthetic fixture · one plant · simulated writeback · discovery prototype</p>
-      </header>
-      <section className="context" aria-label="Decision context">
-        <p className="context-primary">
+      <header className="topbar" aria-label="Decision context">
+        <div className="topbar-main">
+          <span className="brand">FORGE</span>
           <span>{envelope.siteLabel}</span>
           <span>{envelope.user.roleLabel}</span>
-          <span>{envelope.commitmentId}</span>
-          <span>{envelope.scenario.kind === "baseline" ? "Baseline" : envelope.scenario.runId}</span>
+          <span className="mono">{envelope.commitmentId}</span>
           <span>As of 08:15</span>
-        </p>
-        <div className="context-secondary">
-          <label>
-            Role
-            <select
-              value={role}
-              onChange={(event) => setRole(event.target.value as Role)}
-              aria-label="Authorization role"
-            >
-              {ROLES.map((person) => (
-                <option key={person.role} value={person.role}>
-                  {person.roleLabel}
-                </option>
-              ))}
-            </select>
-          </label>
-          <span>{envelope.snapshotId}</span>
-          <span>{MASTER_SET_VERSION}</span>
-          <span>
-            Fresh {envelope.freshness.fresh} · stale {envelope.freshness.stale}
-          </span>
-          <span>{envelope.unresolvedConflicts} unresolved conflict{envelope.unresolvedConflicts === 1 ? "" : "s"}</span>
-          <span>{envelope.authorization.scope}</span>
+        </div>
+        <div className="topbar-role">
+          <select
+            value={role}
+            onChange={(event) => setRole(event.target.value as Role)}
+            aria-label="Authorization role"
+          >
+            {ROLES.map((person) => (
+              <option key={person.role} value={person.role}>
+                {person.roleLabel}
+              </option>
+            ))}
+          </select>
+          <details className="info">
+            <summary aria-label="Context details">i</summary>
+            <dl>
+              <div>
+                <dt>Snapshot</dt>
+                <dd>{envelope.snapshotId}</dd>
+              </div>
+              <div>
+                <dt>Master set</dt>
+                <dd>{MASTER_SET_VERSION}</dd>
+              </div>
+              <div>
+                <dt>Freshness</dt>
+                <dd>
+                  Fresh {envelope.freshness.fresh} · stale {envelope.freshness.stale}
+                </dd>
+              </div>
+              <div>
+                <dt>Conflicts</dt>
+                <dd>
+                  {envelope.unresolvedConflicts} unresolved
+                </dd>
+              </div>
+              <div>
+                <dt>Scope</dt>
+                <dd>{envelope.authorization.scope}</dd>
+              </div>
+            </dl>
+          </details>
           {scenario ? (
             thread.focusedRunId ? (
               <button type="button" onClick={() => setThreads((prev) => ({ ...prev, [activeId]: { ...thread, focusedRunId: null } }))}>
-                Return to baseline
+                Baseline
               </button>
             ) : (
               <button type="button" onClick={() => setThreads((prev) => ({ ...prev, [activeId]: { ...thread, focusedRunId: scenario.id } }))}>
-                Inspect {scenario.id}
+                {scenario.id}
               </button>
             )
           ) : null}
         </div>
-      </section>
+      </header>
       <div className="panes" role="tablist" aria-label="Workspace">
         {(["queue", "ledger", "chat"] as const).map((item) => (
           <button
@@ -320,23 +329,24 @@ export function App() {
             })
           )}
         </aside>
-        <section className="centre" aria-label="Middle: layout and order table">
-          <header className="centre-head">
-            <div>
-              <p className="kicker">{assess(activeId).commitment.customer}</p>
-              <h2>
-                {assess(activeId).commitment.product} · {assess(activeId).commitment.qty}{" "}
-                {assess(activeId).commitment.uom}
-              </h2>
-            </div>
-            <span className="mono">{MASTER_SET_VERSION}</span>
-          </header>
+        <section className="centre" aria-label="Middle: shop floor and order table">
           <div className="centre-split">
-            <section className="middle-top" aria-label="COOLIT shop floor">
-              <p className="floor-title">COOLIT SHOP FLOOR</p>
-              <ShopFloor rows={ledgerRows} selectedZone={selectedZone} onSelectZone={setSelectedZone} />
+            <section className="middle-top" aria-label="Floor layer">
+              <div className="floor-head">
+                <p className="floor-title">COOLIT SHOP FLOOR</p>
+                <div className="floor-nav" aria-label="Navigate the floor">
+                  <button type="button" aria-label="Previous zone" onClick={() => stepZone(-1)}>
+                    ‹
+                  </button>
+                  <button type="button" aria-label="Next zone" onClick={() => stepZone(1)}>
+                    ›
+                  </button>
+                </div>
+              </div>
+              <ShopFloor rows={ledgerRows} activeId={activeId} selectedZone={selectedZone} onSelectZone={setSelectedZone} />
             </section>
-            <section className="middle-bottom" aria-label="Order information table">
+            <section className="middle-bottom" aria-label="Tables">
+              <p className="region-label">TABLES</p>
               <LedgerView
                 rows={filteredRows}
                 activeId={activeId}
@@ -355,112 +365,38 @@ export function App() {
             </section>
           </div>
         </section>
-        <aside className="chat" aria-label="Conversation">
-          <header className="log-head">
-            <div>
-              <p className="kicker">FORGE · {assess(activeId).commitment.customer}</p>
-              <h2>Ask about this order</h2>
-              <p className="lens">
-                {thread.commitmentId} · Lens · {ROLE_POLICY[role].lens} · {ROLE_POLICY[role].leadQuestion}
-              </p>
-            </div>
-            <ol className="phases">
-              {PHASES.map(([id, label], index) => {
-                const current = PHASES.findIndex((item) => item[0] === thread.phase);
-                const state = index < current ? "done" : index === current ? "now" : "ahead";
-                return (
-                  <li key={id} className={state} aria-current={state === "now" ? "step" : undefined}>
-                    {label}
-                  </li>
-                );
-              })}
-            </ol>
-          </header>
-          <div className="forge-chips" aria-label="Quick asks">
-            <button type="button" disabled={busy} onClick={() => runAction("why")}>
-              Why at risk?
-            </button>
-            <button type="button" disabled={busy} onClick={() => runAction("explain")}>
-              Show constraint
-            </button>
-            <button type="button" disabled={busy} onClick={() => runAction("compare")}>
-              Compare options
-            </button>
-          </div>
+        <aside className="chat" aria-label="Chat">
           <div className="log" ref={logRef}>
             {thread.notice ? <p className="notice">{thread.notice}</p> : null}
-            {thread.turns.map((item, index) => (
+            {thread.turns.slice(1).map((item, index) => (
               <LogTurn
                 key={item.id}
                 turn={item}
                 thread={thread}
                 hidden={item.id === pendingId && shownSteps < item.progress.length}
                 shownSteps={item.id === pendingId ? shownSteps : item.progress.length}
-                latestRecord={(kind, id) => isLatestRecord(thread.turns, index, kind, id)}
+                latestRecord={(kind, id) => isLatestRecord(thread.turns, index + 1, kind, id)}
                 onIntent={(intent) => commit(thread, intent)}
-                onFact={setFocusFact}
+                onFact={() => {}}
                 role={role}
                 busy={busy}
               />
             ))}
           </div>
-          <section className={evidenceOpen ? "evidence open" : "evidence"} aria-label="Evidence drawer">
-            <header>
-              <h2>Evidence</h2>
-              <button
-                type="button"
-                aria-expanded={evidenceOpen}
-                onClick={() => setEvidenceOpen((open) => !open)}
-              >
-                {evidenceOpen ? "Hide" : "Show"} · {packet.sourceFacts.length} facts
-                {packet.conflicts.length ? ` · ${packet.conflicts.length} conflict` : ""}
-              </button>
-            </header>
-            {evidenceOpen ? (
-              <Evidence
-                packetId={packet.id}
-                focusFact={focusFact}
-                runLabel={viewedRun?.id ?? null}
-                alternatives={viewedRun?.alternatives ?? []}
+          <form className="composer chat-composer" onSubmit={onSubmit}>
+            <label className="ask">
+              <span className="sr">Message FORGE</span>
+              <input
+                value={draft}
+                onChange={(event) => setDraft(event.target.value)}
+                placeholder="Message FORGE…"
+                disabled={busy}
               />
-            ) : null}
-          </section>
-          <form className="composer" onSubmit={onSubmit}>
-            <div className="action-strip" aria-label="Governed actions">
-              {(["explain", "why", "blast", "scenario", "compare", "approve", "simulate"] as ActionId[]).map((id) => (
-                <button
-                  key={id}
-                  type="button"
-                  disabled={!actions[id].enabled || busy}
-                  title={actions[id].reason}
-                  onClick={() => runAction(id)}
-                >
-                  {actions[id].label}
-                </button>
-              ))}
-            </div>
-            <div className="composer-row">
-              <label className="ask">
-                <span className="sr">Ask about this commitment</span>
-                <input
-                  value={draft}
-                  onChange={(event) => setDraft(event.target.value)}
-                  placeholder="Ask about this commitment…"
-                  disabled={busy}
-                />
-              </label>
-              <button type="button" disabled={busy} onClick={() => runAction("compare")}>
-                Compare
-              </button>
-              <button type="button" disabled={busy} onClick={() => runAction("draft")}>
-                Draft
-              </button>
-              <button type="button" className="primary" disabled={busy} onClick={() => runAction("scenario")}>
-                Run scenario
-              </button>
-            </div>
+            </label>
+            <button type="submit" className="primary" disabled={busy}>
+              Send
+            </button>
           </form>
-          <p className="forge-footnote">No Approval / Release / Publish controls exist in chat.</p>
         </aside>
       </main>
     </div>
@@ -501,11 +437,24 @@ function LogTurn({
   busy: boolean;
 }) {
   const packet = assess(thread.commitmentId).packet;
+  // A chatbot reply is the answer and its "why" — evidence, calculations, gaps
+  // and governed actions live behind the Evidence toggle, not in the thread.
+  const CHAT_KINDS = new Set<Block["kind"]>([
+    "answer",
+    "why",
+    "recommendation",
+    "action",
+    "options",
+    "approval-draft",
+    "approval",
+    "receipt",
+    "outcome",
+  ]);
+  const visible = turn.blocks.filter((block) => CHAT_KINDS.has(block.kind));
   return (
     <article className="turn">
       {turn.prompt ? (
         <p className="prompt">
-          <span>{turn.speaker}</span>
           {turn.prompt}
         </p>
       ) : null}
@@ -516,11 +465,8 @@ function LogTurn({
           ))}
         </ul>
       ) : null}
-      {turn.tools.length && !hidden ? (
-        <p className="tools">Authorized tools · {turn.tools.join(" · ")}</p>
-      ) : null}
       {!hidden
-        ? turn.blocks.map((block, index) => (
+        ? visible.map((block, index) => (
             <BlockView
               key={`${turn.id}-${index}`}
               block={block}
@@ -557,8 +503,10 @@ function BlockView({
   role: Role;
   busy: boolean;
 }) {
-  if (block.kind === "answer") return <BlockShell kind="Answer" tone="answer"><p className="answer">{block.text}</p></BlockShell>;
-  if (block.kind === "why") return <BlockShell kind="Why" tone="why"><p>{block.text}</p></BlockShell>;
+  if (block.kind === "answer") return <p className="answer">{block.text}</p>;
+  if (block.kind === "why") return <p className="why">{block.text}</p>;
+  if (block.kind === "recommendation") return <p className="recommendation">{block.text}</p>;
+  if (block.kind === "action") return <p className="action-line">{block.text}</p>;
   if (block.kind === "explanation") {
     return (
       <BlockShell kind="AI explanation" tone="explanation">
@@ -567,14 +515,6 @@ function BlockView({
       </BlockShell>
     );
   }
-  if (block.kind === "recommendation") {
-    return (
-      <BlockShell kind="Recommendation" tone="recommendation">
-        <p>{block.text}</p>
-      </BlockShell>
-    );
-  }
-  if (block.kind === "action") return <BlockShell kind="Executed action" tone="action"><p>{block.text}</p></BlockShell>;
   if (block.kind === "note") return <p className="note">{block.text}</p>;
   if (block.kind === "gaps" && block.texts.length) {
     return (
@@ -894,106 +834,6 @@ function ApproverRow({
         <span className="footnote">Switch the authorization role to {PEOPLE[person.role].roleLabel} to record this decision.</span>
       ) : null}
     </li>
-  );
-}
-
-function Evidence({
-  packetId,
-  focusFact,
-  runLabel,
-  alternatives,
-}: {
-  packetId: string;
-  focusFact: string | null;
-  runLabel: string | null;
-  alternatives: Alternative[];
-}) {
-  const packet = useMemo(() => {
-    const found = ["COM-1042", "COM-1018", "COM-1104", "COM-0991"]
-      .map((id) => assess(id).packet)
-      .find((item) => item.id === packetId);
-    if (!found) throw new Error("Missing packet");
-    return found;
-  }, [packetId]);
-  return (
-    <div className="evidence-body">
-      <section>
-        <h3>Source records</h3>
-        {packet.sourceFacts.map((fact) => (
-          <article key={fact.id} id={fact.id} className={focusFact === fact.id ? "record hot" : "record"}>
-            <header>
-              <span>{fact.sourceSystem}</span>
-              <span>{fact.sourceRecordId}</span>
-            </header>
-            <p>{fact.statement}</p>
-          </article>
-        ))}
-      </section>
-      <section>
-        <h3>Freshness</h3>
-        <p>
-          {packet.freshness.fresh} fresh · {packet.freshness.stale} stale
-          {packet.freshness.staleRecords.length ? ` · ${packet.freshness.staleRecords.join(", ")}` : ""}
-        </p>
-      </section>
-      <section>
-        <h3>Conflicts</h3>
-        {packet.conflicts.length ? (
-          packet.conflicts.map((conflict) => (
-            <article key={conflict.id} className="record">
-              <p>{conflict.statement}</p>
-              <p className="footnote">Disposition: {conflict.disposition}</p>
-            </article>
-          ))
-        ) : (
-          <p>No unresolved conflicts on this commitment.</p>
-        )}
-      </section>
-      <section>
-        <h3>Calculations</h3>
-        {packet.derivedFacts.map((fact) => (
-          <article key={fact.id} id={fact.id} className={focusFact === fact.id ? "record hot" : "record"}>
-            <header>
-              <span>{fact.result}</span>
-              <span>{fact.service}</span>
-            </header>
-            <p>{fact.formula}</p>
-            <p className="footnote">{fact.traceId}</p>
-          </article>
-        ))}
-        {runLabel && alternatives.length ? (
-          <>
-            <h3>Scenario {runLabel}</h3>
-            {alternatives.map((option) => (
-              <article key={option.id} className="record">
-                <header>
-                  <span>{option.feasibility}</span>
-                  <span>{option.id}</span>
-                </header>
-                <p>
-                  {option.label}. Residual shortfall {option.residualShortfall}. Ship {formatDay(option.shipDate, true)}.
-                </p>
-              </article>
-            ))}
-          </>
-        ) : null}
-      </section>
-      <section>
-        <h3>Lineage</h3>
-        <ul>
-          {packet.lineage.map((link) => (
-            <li key={`${link.from}-${link.to}`}>
-              {link.from} → {link.to} · {link.via}
-            </li>
-          ))}
-        </ul>
-        <ul className="assumptions">
-          {packet.assumptions.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </section>
-    </div>
   );
 }
 

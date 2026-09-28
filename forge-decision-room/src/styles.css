@@ -309,12 +309,10 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 .ledger { overflow: auto; min-height: 0; }
 .ledger-head, .ledger-line {
   display: grid;
-  grid-template-columns:
-    10px 128px 168px 96px 132px
-    minmax(180px, 1.8fr) 104px 128px minmax(120px, 1fr);
-  gap: 10px;
+  grid-template-columns: 104px 150px minmax(96px, 1fr) minmax(122px, 1.25fr) 64px minmax(128px, 1.3fr) 88px;
+  gap: 12px;
   align-items: center;
-  padding: 8px 14px 8px 0;
+  padding: 9px 16px;
   min-width: max-content;
 }
 .ledger-head {
@@ -322,27 +320,19 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
   top: 0;
   z-index: 5;
   background: var(--panel);
-  border-bottom: 2px solid var(--ink);
+  border-bottom: 1px solid var(--line);
   font-size: 11px;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--muted);
 }
-/* Frozen identity columns: Risk rail · order/line · customer/SKU */
-.ledger-head > *:nth-child(1), .ledger-line > *:nth-child(1) { position: sticky; left: 0; z-index: 3; }
-.ledger-head > *:nth-child(2), .ledger-line > *:nth-child(2) { position: sticky; left: 20px; z-index: 3; }
-.ledger-head > *:nth-child(3), .ledger-line > *:nth-child(3) { position: sticky; left: 158px; z-index: 3; }
-.ledger-head > *:nth-child(-n+3) { background: var(--panel); }
-.ledger-line > *:nth-child(-n+3) { background: var(--log); }
-.ledger-row:hover .ledger-line > *:nth-child(-n+3) { background: #efe9dc; }
-.ledger-row.active .ledger-line > *:nth-child(-n+3) { background: var(--log); }
 .ledger-row { border-bottom: 1px solid var(--line); }
 .ledger-row .ledger-line { cursor: pointer; }
 .ledger-row:hover .ledger-line { background: #efe9dc; }
 .ledger-row.active .ledger-line { background: var(--log); }
 .ledger-line:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
 /* Per-persona emphasis: the leading columns for the active lens */
-.ledger-head .lead { color: var(--ink); font-weight: 600; box-shadow: inset 0 -2px 0 var(--rule); }
+.ledger-head .lead { color: var(--ink); font-weight: 600; }
 .ledger-line .lead { font-weight: 600; }
 .ledger-line .lead small { color: var(--muted); }
 .clickable { cursor: pointer; }
@@ -416,9 +406,8 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 
 @media (max-width: 1180px) {
   .ledger-head, .ledger-line {
-    grid-template-columns: 10px 128px 168px 96px 132px minmax(170px, 1.7fr) 104px 128px;
+    grid-template-columns: 96px 140px minmax(88px, 1fr) minmax(110px, 1.2fr) 56px minmax(118px, 1.25fr) 80px;
   }
-  .ledger-head span:nth-child(9), .ledger-line > .cell-prov { display: none; }
   /* Compact desktop: keep the four regions visible down to tablet width. */
   .workspace { grid-template-columns: 200px minmax(0, 1fr) minmax(280px, 340px); }
 }
@@ -500,3 +489,74 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 .zone-hotspot.selected { border: 2px solid var(--ink); }
 .zone-hotspot-badge { position: absolute; top: -8px; right: -8px; background: var(--risk); color: #fff; border-radius: 999px; font-size: 9px; line-height: 1.4; padding: 0 5px; }
 .zone-hotspot-dot { position: absolute; bottom: 4px; left: 4px; width: 8px; height: 8px; border-radius: 50%; }
+
+/* ---- Minimalism (U1–U6): quiet room ---- */
+.app { grid-template-rows: auto auto 1fr; }
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 9px 16px; border-bottom: 1px solid var(--line); background: var(--panel); }
+.topbar-main { display: flex; align-items: center; gap: 14px; font-size: 13px; color: var(--muted); }
+.topbar-main .brand { font-family: "IBM Plex Mono", ui-monospace, monospace; letter-spacing: 0.16em; font-size: 12px; color: var(--ink); }
+.topbar-main .mono { color: var(--ink); }
+.topbar-role { display: flex; align-items: center; gap: 10px; }
+.topbar-role select { border: 1px solid var(--line); background: var(--log); padding: 3px 8px; }
+.topbar-role button { border: 1px solid var(--line); background: var(--log); padding: 3px 10px; border-radius: 999px; font-size: 12px; color: var(--muted); }
+.info { position: relative; }
+.info > summary { list-style: none; cursor: pointer; width: 20px; height: 20px; border: 1px solid var(--line); border-radius: 50%; display: grid; place-items: center; font-size: 11px; color: var(--muted); }
+.info > summary::-webkit-details-marker { display: none; }
+.info dl { position: absolute; right: 0; top: 26px; z-index: 20; margin: 0; background: var(--panel); border: 1px solid var(--line); padding: 10px 12px; min-width: 240px; display: grid; gap: 6px; }
+.info dl > div { display: flex; justify-content: space-between; gap: 12px; font-size: 12px; }
+.info dt { color: var(--muted); }
+.info dd { margin: 0; }
+
+/* floor dominant */
+.centre-split { grid-template-rows: minmax(240px, 1.3fr) 1fr; }
+
+/* quiet chips */
+.chip { border: 0; background: transparent; color: var(--muted); padding: 2px 0; border-radius: 0; }
+.chip.on { background: transparent; color: var(--ink); box-shadow: inset 0 -2px 0 var(--ink); }
+
+/* collapsible rail + actions */
+.rail-more, .more-actions { border-top: 1px solid var(--line); }
+.rail-more > summary, .more-actions > summary { cursor: pointer; padding: 8px 14px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.more-actions > summary { padding: 6px 0; }
+.rail-more[open] > summary, .more-actions[open] > summary { color: var(--ink); }
+.more-actions .action-strip { padding: 4px 0 0; }
+
+/* table: quantity column */
+.cell-qty { font-variant-numeric: tabular-nums; }
+.cell-qty strong { display: block; font-weight: 500; }
+
+/* ---- Right pane = pure chatbot ---- */
+.chat { display: flex; flex-direction: column; min-height: 0; }
+.chat .log { flex: 1; min-height: 0; overflow: auto; }
+.chat-composer { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; border-top: 1px solid var(--line); }
+.chat-composer .ask { width: 100%; }
+.chat-composer .ask input { width: 100%; padding: 8px 10px; border: 1px solid var(--line); background: var(--log); }
+.ghost { background: transparent; border: 0; color: var(--muted); font-size: 12px; padding: 2px 4px; }
+.ghost:hover { color: var(--ink); }
+.chat .evidence { border-bottom: 1px solid var(--line); max-height: 45%; overflow: auto; }
+
+/* ---- Chatbot conversation: message-like turns ---- */
+.chat .turn { padding: 12px 16px; }
+.chat .turn + .turn { border-top: 1px solid var(--line); }
+.chat .prompt { margin: 0 0 8px; padding: 6px 10px; background: var(--hot); border-radius: 10px; font-size: 13px; color: var(--ink); }
+.chat .answer { margin: 0 0 4px; font-family: "Source Serif 4", "Iowan Old Style", Georgia, serif; font-size: 19px; line-height: 1.3; }
+.chat .why { margin: 0; color: var(--muted); font-size: 14px; }
+.chat .recommendation { margin: 6px 0 0; font-size: 14px; }
+.chat .action-line { margin: 6px 0 0; color: var(--muted); font-size: 13px; }
+.chat .progress { margin: 0 0 6px; padding-left: 18px; color: var(--muted); font-size: 12px; }
+
+/* ---- Sketch layout: Attributes · Floor Layer (←→) · Tables · Chat ---- */
+.floor-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.floor-nav { display: flex; gap: 2px; }
+.floor-nav button { width: 22px; height: 22px; border: 1px solid var(--line); background: var(--log); color: var(--muted); border-radius: 3px; line-height: 1; }
+.floor-nav button:hover { color: var(--ink); border-color: var(--ink); }
+.region-label { margin: 0; padding: 7px 16px 2px; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--muted); }
+.middle-bottom { grid-template-rows: auto minmax(0, 1fr); }
+.zone.bound .zone-rect { stroke: var(--watch); stroke-width: 1.5; }
+.zone-hotspot.bound { border-color: var(--watch); border-style: dashed; }
+
+/* ---- Persona detail in the order table (T1/T2) ---- */
+.cell-lens { font-size: 12px; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ledger-head .lead, .ledger-line .lead { color: var(--ink); }
+.tier.persona { background: var(--panel); border-left: 2px solid var(--watch); }
+.tier.persona .tier-kind { color: var(--ink); }

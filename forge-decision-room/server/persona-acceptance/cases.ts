@@ -77,8 +77,8 @@ function casesForRole(role: Role): Case[] {
     // 3 — approval requirement is named and policy-governed
     c(3, { action: "approve" }, { kind: "route", intentClass: "approval" }),
     c(3, { action: "approve" }, { kind: "policy", allowed: p.canPropose || p.canApprove }),
-    // 2 — fail closed on an out-of-bounds request
-    c(2, { text: "what is the weather tomorrow" }, { kind: "answer", pattern: /outside what this room can establish/i }),
+    // 1 — ordinary questions remain available without operational tools
+    c(1, { text: "what is the weather tomorrow" }, { kind: "route", intentClass: "general", subOrchestrator: "none", fallback: null }),
     // 7 — approval alone never executes; a non-executing role is refused with a reason
     c(7, { action: "simulate" }, {
       kind: "answer",

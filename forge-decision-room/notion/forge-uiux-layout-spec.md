@@ -5,7 +5,7 @@
 | Field | Value |
 |---|---|
 | Document | FORGE Decision Room — UI/UX Layout & Interaction Spec |
-| Version | v0.8 (floor illustration installed) |
+| Version | v0.9 (minimalism & density budget) |
 | Status | 🟡 Active — §3 Layout built + aligned to the floor-plan illustration; §4 order table built; remaining sections placeholder |
 | Owner | Frontend / UX |
 | Parent doc | FORGE Decision Room — Product Management |
@@ -221,6 +221,22 @@ Receiving + IQC → Controlled Supermarket + Kitting → Production cells → Te
 2. ~~Final order-table column set and per-role emphasis?~~ **Resolved: the nine-column set with per-lens leading columns (see §4).** Still open: detail-tray vs expand-in-place (currently expand-in-place tiers).
 3. Fixed vs resizable panes? [TBC]
 4. Evidence surface: drawer vs dedicated half of the right pane? [TBC]
+
+---
+
+## 12.1 Minimalism & density budget (executed 2026-09-27)
+
+The room is **quiet by default**; depth is one click away.
+
+- **Top bar:** one slim line, ≤ 5 tokens (site · role · commitment · as-of · brand); snapshot/master-set/freshness/conflicts/scope live in an **info popover**.
+- **Left rail:** at rest **RISK + HORIZON** only; **PRODUCT / FLOW / OWNER** behind “More filters”; chips are quiet text toggles (no fills); “Clear” only when a filter is active; zone chip when a zone is selected.
+- **Centre:** the **COOLIT SHOP FLOOR** is the focal object (**≈57% of the centre height**); the order table is **6 columns — Promise · Order · Product · Qty · Constraint · State**, **single-line rows**; all math, capability, feasibility and provenance move to the **expanded row**.
+- **Region names (per the layout sketch):** **Attributes** (left) · **Floor Layer** (centre-top, with ‹ › zone navigation that browses the floor one zone at a time) · **Tables** (centre-bottom, linked **up** to the Floor Layer — the active order highlights its zones on the floor, and selecting a zone filters the table) · **Chat** (right).
+- **Persona detail inside the table (DS-27):** the six canonical columns stay fixed; a **single lens column** shows for the active lens — **Recovery** (mfg) · **Coverage** (shift) · **Availability** (maintenance) · **Gap** (demand) — and the **expanded row's first tier** is persona-specific. No new UI; all within the existing tabular format. It **starts empty** and answers only when asked — no commitment lens line, no evidence toggle, no suggested chips, no phase stepper. A reply is the **Answer** + a one-line **Why**.
+- **The chat is powered by the model — for every intent.** Every typed message is sent to the server AI control plane (`POST /api/chat/turn`); the router selects tools, the model is **DeepSeek V4.1 Flash** (sciforium, OpenAI-compatible), and the deterministic **scripted turn is the fallback**. The model **explains every non-trivial intent** — investigate, scenario, compare, trace, draft, approval, action — while the **governed blocks** (options, approval cards, receipts, outcomes, next actions) are computed deterministically and the model never overrides or approves them. It is grounded and has tool access to **all governed datasets and algorithm outputs** via `get_dataset` (demand projection, capacity reconciliation, contract schedule, allocation, schedule, zone master, production plan, commitments). Enable with `FEATURE_AI_CHAT=1` + `LLM_API_KEY`/`SCIFORIUM_API_KEY`.
+- **Roles change defaults, not density** — the 4 personas re-sort the queue and change the FORGE lead question; numbers and columns are identical (C9).
+
+**Verified budgets (in-browser):** top tokens **5** · rail groups at rest **2** (+“More”) · table columns **6** · cells per row **6** · phase stepper **absent** · floor height **≈57%** of centre.
 
 ---
 

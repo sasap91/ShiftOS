@@ -37,22 +37,22 @@ export type Zone = {
 };
 
 export const ZONES: Zone[] = [
-  { id: "ZN-01", label: "Receiving + IQC", role: "inbound + incoming quality", stage: "Receiving", x: 95, y: 118, w: 155, h: 252, resources: [] },
-  { id: "ZN-02", label: "Controlled Supermarket + Kitting", role: "material staging + kitting", stage: "Kitting", x: 265, y: 118, w: 165, h: 252, resources: [] },
-  { id: "ZN-03", label: "Cold-Plate Loop Line", role: "CPL-480 assembly", stage: "Assembly", x: 448, y: 116, w: 440, h: 92, resources: ["RES-ASM-01"] },
-  { id: "ZN-04", label: "Manifold Cells", role: "RM-42 assembly", stage: "Assembly", x: 448, y: 226, w: 440, h: 92, resources: ["RES-ASM-02"] },
-  { id: "ZN-05", label: "CDU Assembly Cells", role: "CDU-2400 assembly (incl. electronics)", stage: "Assembly", x: 448, y: 330, w: 440, h: 95, resources: ["RES-ASM-01"] },
-  { id: "ZN-06", label: "Pressure / Leak / Functional Test", role: "leak + functional test", stage: "Test", x: 905, y: 116, w: 127, h: 314, resources: ["RES-LT-01", "RES-FT-02"] },
-  { id: "ZN-07", label: "Thermal / Flow Test", role: "thermal / flow test", stage: "Test", x: 1045, y: 116, w: 117, h: 314, resources: [] },
-  { id: "ZN-08", label: "FAT + Documentation", role: "final acceptance + documentation", stage: "FAT", x: 1175, y: 116, w: 125, h: 314, resources: [] },
-  { id: "ZN-09", label: "Finished Goods", role: "finished-goods hold", stage: "Ship", x: 1318, y: 116, w: 104, h: 314, resources: [] },
-  { id: "ZN-10", label: "Pack + Ship", role: "packing and shipment", stage: "Ship", x: 1435, y: 116, w: 127, h: 314, resources: ["RES-SHIP-01"] },
-  { id: "ZN-11", label: "Shipping Staging", role: "outbound staging", stage: "Ship", x: 1308, y: 478, w: 347, h: 147, resources: [] },
-  { id: "ZN-12", label: "Quarantine + MRB", role: "nonconformance / MRB", stage: "MRB", x: 118, y: 478, w: 302, h: 147, resources: ["RES-QC-01"] },
-  { id: "ZN-13", label: "Rework", role: "controlled rework loop", stage: "Rework", x: 690, y: 478, w: 272, h: 147, resources: [] },
+  { id: "ZN-01", label: "Receiving + IQC", role: "inbound + incoming quality", stage: "Receiving", x: 81, y: 40, w: 155, h: 252, resources: [] },
+  { id: "ZN-02", label: "Controlled Supermarket + Kitting", role: "material staging + kitting", stage: "Kitting", x: 251, y: 40, w: 165, h: 252, resources: [] },
+  { id: "ZN-03", label: "Cold-Plate Loop Line", role: "CPL-480 assembly", stage: "Assembly", x: 434, y: 38, w: 440, h: 92, resources: ["RES-ASM-01"] },
+  { id: "ZN-04", label: "Manifold Cells", role: "RM-42 assembly", stage: "Assembly", x: 434, y: 148, w: 440, h: 92, resources: ["RES-ASM-02"] },
+  { id: "ZN-05", label: "CDU Assembly Cells", role: "CDU-2400 assembly (incl. electronics)", stage: "Assembly", x: 434, y: 252, w: 440, h: 95, resources: ["RES-ASM-01"] },
+  { id: "ZN-06", label: "Pressure / Leak / Functional Test", role: "leak + functional test", stage: "Test", x: 891, y: 38, w: 127, h: 314, resources: ["RES-LT-01", "RES-FT-02"] },
+  { id: "ZN-07", label: "Thermal / Flow Test", role: "thermal / flow test", stage: "Test", x: 1031, y: 38, w: 117, h: 314, resources: [] },
+  { id: "ZN-08", label: "FAT + Documentation", role: "final acceptance + documentation", stage: "FAT", x: 1161, y: 38, w: 125, h: 314, resources: [] },
+  { id: "ZN-09", label: "Finished Goods", role: "finished-goods hold", stage: "Ship", x: 1304, y: 38, w: 104, h: 314, resources: [] },
+  { id: "ZN-10", label: "Pack + Ship", role: "packing and shipment", stage: "Ship", x: 1421, y: 38, w: 127, h: 314, resources: ["RES-SHIP-01"] },
+  { id: "ZN-11", label: "Shipping Staging", role: "outbound staging", stage: "Ship", x: 1294, y: 400, w: 347, h: 147, resources: [] },
+  { id: "ZN-12", label: "Quarantine + MRB", role: "nonconformance / MRB", stage: "MRB", x: 104, y: 400, w: 302, h: 147, resources: ["RES-QC-01"] },
+  { id: "ZN-13", label: "Rework", role: "controlled rework loop", stage: "Rework", x: 676, y: 400, w: 272, h: 147, resources: [] },
 ];
 
-export const PLAN = { width: 1672, height: 872 };
+export const PLAN = { width: 1648, height: 786 };
 
 const byId = new Map(ZONES.map((zone) => [zone.id, zone]));
 export function zoneById(id: string): Zone | undefined {

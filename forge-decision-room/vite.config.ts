@@ -9,6 +9,9 @@ function forgeApi(): Plugin {
     configureServer(server) {
       server.middlewares.use(createApiMiddleware());
     },
+    configurePreviewServer(server) {
+      server.middlewares.use(createApiMiddleware());
+    },
   };
 }
 

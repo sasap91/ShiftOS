@@ -63,6 +63,10 @@ npm run ci         # build + npm test (the gate)
 
 Everything is a pure function of `(snapshot_hash, master_set_version, model_version, seed)`. JCS canonical JSON + SHA-256, no `Date.now`/`localeCompare`/Map-order, Gurobi pinned (`Seed=0, Threads=1`). Approval ≠ execution: a named approval, a dry run, and a receipt are required; a stale snapshot is a compare-and-swap `StaleError`, never a force-execute.
 
+## Chat scope
+
+The right-pane assistant accepts both decision-room and general questions. Operational questions are routed to governed data and action services with role, evidence, approval, and receipt controls. Other questions use a tool-free general model route, so they can be answered broadly without granting access to plant records or writebacks. Questions that require live information must say so when no live source is available. If the model is disabled or unreachable, the pane reports that the general assistant is unavailable instead of presenting the old commitment-scope refusal.
+
 ## Notes
 
 - This directory is self-contained; it does not import from the rest of the repository.

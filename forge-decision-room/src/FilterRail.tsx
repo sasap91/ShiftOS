@@ -77,7 +77,7 @@ export function FilterRail({ filters, count, selectedZone, zoneLabel, activeCoun
   return (
     <div className="filter-rail">
       <header className="rail-head">
-        <h2>SCOPE</h2>
+        <h2>ATTRIBUTES</h2>
         <button type="button" className="rail-clear" onClick={onClearAll} disabled={!activeCount}>
           Clear {activeCount || ""}
         </button>
@@ -100,9 +100,13 @@ export function FilterRail({ filters, count, selectedZone, zoneLabel, activeCoun
       ) : null}
 
       <Group title="Risk" values={RISKS.map(([value]) => value)} selected={filters.risk} label={(value) => RISKS.find(([id]) => id === value)?.[1] ?? value} onToggle={(value) => toggle("risk", value)} />
-      <Group title="Product" values={PRODUCTS.map(([value]) => value)} selected={filters.product} label={(value) => PRODUCTS.find(([id]) => id === value)?.[1] ?? value} onToggle={(value) => toggle("product", value)} />
-      <Group title="Flow" values={FLOW_STAGES} selected={filters.flow} onToggle={(value) => toggle("flow", value)} />
-      <Group title="Owner" values={OWNERS} selected={filters.owner} onToggle={(value) => toggle("owner", value)} />
+
+      <details className="rail-more">
+        <summary>More filters</summary>
+        <Group title="Product" values={PRODUCTS.map(([value]) => value)} selected={filters.product} label={(value) => PRODUCTS.find(([id]) => id === value)?.[1] ?? value} onToggle={(value) => toggle("product", value)} />
+        <Group title="Flow" values={FLOW_STAGES} selected={filters.flow} onToggle={(value) => toggle("flow", value)} />
+        <Group title="Owner" values={OWNERS} selected={filters.owner} onToggle={(value) => toggle("owner", value)} />
+      </details>
 
       <section className="rail-group">
         <h3>Horizon</h3>

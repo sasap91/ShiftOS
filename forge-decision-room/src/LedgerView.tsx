@@ -1,12 +1,7 @@
-import { useMemo, useState, type KeyboardEvent } from "react";
-import { formatDay, type RoleLens } from "./model";
+import { useMemo, useState, type KeyboardEvent, type ReactNode } from "react";
+import { formatDay, formatMoney, type RoleLens } from "./model";
 import { validityLabel } from "./master";
-import {
-  CONSTRAINT_GLYPH,
-  LIFECYCLE_LABEL,
-  capabilityLine,
-  type LedgerRow,
-} from "./ledger";
+import { LIFECYCLE_LABEL, type LedgerRow } from "./ledger";
 
 const RISK_LABEL: Record<LedgerRow["risk"], string> = {
   "at-risk": "At risk",
@@ -25,30 +20,103 @@ const LIFECYCLE_ORDER: LedgerRow["lifecycle"][] = [
 
 /** Which columns lead for each persona lens (middle-bottom order table). */
 const EMPHASIS: Record<RoleLens, string[]> = {
-  coverage: ["lifecycle", "prov"],
-  throughput: ["constraint", "feasible"],
-  availability: ["constraint", "prov"],
-  demand: ["product", "promised", "capable"],
+  coverage: ["lifecycle", "lens", "constraint"],
+  throughput: ["constraint", "lifecycle", "lens"],
+  availability: ["constraint", "lens"],
+  demand: ["promised", "lens", "product"],
 };
+
+/** The one lens column (T1): a single cell that answers this persona's question. */
+const LENS_COLUMN: Record<RoleLens, { label: string; render: (row: LedgerRow) => ReactNode }> = {
+  throughput: {
+    label: "Recovery",
+    render: (row) => {
+      const p = row.persona.recovery;
+      if (!p.total) return "—";
+      const cost = p.costCad !== null ? formatMoney(p.costCad) : "—";
+      return `${cost} · ${p.feasible}/${p.total}${p.authority ? ` · ${p.authority}` : ""}`;
+    },
+  },
+  coverage: {
+    label: "Coverage",
+    render: (row) => {
+      const p = row.persona.coverage;
+      if (!p.certs && !p.workOrder) return "—";
+      return `${p.certs} certs${p.workOrder ? ` · ${p.workOrder}` : ""}`;
+    },
+  },
+  availability: {
+    label: "Availability",
+    render: (row) => {
+      const p = row.persona.availability;
+      if (p.event) return `${p.event}${p.resource ? ` · ${p.resource}` : ""}`;
+      return p.criticality ?? "—";
+    },
+  },
+  demand: {
+    label: "Gap",
+    render: (row) => `${formatDay(row.promised)} → ${formatDay(row.capable)}${row.capableDeltaDays > 0 ? ` · +${row.capableDeltaDays}d` : ""} · P${row.persona.demand.priority}`,
+  },
+};
+
+/** The persona's expanded first tier (T2). */
+function personaTier(row: LedgerRow, lens: RoleLens): { title: string; items: string[] } {
+  const p = row.persona;
+  switch (lens) {
+    case "throughput":
+      return {
+        title: "Manufacturing · recovery",
+        items: [
+          `Capable ${formatDay(row.capable)} vs promise ${formatDay(row.promised)}${row.capableDeltaDays > 0 ? ` (slip ${row.capableDeltaDays}d)` : ""}`,
+          `Binding constraint: ${row.constraint.label}${row.constraint.resource ? ` · ${row.constraint.resource}` : ""}${row.constraint.required ? ` — shortfall ${row.constraint.shortfall}/${row.constraint.required} ${row.constraint.unit}` : ""}`,
+          `Recovery cost: ${p.recovery.costCad !== null ? formatMoney(p.recovery.costCad) : "—"} · feasible ${p.recovery.feasible}/${p.recovery.total}`,
+          `Authority: ${p.recovery.authority ?? "see the approval card"}`,
+        ],
+      };
+    case "coverage":
+      return {
+        title: "Shift · coverage",
+        items: [
+          `Lifecycle: ${LIFECYCLE_LABEL[row.lifecycle]}`,
+          `Work order: ${p.coverage.workOrder ?? "— (MES seam D-07)"}`,
+          `Coverage: ${p.coverage.certs} certified facts · ${p.coverage.expiring} expiring`,
+          `Handover Δ: ${p.coverage.handover ?? "— (shift handover C-03)"}`,
+        ],
+      };
+    case "availability":
+      return {
+        title: "Maintenance · availability",
+        items: [
+          `Resource: ${p.availability.resource ?? "—"}`,
+          `Downtime event: ${p.availability.event ?? "—"}`,
+          `Restoration: ${p.availability.back ?? "— (EAM seam D-08)"}`,
+          `Criticality: ${p.availability.criticality ?? "—"}`,
+        ],
+      };
+    case "demand":
+      return {
+        title: "Demand · gap",
+        items: [
+          `Requested: ${p.demand.requested ?? "— (CRM requested date D-02)"}`,
+          `Promised ${formatDay(p.demand.promised)} → Capable ${formatDay(p.demand.capable)}${p.demand.slipDays > 0 ? ` · +${p.demand.slipDays}d` : " · on plan"}`,
+          `Priority: P${p.demand.priority}`,
+          `On-time ${row.onTimeQty}/${row.qty} ${row.uom}`,
+        ],
+      };
+  }
+}
 
 type SortKey = "risk" | "promised" | "qty" | "lifecycle";
 
 const COLUMNS: { key: string; label: string; sort?: SortKey }[] = [
-  { key: "rail", label: "" },
-  { key: "commit", label: "Order", sort: "promised" },
-  { key: "product", label: "Product · Qty", sort: "qty" },
   { key: "promised", label: "Promise", sort: "promised" },
-  { key: "capable", label: "Capable" },
+  { key: "commit", label: "Order", sort: "promised" },
+  { key: "product", label: "Product" },
+  { key: "lens", label: "" },
+  { key: "qty", label: "Qty" },
   { key: "constraint", label: "Constraint" },
-  { key: "feasible", label: "Feasible" },
   { key: "lifecycle", label: "State", sort: "lifecycle" },
-  { key: "prov", label: "Provenance" },
 ];
-
-function pct(part: number | null, whole: number | null): number | null {
-  if (part === null || whole === null || whole <= 0) return null;
-  return Math.max(0, Math.min(1, part / whole));
-}
 
 function cls(key: string, base: string, lead: Set<string>): string {
   return `${base}${lead.has(key) ? " lead" : ""}`;
@@ -129,31 +197,31 @@ export function LedgerView({
   return (
     <div className={`ledger lens-${lens}`} role="table" aria-label="Order information table" aria-rowcount={sorted.length}>
       <div className="ledger-head" role="row">
-        {COLUMNS.map((column) => (
-          <span
-            key={column.key}
-            role="columnheader"
-            aria-sort={column.sort && sortKey === column.sort ? (sortDir === "asc" ? "ascending" : "descending") : undefined}
-            className={cls(column.key, column.key === "rail" ? "rail" : column.sort ? "sortable" : "", lead)}
-          >
-            {column.sort ? (
-              <button type="button" className="col-sort" onClick={() => onSort(column.sort!)}>
-                {column.label}
-                {sortKey === column.sort ? <em className="sort-mark">{sortDir === "asc" ? "▲" : "▼"}</em> : null}
-              </button>
-            ) : (
-              column.label
-            )}
-          </span>
-        ))}
+        {COLUMNS.map((column) => {
+          const label = column.key === "lens" ? LENS_COLUMN[lens].label : column.label;
+          return (
+            <span
+              key={column.key}
+              role="columnheader"
+              aria-sort={column.sort && sortKey === column.sort ? (sortDir === "asc" ? "ascending" : "descending") : undefined}
+              className={cls(column.key, column.sort ? "sortable" : "", lead)}
+            >
+              {column.sort ? (
+                <button type="button" className="col-sort" onClick={() => onSort(column.sort!)}>
+                  {label}
+                  {sortKey === column.sort ? <em className="sort-mark">{sortDir === "asc" ? "▲" : "▼"}</em> : null}
+                </button>
+              ) : (
+                label
+              )}
+            </span>
+          );
+        })}
       </div>
       {sorted.map((row, index) => {
         const expanded = open === row.commitmentId;
         const active = row.commitmentId === activeId;
-        const coverage = pct(row.constraint.allocated, row.constraint.required);
         const constraintFocus = `${row.commitmentId}:constraint`;
-        const provFocus = `${row.commitmentId}:prov`;
-        const staleAged = row.lanes.some((lane) => lane.primary && lane.facts.some((fact) => fact.freshness === "stale"));
         return (
           <div
             key={row.commitmentId}
@@ -180,24 +248,24 @@ export function LedgerView({
                 }
               }}
             >
-              <span className={`rail ${row.risk}`} role="cell" aria-hidden="true" />
+              <span className={cls("promised", "cell-date", lead)} role="cell">
+                <strong>{formatDay(row.promised)}</strong>
+                <small>T-{row.timeToImpactDays}d</small>
+              </span>
               <span className={cls("commit", "cell-commit clickable", lead)} role="cell" onClick={() => onFocus(`${row.commitmentId}:order`)}>
                 <strong>{row.commitmentId}</strong>
                 <small>{row.customer}</small>
               </span>
               <span className={cls("product", "cell-product", lead)} role="cell">
                 <strong>{row.product}</strong>
-                <small>
-                  {row.family} · {row.qty} {row.uom}
-                </small>
+                <small>{row.family}</small>
               </span>
-              <span className={cls("promised", "cell-date", lead)} role="cell">
-                <strong>{formatDay(row.promised)}</strong>
-                <small>T-{row.timeToImpactDays}d</small>
+              <span className={cls("lens", "cell-lens", lead)} role="cell">
+                {LENS_COLUMN[lens].render(row)}
               </span>
-              <span className={cls("capable", row.capableDeltaDays > 0 ? "cell-date late" : "cell-date", lead)} role="cell">
-                <strong>{capabilityLine(row)}</strong>
-                <small>{row.capableDeltaDays > 0 ? `${row.capableDeltaDays}d slip` : "on plan"}</small>
+              <span className={cls("qty", "cell-qty", lead)} role="cell">
+                <strong>{row.qty}</strong>
+                <small>{row.uom}</small>
               </span>
               <span
                 className={`${cls("constraint", "cell-constraint clickable", lead)}${focusTarget === constraintFocus ? " hot" : ""}`}
@@ -209,49 +277,11 @@ export function LedgerView({
                 }}
                 title="Focus the binding constraint and its composition"
               >
-                <strong>
-                  {CONSTRAINT_GLYPH[row.constraint.className]} {row.constraint.label}
-                  {row.constraint.resource ? ` · ${row.constraint.resource}` : ""}
-                  {row.constraint.secondaries.length ? `  +${row.constraint.secondaries.length}` : ""}
-                </strong>
-                {coverage !== null ? (
-                  <small>
-                    <span className="bar" aria-hidden="true">
-                      <span style={{ width: `${Math.round(coverage * 100)}%` }} />
-                    </span>
-                    {row.constraint.allocated}/{row.constraint.required} {row.constraint.unit} · short{" "}
-                    {row.constraint.shortfall}
-                  </small>
-                ) : (
-                  <small>no binding constraint</small>
-                )}
+                <strong>{row.constraint.label}</strong>
               </span>
-              <span className={cls("feasible", row.feasibility === "infeasible" ? "state infeasible" : "state feasible", lead)} role="cell">
-                {row.feasibility === "infeasible" ? "✗ infeasible" : "✓ feasible"}
-              </span>
-              <span className={cls("lifecycle", `state ${row.risk}`, lead)} role="cell">{LIFECYCLE_LABEL[row.lifecycle]}</span>
-              <span
-                className={`${cls("prov", "cell-prov clickable", lead)}${focusTarget === provFocus ? " hot" : ""}`}
-                role="cell"
-                data-focus={provFocus}
-                onClick={(event) => {
-                  event.stopPropagation();
-                  onFocus(provFocus);
-                }}
-                title="Focus provenance and conflicts"
-              >
-                {row.lanes
-                  .filter((lane) => lane.primary)
-                  .map((lane) => (
-                    <span key={lane.system} className={lane.facts.some((fact) => fact.freshness === "stale") ? "dot stale" : "dot"}>
-                      ●{lane.system}
-                    </span>
-                  ))}
-                {staleAged ? <span className="dot stale">◐{row.provenance.stale}</span> : null}
-                {row.provenance.conflicts > 0 ? <span className="dot conflict">⚠{row.provenance.conflicts}</span> : null}
-              </span>
+              <span className={cls("lifecycle", `state ${row.risk}`, lead)} role="cell">{RISK_LABEL[row.risk]}</span>
             </div>
-            {expanded ? <LedgerDetail row={row} focusTarget={focusTarget} onFocus={onFocus} /> : null}
+            {expanded ? <LedgerDetail row={row} lens={lens} focusTarget={focusTarget} onFocus={onFocus} /> : null}
             <span className="sr">{RISK_LABEL[row.risk]}</span>
           </div>
         );
@@ -262,15 +292,26 @@ export function LedgerView({
 
 function LedgerDetail({
   row,
+  lens,
   focusTarget,
   onFocus,
 }: {
   row: LedgerRow;
+  lens: RoleLens;
   focusTarget: string | null;
   onFocus: (key: string) => void;
 }) {
+  const persona = personaTier(row, lens);
   return (
     <div className="ledger-detail">
+      <div className="tier persona">
+        <p className="tier-kind">{persona.title}</p>
+        <ul>
+          {persona.items.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </div>
       <div className="tier">
         <p className="tier-kind">Records · transaction · timestamped</p>
         {row.lanes.map((lane) => (
